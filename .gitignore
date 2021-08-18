@@ -16,3 +16,7 @@ frontend/.c9/
 frontend/*.launch
 frontend/.settings/
 *.code-workspace
+
+
+.settings/
+.project
