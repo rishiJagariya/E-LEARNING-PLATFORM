@@ -1,5 +1,10 @@
 package com.elp.dao;
 
+import java.util.List;
+
+import com.elp.entity.Course;
+import com.elp.entity.Student;
+
 public class StudentDaoImpl implements StudentDao {
 
 	@Override
@@ -27,7 +32,7 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public List<course> searchCourses(String courseName) {
+	public List<Course> searchCourses(String courseName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,4 +73,5 @@ public class StudentDaoImpl implements StudentDao {
 		return null;
 	}
 
+	
 }

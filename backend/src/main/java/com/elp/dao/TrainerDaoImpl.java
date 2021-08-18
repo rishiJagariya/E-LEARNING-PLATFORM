@@ -1,5 +1,11 @@
 package com.elp.dao;
 
+import java.util.List;
+
+import com.elp.entity.Course;
+import com.elp.entity.Trainer;
+import com.elp.entity.User;
+
 public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
@@ -56,4 +62,5 @@ public class TrainerDaoImpl implements TrainerDao {
 		return null;
 	}
 
+	
 }

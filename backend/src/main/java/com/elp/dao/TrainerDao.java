@@ -1,5 +1,11 @@
 package com.elp.dao;
 
+import java.util.List;
+
+import com.elp.entity.Course;
+import com.elp.entity.Trainer;
+import com.elp.entity.User;
+
 public interface TrainerDao {
 	public String createTrainer(Trainer trainer);
 	public Trainer getTrainerById(int userId);
