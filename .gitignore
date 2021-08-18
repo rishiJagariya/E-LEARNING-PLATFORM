@@ -1,4 +1,5 @@
 backend/.settings/
+backend/bin/
 backend/target/
 backend/.classpath
 backend/.project
