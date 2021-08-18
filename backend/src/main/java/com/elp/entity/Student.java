@@ -9,9 +9,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-@Table(name = "STUDENT")
+@Table(name = "student")
 public class Student extends User {
 	
 	@ElementCollection(targetClass=Integer.class)

@@ -11,60 +11,59 @@ import com.elp.dao.TrainerDao;
 import com.elp.entity.Course;
 import com.elp.entity.Trainer;
 import com.elp.entity.User;
+
 @Service
 @Transactional
 public class TrainerServiceImpl implements TrainerService{
 	
 	@Autowired
 	TrainerDao trainerDao;
-	public TrainerServiceImpl() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
+	public TrainerServiceImpl() { super(); }
+	
 	@Override
 	public String createTrainer(Trainer trainer) {
-	return trainerDao.createTrainer(trainer);
+		return trainerDao.createTrainer(trainer);
 	}
+	
 	@Override
 	public Trainer getTrainerById(int userId) {
-	return trainerDao.getTrainerById(userId);
+		return trainerDao.getTrainerById(userId);
 	}
+	
 	@Override
 	public Trainer getTrainerByName(String username) {
 		return trainerDao.getTrainerByName(username);
 	}
+	
 	@Override
 	public String createCourse(Course course) {
 		return trainerDao.createCourse(course);
 	}
+	
 	@Override
 	public String updateCourse(Course course) {
-	return trainerDao.updateCourse(course);
+		return trainerDao.updateCourse(course);
 	}
+	
 	@Override
 	public String updateTrainer(Trainer trainer) {
-		return trainerDao.updateTrainer(trainer);}
+		return trainerDao.updateTrainer(trainer);
+	}
+	
 	@Override
 	public List<Course> viewTrainerCourse(int userId) {
 		return trainerDao.viewTrainerCourse(userId);
 	}
+	
 	@Override
 	public List<User> listOfStudentsEnrolled(int courseid) {
 		return trainerDao.listOfStudentsEnrolled(courseid);
 	}
+	
 	@Override
 	public String deleteCourse(int courseId) {
 		return trainerDao.createCourse(null);
 	}
-	
-  
-
-	
-
-	
-	
-	
-	
-
 	
 }

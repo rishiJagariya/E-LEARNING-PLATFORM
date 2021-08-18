@@ -6,8 +6,7 @@ import com.elp.entity.Course;
 import com.elp.entity.Student;
 
 public interface StudentService {
-
-
+	
 	public String createStudent(Student student);
 	public List<Course> viewEnrolledCourse(int userId);
 	public String addToCart(Course course);

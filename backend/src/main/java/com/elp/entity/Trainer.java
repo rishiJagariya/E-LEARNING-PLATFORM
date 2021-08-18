@@ -1,7 +1,5 @@
 package com.elp.entity;
 
-
-
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -10,14 +8,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Trainer")
+@Table(name = "trainer")
 public class Trainer extends User{
 	
-	 @ElementCollection(targetClass=Integer.class)
+	@ElementCollection(targetClass=Integer.class)
 	private List<Integer> courseOffered;
+	 
 	public Trainer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Trainer(User user) {
@@ -43,14 +41,12 @@ public class Trainer extends User{
 	public Trainer(int userId, String userType, String username, String password, String fname, String lname,
 			String dob, String phoneNo) {
 		super(userId, userType, username, password, fname, lname, dob, phoneNo);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
 		return "Trainer [courseOffered=" + courseOffered + "]";
 	}
-	
-	
+
 }
 
