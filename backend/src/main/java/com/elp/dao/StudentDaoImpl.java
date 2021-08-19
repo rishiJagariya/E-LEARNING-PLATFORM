@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
+import com.mph.entity.Employee;
 
 public class StudentDaoImpl implements StudentDao {
 	
@@ -29,23 +30,29 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<Course> viewEnrolledCourse(int userId) {
-		
+		Query q = getSession().createQuery("");
+		List<Course> emplist = q.list();
+		return emplist; 
 	}
 
 	@Override
 	public String addToCart(Cart cart) {
-		Query q = getSession().createQuery()
+		getSession().save(cart);
+		return "Added successfully";
 	}
 
 	@Override
 	public List<Course> viewCart(int userId) {
-		Query q = getSession().createQuery("from cart");
+		Query q = getSession().createQuery("from Cart");
+		List<Course> emplist = q.list();
+		return emplist; 
 	}
 
 	@Override
 	public List<Course> searchCourses(String courseId) {
-		getSession().createQuery("select courseName from Course where courseId=:courseId");
-		return getAllCourses();
+		Query q = getSession().createQuery("select courseName from Course where courseId=:courseId");
+		List<Course> emplist = q.list();
+		return emplist;
 	}
 
 	@Override
@@ -57,7 +64,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public String unEnroll(int enrollId) {
 		getSession().createQuery("Delete from Enrollment where enrollId=:enrollId");
-		return null;
+		return "Unenrolled";
 	}
 
 	@Override
@@ -69,7 +76,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public String deleteStudent(int userId) {
 		Query q = getSession().createQuery("Delete from Student where userId=:userId");
-		return null;
+		return "Deleted" ;
 	}
 
 	@Override
