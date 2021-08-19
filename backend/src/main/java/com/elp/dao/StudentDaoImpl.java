@@ -25,9 +25,12 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public String createStudent(Student student) {
+		System.out.println("Into student Dao");
+		String username = student.getUsername();
 		try {
-			Query query = getSession().createQuery("select username from Student where username="+student.getUsername());
-			if(query!=null) {
+			Query<?> query = getSession().createQuery("select 1 from Student st where st.username= :username");
+			query.setParameter("username", student.getUsername());
+			if(query.uniqueResult()!=null) {
 				return "User already exists";
 			}
 			else
@@ -44,7 +47,7 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public List<Course> viewEnrolledCourse(int corseId) {
+	public List<Course> viewEnrolledCourse(int courseId) {
 		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=Enrollment.cid;");
 		List<Course> emplist = query.list();
 		return emplist; 

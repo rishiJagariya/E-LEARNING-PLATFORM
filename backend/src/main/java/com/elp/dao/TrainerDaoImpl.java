@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
-import com.elp.entity.User;
 
 @Repository("trainerDao")
 public class TrainerDaoImpl implements TrainerDao {
