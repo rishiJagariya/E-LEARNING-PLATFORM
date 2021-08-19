@@ -1,2 +1,32 @@
-<h1>Welcome</h1>
-<router-outlet></router-outlet>
+<div class="jumbotron text-center" style="margin-bottom: 0">
+    <h1>ELEARNINIG</h1>
+  </div>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="padding-left: 20px;">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+      aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <span style="color: rgb(255, 255, 255);"> |  &nbsp;</span>    
+    <div class="collapse navbar-collapse" id="navbarsExample04">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/registerpage">RegisterPage</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/course">Course</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/trainerprofile">Profile</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/aboutus">aboutus</a>
+        </li> 
+      </ul>
+      <form class="form-inline my-2 my-md-0" style="position: absolute; right: 10px;">
+        <input class="form-control" type="text" placeholder="Search">
+      </form>
+    </div>
+  </nav>
+  
+  <router-outlet></router-outlet>
