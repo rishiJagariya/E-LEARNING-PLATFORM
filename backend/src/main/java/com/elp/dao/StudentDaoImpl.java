@@ -5,18 +5,20 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.hibernate.Session;
 import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Enrollment;
 import com.elp.entity.Student;
 
+@Repository("studentDao")
 public class StudentDaoImpl implements StudentDao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	protected Session getSession()
+	protected Session getSession() 
 	{
 		return sessionFactory.getCurrentSession();
 	}	

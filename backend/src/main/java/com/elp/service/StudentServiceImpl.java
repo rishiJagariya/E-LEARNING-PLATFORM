@@ -12,7 +12,7 @@ import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 
-@Service
+@Service("studentService")
 @Transactional
 public class StudentServiceImpl implements StudentService{
 	
@@ -62,8 +62,8 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public String deleteStudent(Student student) {
-		return studentDao.deleteStudent(student);
+	public String deleteStudent(int userId) {
+		return studentDao.deleteStudent(userId);
 	}
 	
 	@Override
