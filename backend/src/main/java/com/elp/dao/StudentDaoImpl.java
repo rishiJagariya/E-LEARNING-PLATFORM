@@ -76,7 +76,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public String deleteStudent(int userId) {
 		Query q = getSession().createQuery("Delete from Student where userId=:userId");
-		return "Deleted ;
+		return "Deleted" ;
 	}
 
 	@Override
