@@ -21,7 +21,7 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 	@Override
-	public Trainer getTrainerByName(String username) {
+	public Trainer getTrainerByUserName(String username) {
 		// TODO Auto-generated method stub
 		return null;
 	}

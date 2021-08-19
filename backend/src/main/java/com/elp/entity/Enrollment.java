@@ -84,8 +84,5 @@ public class Enrollment {
 	public String toString() {
 		return "Enrollment [registrationId=" + registrationId + ", studentId=" + studentId + ", courseId=" + courseId
 				+ ", dateOfEnroll=" + dateOfEnroll + ", dateOfCompletion=" + dateOfCompletion + "]";
-	}
-    
-    
+	}   
 }
-
