@@ -9,7 +9,7 @@ import com.elp.entity.User;
 public interface TrainerDao {
 	public String createTrainer(Trainer trainer);
 	public Trainer getTrainerById(int userId);
-	public Trainer getTrainerByUserName(String username);
+	public Trainer getTrainerByUsername(String username);
 	public String createCourse(Course course);
 	public String updateCourse(Course course);
 	public String updateTrainer(Trainer trainer);
