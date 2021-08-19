@@ -38,66 +38,14 @@ public class ELPRestController {
 	}
 
 	@PostMapping("userlogin")
-	public ResponseEntity<String> userLogin(@RequestParam(name = "userType") String userType, @RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
-		String message;
-
-		if (userType == "trainer") {
-			Trainer trainer = trainerService.getTrainerByUsername(username);
-			
-			if (trainer == null) {
-				message = "Username is incorrect";
-				
-			} else if (trainer.getPassword() == password) {
-				message = "User logged in successfully";
-				
-			} else {
-				message = "Password is incorrect";
-			}
-
-		} else if (userType == "student") {
-			Student student = studentService.getStudentByUsername(username);
-			
-			if (student == null) {
-				message = "Username is incorrect";
-				
-			} else if (student.getPassword() == password) {
-				message = "User logged in successfully";
-				
-			} else {
-				message = "Password is incorrect";
-			}
-		}
+	public ResponseEntity<String> userLogin()
+	{
 		return null;
 	}
 
 	@PostMapping("forgotpassword")
-	public String forgotPassword(@RequestParam(name = "userType") String userType, @RequestParam(name = "username") String username)
+	public String forgotPassword()
 	{
-		String message;
-		
-		if(userType == "trainer") {
-			Trainer trainer = trainerService.getTrainerByUsername(username);
-			
-			if(trainer == null) {
-				message = "Username is incorrect";
-				
-			} else if() {
-				String pass;
-				trainer.setPassword(pass);
-				message = "Password created successfully";
-			}
-			
-		} else if(userType == "student") {		
-			Student student = studentService.getStudentByUsername(username);
-			
-			if(student == null) {
-				message = "Username is incorrect";
-			} else if(student.getPassword() == password) {
-				String pass;
-				student.setPassword(pass);
-				message = "Password created successfully";
-			}
-		}
 		return null;
 	}
 }
