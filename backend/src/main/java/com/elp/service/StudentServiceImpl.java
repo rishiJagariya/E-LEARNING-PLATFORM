@@ -67,12 +67,12 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public List<Student> getStudentById(int userId) {
+	public Student getStudentById(int userId) {
 		return studentDao.getStudentById(userId);
 	}
 	
 	@Override
-	public List<Student> getStudentByUsername(String username) {
+	public Student getStudentByUsername(String username) {
 		return studentDao.getStudentByUsername(username);
 	}
 }

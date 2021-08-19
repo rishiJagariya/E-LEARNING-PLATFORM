@@ -3,8 +3,8 @@ package com.elp.service;
 import java.util.List;
 
 import com.elp.entity.Course;
+import com.elp.entity.Student;
 import com.elp.entity.Trainer;
-import com.elp.entity.User;
 
 public interface TrainerService {
 	
@@ -15,8 +15,6 @@ public interface TrainerService {
 	public String updateCourse(Course course);
 	public String updateTrainer(Trainer trainer);
 	public List<Course> viewTrainerCourse(int userId);
-	public List<User> listOfStudentsEnrolled(int courseid);
+	public List<Student> listOfStudentsEnrolled(int courseId);
 	public String deleteCourse(int courseId);
-
-
 }

@@ -6,9 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.elp.entity.Student;
+import com.elp.entity.Trainer;
 import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
@@ -32,8 +35,26 @@ public class LoginServlet extends HttpServlet {
     	String password = request.getParameter("passsword");
     	String userType = request.getParameter("usertype");
     	
-    	String message;
+    	String message = null;
         if (userType == "trainer") {
+//        	//checkUser will check username and password in database
+//        	message = trainerService.checkUser(username, password);
+//        	
+        	switch(message) {
+        		case "success" : break;
+        		case "usernameIncorrect" : break;
+        		case "passwordIncorrect" : break;
+        		default : System.out.println(message);
+        	}
+        	
+        	HttpSession oldSession = request.getSession(false);
+        	if(oldSession != null) {
+        		oldSession.invalidate();
+        	}
+        	HttpSession newSession = request.getSession(true);
+        	
+        	//add to cookies
+        	
             Trainer trainer = trainerService.getTrainerByUsername(username);
             
             if (trainer == null) {
