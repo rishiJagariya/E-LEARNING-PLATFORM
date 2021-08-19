@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.hibernate.Session;
 import com.elp.entity.Cart;
 import com.elp.entity.Course;
+import com.elp.entity.Enrollment;
 import com.elp.entity.Student;
-import com.mph.entity.Employee;
 
 public class StudentDaoImpl implements StudentDao {
 	
@@ -23,15 +23,28 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public String createStudent(Student student) {
-		getSession().saveOrUpdate(student);
-		return "user created successfully";
-		
+		try {
+			Query query = getSession().createQuery("select username from Student where username="+student.getUsername());
+			if(query!=null) {
+				return "User already exists";
+			}
+			else
+			{
+				getSession().saveOrUpdate(student);
+				return "user created successfully";
+			}
+		}
+		catch(Throwable e)
+		{
+			e.printStackTrace();
+			return "Execption occured";
+		}
 	}
 
 	@Override
-	public List<Course> viewEnrolledCourse(int userId) {
-		Query q = getSession().createQuery("");
-		List<Course> emplist = q.list();
+	public List<Course> viewEnrolledCourse(int corseId) {
+		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=Enrollment.cid;");
+		List<Course> emplist = query.list();
 		return emplist; 
 	}
 
@@ -43,21 +56,26 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<Course> viewCart(int userId) {
-		Query q = getSession().createQuery("from Cart");
-		List<Course> emplist = q.list();
-		return emplist; 
+		Query q = getSession().createQuery("from Cart where userId=:userId");
+		List<Course> clist = q.list();
+		return clist; 
 	}
 
 	@Override
-	public List<Course> searchCourses(String courseId) {
-		Query q = getSession().createQuery("select courseName from Course where courseId=:courseId");
-		List<Course> emplist = q.list();
-		return emplist;
+	public List<Course> searchCourses(int courseId) {
+		Query query = getSession().createQuery("select courseName from Course where courseId=:courseId");
+		List<Course> clist = query.list();
+		return clist;
 	}
 
 	@Override
-	public String enroll(int userId, int courseId) {
-		getSession().createQuery("insert into Enrollment(userId,courseId)"+));
+	public String enroll(int studentId, int courseId) {
+		Enrollment enrollment = new Enrollment();
+		enrollment.setStudentId(studentId);
+		enrollment.setCourseId(courseId);
+		enrollment.setDateOfEnroll(null);//TODO: add property
+		enrollment.setDateOfCompletion(null);
+		getSession().saveOrUpdate(enrollment);
 		return null;
 	}
 
@@ -81,8 +99,9 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public Student getStudentById(int userId) {
-		Query q = getSession().createQuery("from Student where userId=:userId");
-		return null;
+		Query query = getSession().createQuery("from Student where userId=:userId");
+		Student student = (Student)query.uniqueResult();
+		return student;
 	}
 
 	@Override
@@ -91,6 +110,4 @@ public class StudentDaoImpl implements StudentDao {
 		Student st = (Student)q.uniqueResult();
 		return st;
 	}
-
-	
 }
