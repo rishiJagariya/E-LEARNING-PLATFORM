@@ -2,27 +2,53 @@ package com.elp.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.elp.entity.Course;
+import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 import com.elp.entity.User;
 
 public class TrainerDaoImpl implements TrainerDao {
 
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	protected Session getSession()
+	{
+		return sessionFactory.getCurrentSession();
+	}	
 	@Override
 	public String createTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Query query = getSession().createQuery("select username from Trainer where username="+trainer.getUsername());
+			if(query!=null) {
+				return "User already exists";
+			}
+			else
+			{
+				getSession().saveOrUpdate(trainer);
+				return "user created successfully";
+			}
+		}
+		catch(Throwable e)
+		{
+			e.printStackTrace();
+			return "Execption occured";
+		}
 	}
 
 	@Override
 	public Trainer getTrainerById(int userId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Trainer getTrainerByUserName(String username) {
-		// TODO Auto-generated method stub
+	public Trainer getTrainerByUsername(String username) {
+		
 		return null;
 	}
 
@@ -51,7 +77,7 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 	@Override
-	public List<User> listOfStudentsEnrolled(int courseid) {
+	public List<Student> listOfStudentsEnrolled(int courseid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
