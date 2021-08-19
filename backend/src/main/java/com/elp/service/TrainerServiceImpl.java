@@ -32,8 +32,8 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 	
 	@Override
-	public Trainer getTrainerByName(String username) {
-		return trainerDao.getTrainerByName(username);
+	public Trainer getTrainerByUsername(String username) {
+		return trainerDao.getTrainerByUsername(username);
 	}
 	
 	@Override

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.elp.dao.StudentDao;
+import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 
@@ -26,13 +27,13 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public List<Course> viewEnrolledCourse(int userId) {
-		return studentDao.viewEnrolledCourse(userId);
+	public List<Course> viewEnrolledCourse(int courseId) {
+		return studentDao.viewEnrolledCourse(courseId);
 	}
 	
 	@Override
-	public String addToCart(Course course) {
-		return studentDao.addToCart(course);
+	public String addToCart(Cart cart) {
+		return studentDao.addToCart(cart);
 	}
 	
 	@Override

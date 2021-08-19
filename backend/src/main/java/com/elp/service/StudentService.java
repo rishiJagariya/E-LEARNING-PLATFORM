@@ -2,14 +2,15 @@ package com.elp.service;
 
 import java.util.List;
 
+import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 
 public interface StudentService {
 	
 	public String createStudent(Student student);
-	public List<Course> viewEnrolledCourse(int userId);
-	public String addToCart(Course course);
+	public List<Course> viewEnrolledCourse(int courseId);
+	public String addToCart(Cart cart);
 	public List<Course> viewCart(int userId);
 	public List<Course> searchCourses(String courseName);
 	public String enroll(int userId,int courseId);
