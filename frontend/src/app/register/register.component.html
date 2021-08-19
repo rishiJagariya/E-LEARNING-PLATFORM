@@ -4,6 +4,11 @@
         <label for="rfname">Register</label>
     </div>
 <form style=" padding: 20px; border-radius: 10px;">
+  <div>
+    <label for="usertype">User Type</label>&nbsp;&nbsp;<br/>
+    <input id="usertype" name="usertype" type="radio" value="trainer">trainer&nbsp;&nbsp;
+    <input id="usertype" name="usertype" type="radio" value="student">student
+</div>
     <div class="form-group" >
         <label for="lfname">First Name</label>
         <input 
@@ -21,7 +26,11 @@
         id="llname" 
         placeholder="Enter Last Name"
         required>
-    </div>
+      </div>
+  <div>
+    <label for="birthday">Birthday</label><br/>
+  <input type="date" id="birthday" name="birthday">
+  </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Email Address</label>
       <input 
