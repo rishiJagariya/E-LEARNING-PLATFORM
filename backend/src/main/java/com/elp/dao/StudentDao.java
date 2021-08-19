@@ -8,14 +8,14 @@ import com.elp.entity.Student;
 
 public interface StudentDao {
 	public String createStudent(Student student);
-	public List<Course> viewEnrolledCourse(int cid);
+	public List<Course> viewEnrolledCourse(int courseId);
 	public String addToCart(Cart cart);
-	public List<Course> viewCart(int id);
-	public List<Course> searchCourses(int cid);
-	public String enroll(int uid,int cid);
-	public String unEnroll(int eid);
+	public List<Course> viewCart(int userId);
+	public List<Course> searchCourses(String courseName);
+	public String enroll(int userId,int courseId);
+	public String unEnroll(int enrollId);
 	public String updateStudent(Student student);
-	public String deleteStudent(int uid);
-	public Student getStudentById(int uid);
-	public Student getStudentByUsername(String uname);
+	public String deleteStudent(int userId);
+	public Student getStudentById(int userId);
+	public Student getStudentByUsername(String userName);
 }
