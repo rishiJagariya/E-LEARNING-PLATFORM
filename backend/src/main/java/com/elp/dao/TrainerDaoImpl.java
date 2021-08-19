@@ -6,12 +6,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 import com.elp.entity.User;
 
+@Repository("trainerDao")
 public class TrainerDaoImpl implements TrainerDao {
 
 	@Autowired
@@ -23,14 +25,19 @@ public class TrainerDaoImpl implements TrainerDao {
 	}	
 	@Override
 	public String createTrainer(Trainer trainer) {
+		System.out.println("Into trainer Dao");
+		String username = trainer.getUsername();
 		try {
-			Query query = getSession().createQuery("select username from Trainer where username="+trainer.getUsername());
-			if(query!=null) {
+			Query<?> query = getSession().createQuery("select 1 from Trainer t where t.username= :username");
+			query.setParameter("username", trainer.getUsername());
+			if(query.uniqueResult()!=null) {
 				return "User already exists";
 			}
 			else
 			{
+				System.out.println("Into else part");
 				getSession().saveOrUpdate(trainer);
+				System.out.println("after save and update");
 				return "user created successfully";
 			}
 		}

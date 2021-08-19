@@ -13,7 +13,7 @@ import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 import com.elp.entity.User;
 
-@Service
+@Service("trainerService")
 @Transactional
 public class TrainerServiceImpl implements TrainerService{
 	

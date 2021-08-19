@@ -16,7 +16,7 @@ public interface StudentService {
 	public String enroll(int userId,int courseId);
 	public String unEnroll(int enrollId);
 	public String updateStudent(Student student);
-	public String deleteStudent(Student student);
+	public String deleteStudent(int userId);
 	public Student getStudentById(int userId);
 	public Student getStudentByUsername(String username);
 }
