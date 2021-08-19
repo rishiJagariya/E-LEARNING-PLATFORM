@@ -50,9 +50,5 @@ public class Student extends User {
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	
-	
-
-	
+	}	
 }

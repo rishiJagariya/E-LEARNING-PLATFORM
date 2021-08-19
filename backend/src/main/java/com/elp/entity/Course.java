@@ -124,8 +124,4 @@ public class Course {
 		this.description = description;
 		this.category = category;
 	}
-
-	
-
 }
-

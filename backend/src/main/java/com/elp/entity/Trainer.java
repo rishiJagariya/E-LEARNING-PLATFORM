@@ -47,6 +47,4 @@ public class Trainer extends User{
 	public String toString() {
 		return "Trainer [courseOffered=" + courseOffered + "]";
 	}
-
 }
-
