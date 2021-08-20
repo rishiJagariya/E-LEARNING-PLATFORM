@@ -116,6 +116,17 @@ public class StudentDaoImpl implements StudentDao {
 		Criteria c = getSession().createCriteria(Student.class);
 		c.add(Restrictions.eq("username",username));
 		Student student = (Student)c.uniqueResult();
-		return student;
+		//System.out.println(student.getUsername());
+		return student; 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

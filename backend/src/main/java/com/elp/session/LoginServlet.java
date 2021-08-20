@@ -16,7 +16,7 @@ import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
 
-@WebServlet("userlogin")
+@WebServlet("/userlogin2")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -50,8 +50,7 @@ public class LoginServlet extends HttpServlet {
 //        		default : System.out.println(message);
 //        	}
 
-        	
-        	//add to cookies
+
         	System.out.println("i'm here");
 
             Trainer trainer = trainerService.getTrainerByUsername(username);
@@ -74,18 +73,32 @@ public class LoginServlet extends HttpServlet {
         	}
         	HttpSession newSession = request.getSession(true);
         	
+        	//TODO: save the session & token(JWT) to Cookies (client)
+        	
         } else if (userType.equals("student")) {
+        	
+          	System.out.println("i'm here - student ");
             Student student = studentService.getStudentByUsername(username);
             
             if (student == null) {
                 message = "Username is incorrect";
                 
-            } else if (student.getPassword() == password) {
+            } else if (student.getPassword().equals(password)) {
                 message = "User logged in successfully";
                 
             } else {
                 message = "Password is incorrect";
             }
+            
+            HttpSession oldSession = request.getSession(false);
+        	
+        	if(oldSession != null) {
+        		oldSession.invalidate();
+        	}
+        	
+        	System.out.println("i'm here - 2 ");
+        	HttpSession newSession = request.getSession(true);
+        	System.out.println("i'm here - 3 ");
         }
     	
 		doGet(request, response);

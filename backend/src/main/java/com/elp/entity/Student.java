@@ -2,8 +2,10 @@ package com.elp.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
@@ -13,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "student")
 public class Student extends User {
 	
-	@ElementCollection(targetClass=Integer.class)
+	@ElementCollection(targetClass=Integer.class, fetch = FetchType.EAGER)
 	private List<Integer> enroll;
     
 	
@@ -39,7 +41,9 @@ public class Student extends User {
 
 	@Override
 	public String toString() {
-		return "Student [enroll=" + enroll + "]";
+		return "Student [enroll=" + enroll + ", userId=" + userId + ", userType=" + userType + ", username=" + username
+				+ ", password=" + password + ", fname=" + fname + ", lname=" + lname + ", dob=" + dob + ", phoneNo="
+				+ phoneNo + "]";
 	}
 
 	public Student(List<Integer> enroll) {

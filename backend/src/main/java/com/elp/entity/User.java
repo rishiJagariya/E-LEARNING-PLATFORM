@@ -16,28 +16,28 @@ public class User{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int userId;
+	protected int userId;
 	
 	@Column
-	private String userType;
+	protected String userType;
 	
 	@Column(unique=true)
-	private String username;
+	protected String username;
 	
 	@Column
-	private String password;
+	protected String password;
 	
 	@Column
-	private String fname;
+	protected String fname;
 	
 	@Column
-	private String lname;
+	protected String lname;
 	
 	@Column
-	private String dob;
+	protected String dob;
 	
 	@Column
-	private String phoneNo;
+	protected String phoneNo;
 	
 	public User() {
 		super();
