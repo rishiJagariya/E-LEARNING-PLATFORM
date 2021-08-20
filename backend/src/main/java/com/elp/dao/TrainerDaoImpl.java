@@ -52,7 +52,6 @@ public class TrainerDaoImpl implements TrainerDao {
 		return null;
 	}
 
-	//TODO: complete it Rudresh
 	@Override
 	public Trainer getTrainerByUsername(String username) {
 		Query query = getSession().createQuery("from Trainer where username=:username");
@@ -62,8 +61,8 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public String createCourse(Course course) {
-		// TODO Auto-generated method stub
-		return null;
+		getSession().saveOrUpdate(course);
+		return "Course created";
 	}
 
 	@Override
@@ -79,21 +78,24 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 	@Override
-	public List<Course> viewTrainerCourse(int userId) {
-		// TODO Auto-generated method stub
+	public List<Course> getTrainerCourse(int userId) {
 		return null;
+		
 	}
 
 	@Override
-	public List<Student> listOfStudentsEnrolled(int courseid) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Student> listOfStudentsEnrolled(int courseId) {
+		Query query = getSession().createQuery("select Enrollment.userId from Enrollment where courseId=:courseId");
+		List<Integer> userid = query.list();
+		Query query1 = getSession().createQuery("select userName from Student where userId=:userid");
+		List<Student> student = query1.list();
+		return student;
 	}
 
 
 	@Override
-	public String deleteCourse(String username, int courseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public String deleteCourse(int courseId) {
+		Query query = getSession().createQuery("Delete from Trainer where courseId IN (:courseOffered)");
+		return "Course deleted";
 	}
 }

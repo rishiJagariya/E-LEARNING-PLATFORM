@@ -50,7 +50,7 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<Course> viewEnrolledCourse(int courseId) {
-		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=Enrollment.cid;");
+		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=:courseId;");
 		List<Course> emplist = query.list();
 		return emplist; 
 	}
@@ -63,16 +63,17 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<Course> viewCart(int userId) {
-		Query q = getSession().createQuery("from Cart where userId=:userId");
-		List<Course> clist = q.list();
+		Query query = getSession().createQuery("from Cart where userId=:userId");
+		List<Course> clist = query.list();
 		return clist; 
 	}
 
 	@Override
 	public List<Course> searchCourses(String courseName) {
-		Query query = getSession().createQuery("select courseName from Course where courseName LIKE '%:courseName%");
-		List<Course> clist = query.list();
-		return clist;
+		Criteria c = getSession().createCriteria(Course.class);
+		c.add(Restrictions.like("courseName","courseName%"));
+		List<Course> course = c.list();
+		return course;
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class StudentDaoImpl implements StudentDao {
 		Enrollment enrollment = new Enrollment();
 		enrollment.setStudentId(studentId);
 		enrollment.setCourseId(courseId);
-		enrollment.setDateOfEnroll(null);//TODO: add property
+		enrollment.setDateOfEnroll("currentDate,new java.util.Date()");//TODO: add property
 		enrollment.setDateOfCompletion(null);
 		getSession().saveOrUpdate(enrollment);
 		return null;
