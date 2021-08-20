@@ -8,7 +8,7 @@
 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
 		<property name="hibernate.connection.username">system</property>
-		<property name="hibernate.connection.password">rolirai123</property>
+		<property name="hibernate.connection.password">rudresh123</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle8iDialect</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">create</property>
