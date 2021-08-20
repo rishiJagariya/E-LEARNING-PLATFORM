@@ -43,11 +43,6 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 	
 	@Override
-	public String updateCourse(Course course) {
-		return trainerDao.updateCourse(course);
-	}
-	
-	@Override
 	public String updateTrainer(Trainer trainer) {
 		return trainerDao.updateTrainer(trainer);
 	}
@@ -61,10 +56,21 @@ public class TrainerServiceImpl implements TrainerService{
 	public List<Student> listOfStudentsEnrolled(int courseId) {
 		return trainerDao.listOfStudentsEnrolled(courseId);
 	}
-	
+
+
 	@Override
-	public String deleteCourse(int courseId) {
-		return trainerDao.createCourse(null);
+	public String updateCourse(String username, Course course) {
+		return trainerDao.updateCourse(username, course);
+	}
+
+	@Override
+	public String deleteCourse(String username, int courseId) {
+		return trainerDao.deleteCourse(username, courseId);
+	}
+
+	@Override
+	public String updatePassword(String username, String password) {
+		return trainerDao.updatePassword(username, password);
 	}
 	
 }

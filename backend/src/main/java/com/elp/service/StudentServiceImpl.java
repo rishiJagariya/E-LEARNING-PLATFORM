@@ -75,4 +75,9 @@ public class StudentServiceImpl implements StudentService{
 	public Student getStudentByUsername(String username) {
 		return studentDao.getStudentByUsername(username);
 	}
+
+	@Override
+	public String updatePassword(String username, String password) {
+		return studentDao.updatePassword(username, password);
+	}
 }

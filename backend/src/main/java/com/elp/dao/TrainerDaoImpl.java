@@ -90,8 +90,9 @@ public class TrainerDaoImpl implements TrainerDao {
 		return null;
 	}
 
+
 	@Override
-	public String deleteCourse(int courseId) {
+	public String deleteCourse(String username, int courseId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
