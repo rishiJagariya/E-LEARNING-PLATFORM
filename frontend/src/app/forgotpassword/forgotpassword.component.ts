@@ -13,10 +13,13 @@ export class ForgotpasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  password(formGroup: FormGroup) {
+  mustmatch(formGroup: FormGroup) {
     const  password = formGroup.get('password');
     const confirmPassword  = formGroup.get('confirmpassword');
-    return password === confirmPassword ? null : { passwordNotMatch: true };
+    if(password === confirmPassword)
+      return false;
+    else
+      return true;
   }
   
 }
