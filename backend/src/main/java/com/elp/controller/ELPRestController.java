@@ -116,7 +116,7 @@ public class ELPRestController {
                 message = "Username is incorrect";  
             else {
             	trainer.setPassword(newPassword);
-            	trainerService.updatePassword();
+            	trainerService.updatePassword(username, newPassword);
                 message = "Password changed successfully";
             }
         	
@@ -127,7 +127,7 @@ public class ELPRestController {
                 message = "Username is incorrect";
             else {
             	student.setPassword(newPassword);
-            	studentService.updatePassword();
+            	studentService.updatePassword(username, newPassword);
                 message = "Password changed successfully";
             }
         }
@@ -135,8 +135,8 @@ public class ELPRestController {
         return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-	@PostMapping("/addcourse")
-	public ResponseEntity<String> addCourse(@RequestBody Course course) {
+	@PostMapping("/createcourse")
+	public ResponseEntity<String> createCourse(@RequestBody Course course) {
 		System.out.println("Im here in add course");
 		String message = null;
 		
@@ -173,7 +173,7 @@ public class ELPRestController {
 		System.out.println("Im here in trainer course list");
 		String message = null;
 		
-		ArrayList<Course> coursesByTrainer= trainerService.deleteCourse(username, courseId);
+		ArrayList<Course> coursesByTrainer= trainerService.getTrainerCoursesList(username);
 		message = "list viewed successfully";
 		System.out.println(message);
 		
