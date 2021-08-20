@@ -52,6 +52,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		return null;
 	}
 
+	//TODO: complete it Rudresh
 	@Override
 	public Trainer getTrainerByUsername(String username) {
 		

@@ -16,7 +16,7 @@ import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
 
-@WebServlet("/LoginServlet")
+@WebServlet("userlogin")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,30 +31,29 @@ public class LoginServlet extends HttpServlet {
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+    	System.out.println("into do post");
     	String username = request.getParameter("username");
-    	String password = request.getParameter("passsword");
+    	String password = request.getParameter("password");
     	String userType = request.getParameter("usertype");
     	
+    	System.out.println(username + " " + password + " " + userType);
+
     	String message = null;
-        if (userType == "trainer") {
+        if (userType.equals("trainer")) {
 //        	//checkUser will check username and password in database
 //        	message = trainerService.checkUser(username, password);
 //        	
-        	switch(message) {
-        		case "success" : break;
-        		case "usernameIncorrect" : break;
-        		case "passwordIncorrect" : break;
-        		default : System.out.println(message);
-        	}
-        	
-        	HttpSession oldSession = request.getSession(false);
-        	if(oldSession != null) {
-        		oldSession.invalidate();
-        	}
-        	HttpSession newSession = request.getSession(true);
+//        	switch(message) {
+//        		case "success" : break;
+//        		case "usernameIncorrect" : break;
+//        		case "passwordIncorrect" : break;
+//        		default : System.out.println(message);
+//        	}
+
         	
         	//add to cookies
-        	
+        	System.out.println("i'm here");
+
             Trainer trainer = trainerService.getTrainerByUsername(username);
             
             if (trainer == null) {
@@ -66,7 +65,16 @@ public class LoginServlet extends HttpServlet {
             } else {
                 message = "Password is incorrect";
             }
-        } else if (userType == "student") {
+            
+        	
+        	HttpSession oldSession = request.getSession(false);
+        	
+        	if(oldSession != null) {
+        		oldSession.invalidate();
+        	}
+        	HttpSession newSession = request.getSession(true);
+        	
+        } else if (userType.equals("student")) {
             Student student = studentService.getStudentByUsername(username);
             
             if (student == null) {
