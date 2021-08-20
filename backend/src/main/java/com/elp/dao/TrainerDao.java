@@ -13,7 +13,7 @@ public interface TrainerDao {
 	public String createCourse(Course course);
 	public String updateCourse(Course course);
 	public String updateTrainer(Trainer trainer);
-	public List<Course> viewTrainerCourse(int userId);
+	public List<Course> getTrainerCourse(int userId);
 	public List<Student> listOfStudentsEnrolled(int courseId);
 	public String deleteCourse(int courseId);
 }

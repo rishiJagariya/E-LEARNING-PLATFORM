@@ -53,8 +53,8 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 	
 	@Override
-	public List<Course> viewTrainerCourse(int userId) {
-		return trainerDao.viewTrainerCourse(userId);
+	public List<Course> getTrainerCourse(int userId) {
+		return trainerDao.getTrainerCourse(userId);
 	}
 	
 	@Override
