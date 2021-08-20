@@ -54,8 +54,9 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public Trainer getTrainerByUsername(String username) {
-		
-		return null;
+		Query query = getSession().createQuery("from Trainer where username=:username");
+		Trainer trainer = (Trainer)query.uniqueResult();
+		return trainer;
 	}
 
 	@Override
@@ -93,6 +94,4 @@ public class TrainerDaoImpl implements TrainerDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 }

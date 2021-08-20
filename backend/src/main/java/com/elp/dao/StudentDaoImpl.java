@@ -3,9 +3,11 @@ package com.elp.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import com.elp.entity.Cart;
 import com.elp.entity.Course;
@@ -98,7 +100,7 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public String deleteStudent(int userId) {
-		Query q = getSession().createQuery("Delete from Student where userId=:userId");
+		Query query = getSession().createQuery("Delete from Student where userId=:userId");
 		return "Deleted" ;
 	}
 
@@ -111,8 +113,9 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public Student getStudentByUsername(String username) {
-		Query q = getSession().createQuery("from Student where username=:username");
-		Student st = (Student)q.uniqueResult();
-		return st;
+		Criteria c = getSession().createCriteria(Student.class);
+		c.add(Restrictions.eq("username",username));
+		Student student = (Student)c.uniqueResult();
+		return student;
 	}
 }
