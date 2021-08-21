@@ -8,9 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Cart {
@@ -36,10 +33,10 @@ public class Cart {
 
 	}
 
-	public Cart(int cartId, int studentId, List items, int totalAmount, int discount) {
+	public Cart(int cartId, int studentId, List<Integer> items, int totalAmount, int discount) {
 		super();
 		this.cartId = cartId;
-		this.userId = userId;
+		this.userId = studentId;
 		this.items = items;
 		this.totalAmount = totalAmount;
 		this.discount = discount;
@@ -61,11 +58,11 @@ public class Cart {
 		this.userId = studentId;
 	}
 
-	public List getItems() {
+	public List<Integer> getItems() {
 		return items;
 	}
 
-	public void setItems(List items) {
+	public void setItems(List<Integer> items) {
 		this.items = items;
 	}
 

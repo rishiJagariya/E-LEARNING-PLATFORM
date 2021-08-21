@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.elp.entity.Cart;
 import com.elp.entity.Course;
-import com.elp.entity.Student;
 import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
