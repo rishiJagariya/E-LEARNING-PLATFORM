@@ -76,12 +76,12 @@ public class Course {
 		this.rating = rating;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int gettrainerId() {
+		return trainerId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void settrainerId(int userId) {
+		this.trainerId = userId;
 	}
 
 	public String getDescription() {
@@ -108,7 +108,7 @@ public class Course {
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", fee=" + fee + ", duration=" + duration
-				+ ", rating=" + rating + ", userId=" + userId + ", description=" + description + ", category="
+				+ ", rating=" + rating + ", trainerId=" +  trainerId + ", description=" + description + ", category="
 				+ category + "]";
 	}
 
@@ -120,7 +120,7 @@ public class Course {
 		this.fee = fee;
 		this.duration = duration;
 		this.rating = rating;
-		this.userId = userId;
+		this.trainerId = trainerId;
 		this.description = description;
 		this.category = category;
 	}

@@ -49,7 +49,7 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public List<Course> viewEnrolledCourse(int courseId) {
+	public List<Course> getStudentEnrollList(int courseId) {
 		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=:courseId;");
 		List<Course> stlist = query.list();
 		return stlist; 
@@ -120,14 +120,4 @@ public class StudentDaoImpl implements StudentDao {
 		Student student = query.uniqueResult();
 		return student;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

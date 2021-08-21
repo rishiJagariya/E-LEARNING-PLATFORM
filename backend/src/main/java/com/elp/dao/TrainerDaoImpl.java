@@ -73,24 +73,43 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public String updateCourse(Course course) {
+		Query query = getSession().createQuery("Update Course course set courseName=:courseName,fee=:fee,duration=:duration,rating=:rating,trainerId=:trainerId,description=:description,category=:category where courseId=:courseId");
+		query.setParameter("courseName",course.getCourseName());
+		query.setParameter("fee",course.getFee());
+		query.setParameter("duration",course.getDuration());
+		query.setParameter("rating",course.getRating());
+		query.setParameter("trainerId",course.gettrainerId());
+		query.setParameter("description",course.getDescription());
+		query.setParameter("category",course.getCategory());
 		return "Updated Successfully";
 	}
 
 	@Override
 	public String updateTrainer(Trainer trainer) {
+		Query query = getSession().createQuery("Update Trainer trainer set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType,courseOffered=:courseOffered where userId=:trainerId");
+		query.setParameter("userName", trainer.getUsername());
+		query.setParameter("password", trainer.getPassword());
+		query.setParameter("fname", trainer.getFname());
+		query.setParameter("lname", trainer.getLname());
+		query.setParameter("Dob", trainer.getDob());
+		query.setParameter("phoneNo", trainer.getPhoneNo());
+		query.setParameter("userType", trainer.getUserType());
+		query.setParameter("courseOffered", trainer.getCourseOffered());
+		query.setParameter("trainerId", trainer.getUserId());
 		return "Updated Successfully";
 	}
 
 	@Override
-	public List<Course> getTrainerCourse(int trainerId) {
-		Query query = getSession().createQuery("from Course INNERJOIN Trainer ON Course.userId=Trainer.userId");
-		List<Course> 
+	public List<Course> getTrainerCoursesList(int trainerId) {
+		Query query = getSession().createQuery("from Course INNERJOIN Trainer ON Course.trainerId=Trainer.userId");
+		List<Course> course = query.list();
+		return course;
 	}
 
 	@Override
 	public List<Student> listOfStudentsEnrolled(int courseId) {
 		Query query = getSession().createQuery("select Enrollment.userId from Enrollment where courseId=:courseId");
-		List<Integer> userid = query.list();
+		List<Student> userid = query.list();
 		Query query1 = getSession().createQuery("select userName from Student where userId=:userid");
 		List<Student> student = query1.list();
 		return student;
@@ -98,8 +117,16 @@ public class TrainerDaoImpl implements TrainerDao {
 
 
 	@Override
-	public String deleteCourse(int courseId) {
-		Query query = getSession().createQuery("Delete from Trainer where courseId IN (:courseOffered)");
+	public String deleteCourse(String username,int courseId) {
+		Query query = getSession().createQuery("Delete from Trainer where courseId IN (:courseOffered) and username=:username");
 		return "Course deleted";
+	}
+	@Override
+	public String updatePassword(String username, String password) {
+		Query query = getSession().createQuery("Update Trainer trainer set username=:username,password=:password where username=:username");
+		query.setParameter("username", username);
+		query.setParameter("password",password);
+		
+		return "Password Updated";
 	}
 }

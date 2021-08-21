@@ -8,7 +8,7 @@ import com.elp.entity.Student;
 
 public interface StudentDao {
 	public String createStudent(Student student);
-	public List<Course> viewEnrolledCourse(int courseId);
+	public List<Course> getStudentEnrollList(int courseId);
 	public String addToCart(Cart cart);
 	public List<Course> viewCart(int userId);
 	public List<Course> searchCourses(String courseName);
