@@ -18,6 +18,7 @@ public interface StudentDao {
 	public String addToCart(Cart cart);
 	public String removeFromCart(int courseId);
 	public List<Course> viewCart(int userId);
-	public List<Course> searchCourses(String courseName);
 	public List<Course> getEnrolledCourseList(int userId);
+	public List<Course> getCourseList(Course course);
+	public List<Course> searchCourses(String courseName);
 }

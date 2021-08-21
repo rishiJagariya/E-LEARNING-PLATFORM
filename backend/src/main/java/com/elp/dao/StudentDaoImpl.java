@@ -47,35 +47,44 @@ public class StudentDaoImpl implements StudentDao {
 			return "Execption occured";
 		}
 	}
-
+	
 	@Override
-	public List<Course> getEnrolledCourseList(int courseId) {
-		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=:courseId;");
-		List<Course> stlist = query.list();
-		return stlist; 
+	public String updateStudent(Student student) {
+		getSession().saveOrUpdate(student);
+		return "User updated successfully";
 	}
 
 	@Override
-	public String addToCart(Cart cart) {
-		getSession().save(cart);
-		return "Added successfully";
+	public String deleteStudent(int userId) {
+		Query query = getSession().createQuery("Delete from Student where userId=:userId");
+		return "Deleted" ;
+	}
+	
+	@Override
+	public Student getStudentById(int userId) {
+		Query<Student> query = getSession().getNamedQuery("getStudentById");
+		query.setParameter("userId",userId);
+		Student student = query.uniqueResult();
+		return student;
 	}
 
 	@Override
-	public List<Course> viewCart(int userId) {
-		Query query = getSession().createQuery("from Cart where userId=:userId");
-		List<Course> clist = query.list();
-		return clist; 
+	public Student getStudentByUsername(String username) {
+		Query<Student> query = getSession().getNamedQuery("getStudentByName");
+		query.setParameter("userName",username);
+		Student student = query.uniqueResult();
+		return student;
 	}
-
+	
 	@Override
-	public List<Course> searchCourses(String courseName) {
-		Criteria c = getSession().createCriteria(Course.class);
-		c.add(Restrictions.like("courseName","courseName%"));
-		List<Course> course = c.list();
-		return course;
+	public String updatePassword(String username, String password) {
+		Query query = getSession().createQuery("Update Student student set username=:username,password=:password where username=:username");
+		query.setParameter("username", username);
+		query.setParameter("password",password);
+		return "Password Updated";
+		
 	}
-
+	
 	@Override
 	public String enroll(int studentId, int courseId) {
 		Enrollment enrollment = new Enrollment();
@@ -92,48 +101,45 @@ public class StudentDaoImpl implements StudentDao {
 		getSession().createQuery("Delete from Enrollment where enrollId=:enrollId");
 		return "Unenrolled";
 	}
-
+	
 	@Override
-	public String updateStudent(Student student) {
-		getSession().saveOrUpdate(student);
-		return "User updated successfully";
+	public String addToCart(Cart cart) {
+		getSession().save(cart);
+		return "Added successfully";
 	}
-
-	@Override
-	public String deleteStudent(int userId) {
-		Query query = getSession().createQuery("Delete from Student where userId=:userId");
-		return "Deleted" ;
-	}
-
-	@Override
-	public Student getStudentById(int userId) {
-		Query<Student> query = getSession().getNamedQuery("getStudentById");
-		query.setParameter("userId",userId);
-		Student student = query.uniqueResult();
-		return student;
-	}
-
-	@Override
-	public Student getStudentByUsername(String username) {
-		Query<Student> query = getSession().getNamedQuery("getStudentByName");
-		query.setParameter("userName",username);
-		Student student = query.uniqueResult();
-		return student;
-	}
-
-	@Override
-	public String updatePassword(String username, String password) {
-		Query query = getSession().createQuery("Update Student student set username=:username,password=:password where username=:username");
-		query.setParameter("username", username);
-		query.setParameter("password",password);
-		return "Password Updated";
-		
-	}
-
+	
 	@Override
 	public String removeFromCart(int courseId) {
 		Query query = getSession().createQuery("Delete from Cart where courseId IN (:items)");
 		//Query query = getSession().createQuery("select userId from Cart where )"
 		return "Removed successfully";
+	}
+	
+	@Override
+	public List<Course> viewCart(int userId) {
+		Query query = getSession().createQuery("from Cart where userId=:userId");
+		List<Course> clist = query.list();
+		return clist; 
+	}
+	
+	@Override
+	public List<Course> getCourseList(Course course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<Course> getEnrolledCourseList(int courseId) {
+		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=:courseId;");
+		List<Course> stlist = query.list();
+		return stlist; 
+	}
+	
+	@Override
+	public List<Course> searchCourses(String courseName) {
+		Criteria c = getSession().createCriteria(Course.class);
+		c.add(Restrictions.like("courseName","courseName%"));
+		List<Course> course = c.list();
+		return course;
 	}
 }

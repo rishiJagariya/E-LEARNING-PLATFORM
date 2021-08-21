@@ -16,7 +16,7 @@ public interface TrainerDao {
 	public String createCourse(Course course);
 	public String updateCourse(String username,Course course);
 	public String deleteCourse(String username,int courseId);
-	public List<Course> getTrainerCourseList(String userName);
+	public List<Course> getTrainerCourseList(String username);
 	public List<Student> getStudentEnrollList(int courseId);
 	public List<Course> searchTrainerCourses(String courseName);
 }

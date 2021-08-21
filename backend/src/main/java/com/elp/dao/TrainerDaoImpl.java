@@ -48,7 +48,28 @@ public class TrainerDaoImpl implements TrainerDao {
 			return "Execption occured";
 		}
 	}
-
+	
+	@Override
+	public String updateTrainer(Trainer trainer) {
+		Query query = getSession().createQuery("Update Trainer trainer set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType,courseOffered=:courseOffered where userId=:trainerId");
+		query.setParameter("userName", trainer.getUsername());
+		query.setParameter("password", trainer.getPassword());
+		query.setParameter("fname", trainer.getFname());
+		query.setParameter("lname", trainer.getLname());
+		query.setParameter("Dob", trainer.getDob());
+		query.setParameter("phoneNo", trainer.getPhoneNo());
+		query.setParameter("userType", trainer.getUserType());
+		query.setParameter("courseOffered", trainer.getCourseOffered());
+		query.setParameter("trainerId", trainer.getUserId());
+		return "Updated Successfully";
+	}
+	
+	@Override
+	public String deleteTrainer(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public Trainer getTrainerById(int userId) {
 		Query<Trainer> query = getSession().getNamedQuery("getTrainerById");
@@ -64,7 +85,15 @@ public class TrainerDaoImpl implements TrainerDao {
 		Trainer trainer = query.uniqueResult();
 		return trainer;
 	}
-
+	
+	@Override
+	public String updatePassword(String username, String password) {
+		Query query = getSession().createQuery("Update Trainer trainer set username=:username,password=:password where username=:username");
+		query.setParameter("username", username);
+		query.setParameter("password",password);
+		return "Password Updated";
+	}
+	
 	@Override
 	public String createCourse(Course course) {
 		getSession().saveOrUpdate(course);
@@ -83,24 +112,15 @@ public class TrainerDaoImpl implements TrainerDao {
 		query.setParameter("category",course.getCategory());
 		return "Updated Successfully";
 	}
-
+	
 	@Override
-	public String updateTrainer(Trainer trainer) {
-		Query query = getSession().createQuery("Update Trainer trainer set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType,courseOffered=:courseOffered where userId=:trainerId");
-		query.setParameter("userName", trainer.getUsername());
-		query.setParameter("password", trainer.getPassword());
-		query.setParameter("fname", trainer.getFname());
-		query.setParameter("lname", trainer.getLname());
-		query.setParameter("Dob", trainer.getDob());
-		query.setParameter("phoneNo", trainer.getPhoneNo());
-		query.setParameter("userType", trainer.getUserType());
-		query.setParameter("courseOffered", trainer.getCourseOffered());
-		query.setParameter("trainerId", trainer.getUserId());
-		return "Updated Successfully";
+	public String deleteCourse(String username,int courseId) {
+		Query query = getSession().createQuery("Delete from Trainer where courseId IN (:courseOffered) and username=:username");
+		return "Course deleted";
 	}
-
+	
 	@Override
-	public List<Course> getTrainerCourseList(String userName) {
+	public List<Course> getTrainerCourseList(String username) {
 		Query query = getSession().createQuery("from Course INNERJOIN Trainer ON Course.trainerId=Trainer.userId");
 		List<Course> course = query.list();
 		return course;
@@ -115,24 +135,6 @@ public class TrainerDaoImpl implements TrainerDao {
 		return student;
 	}
 
-
-	@Override
-	public String deleteCourse(String username,int courseId) {
-		Query query = getSession().createQuery("Delete from Trainer where courseId IN (:courseOffered) and username=:username");
-		return "Course deleted";
-	}
-	@Override
-	public String updatePassword(String username, String password) {
-		Query query = getSession().createQuery("Update Trainer trainer set username=:username,password=:password where username=:username");
-		query.setParameter("username", username);
-		query.setParameter("password",password);
-		return "Password Updated";
-	}
-	@Override
-	public String deleteTrainer(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	@Override
 	public List<Course> searchTrainerCourses(String courseName) {
 		// TODO Auto-generated method stub
