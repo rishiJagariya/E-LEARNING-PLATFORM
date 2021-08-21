@@ -81,29 +81,50 @@ public class UserController {
 		}
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
-		
-	// TODO
-	@DeleteMapping("/deleteuser/{usertype}/{id}")
-	public ResponseEntity<String> deleteUser(@RequestParam User user) {
-		System.out.println("Im here in delete user");	
+	
+	@DeleteMapping("/deletetrainer")
+	public ResponseEntity<String> deleteTrainer(int userId) {
+		System.out.println("Im here in delete trainer");
 		String message = null;
 		
-		if (user.getUserType().equals("trainer")) {
-			System.out.println("hello trainer");
-			Trainer newTrainer = new Trainer(user);
-			
-			message = trainerService.deleteTrainer(newTrainer);
-			System.out.println(message);
-			
-		} else if (user.getUserType().equals("student")) {
-			System.out.println("hello student");
-			Student newStudent = new Student(user);
-			
-			message = studentService.deleteStudent(newStudent);
-			System.out.println(message);
-		}
+		message = trainerService.deleteTrainer(userId);
+		System.out.println(message);
+		
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
+	
+	@DeleteMapping("/deletestudent")
+	public ResponseEntity<String> deleteStudent(int userId) {
+		System.out.println("Im here in delete student");
+		String message = null;
+		
+		message = studentService.deleteStudent(userId);
+		System.out.println(message);
+		
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+	
+//	@DeleteMapping
+//	public ResponseEntity<String> deleteUser(@RequestParam User user) {
+//		System.out.println("I am here in delete user");	
+//		String message = null;
+//		
+//		if (user.getUserType().equals("trainer")) {
+//			System.out.println("hello trainer");
+//			Trainer newTrainer = new Trainer(user);
+//			
+//			message = trainerService.deleteTrainer(newTrainer);
+//			System.out.println(message);
+//			
+//		} else if (user.getUserType().equals("student")) {
+//			System.out.println("hello student");
+//			Student newStudent = new Student(user);
+//			
+//			message = studentService.deleteStudent(newStudent);
+//			System.out.println(message);
+//		}
+//		return new ResponseEntity<String>(message, HttpStatus.OK);
+//	}
 
 	@PostMapping("/userlogin")
 	public ResponseEntity<String> userLogin(@RequestBody MultiValueMap<String, String> formData)
@@ -188,8 +209,8 @@ public class UserController {
 	
 	// TODO
 	@PostMapping("/userlogout")
-	public ResponseEntity<String> userLogout(@RequestBody )
+	public ResponseEntity<String> userLogout(@RequestBody String username)
 	{
-		
+		return null;
 	}
 }
