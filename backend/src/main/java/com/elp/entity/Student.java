@@ -9,6 +9,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+@NamedQueries(value = { @NamedQuery(name = "getStudentById", query = "from Student where userId=:userId"),
+		@NamedQuery(name = "getStudentByName", query = "from Student where username=:userName")})
 @Entity
 @Table(name = "student")
 public class Student extends User {

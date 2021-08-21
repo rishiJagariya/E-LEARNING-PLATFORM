@@ -13,6 +13,7 @@ import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Enrollment;
 import com.elp.entity.Student;
+import com.elp.entity.Trainer;
 
 @Repository("studentDao")
 public class StudentDaoImpl implements StudentDao {
@@ -51,8 +52,8 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public List<Course> viewEnrolledCourse(int courseId) {
 		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=:courseId;");
-		List<Course> emplist = query.list();
-		return emplist; 
+		List<Course> stlist = query.list();
+		return stlist; 
 	}
 
 	@Override
@@ -107,16 +108,17 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public Student getStudentById(int userId) {
-		Query query = getSession().createQuery("from Student where userId=:userId");
-		Student student = (Student)query.uniqueResult();
+		Query<Student> query = getSession().getNamedQuery("getStudentById");
+		query.setParameter("userId",userId);
+		Student student = query.uniqueResult();
 		return student;
 	}
 
 	@Override
 	public Student getStudentByUsername(String username) {
-		Criteria c = getSession().createCriteria(Student.class);
-		c.add(Restrictions.eq("username",username));
-		Student student = (Student)c.uniqueResult();
+		Query<Student> query = getSession().getNamedQuery("getStudentByName");
+		query.setParameter("userName",username);
+		Student student = query.uniqueResult();
 		return student;
 	}
 }

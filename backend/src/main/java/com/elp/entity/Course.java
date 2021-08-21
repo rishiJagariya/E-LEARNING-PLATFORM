@@ -28,7 +28,7 @@ public class Course {
 	private int rating;
 
 	//@ManyToOne
-	private int userId;
+	private int trainerId;
 
 	@Column
 	private String description;

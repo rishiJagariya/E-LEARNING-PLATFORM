@@ -2,8 +2,10 @@ package com.elp.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -49,13 +51,17 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public Trainer getTrainerById(int userId) {
-		return null;
+		Query<Trainer> query = getSession().getNamedQuery("getTrainerById");
+		query.setParameter("userId",userId);
+		Trainer trainer = query.uniqueResult();
+		return trainer;
 	}
 
 	@Override
 	public Trainer getTrainerByUsername(String username) {
-		Query query = getSession().createQuery("from Trainer where username=:username");
-		Trainer trainer = (Trainer)query.uniqueResult();
+		Query<Trainer> query = getSession().getNamedQuery("getTrainerByName");
+		query.setParameter("userName", username);
+		Trainer trainer = query.uniqueResult();
 		return trainer;
 	}
 
@@ -67,20 +73,18 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public String updateCourse(Course course) {
-		// TODO Auto-generated method stub
-		return null;
+		return "Updated Successfully";
 	}
 
 	@Override
 	public String updateTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		return null;
+		return "Updated Successfully";
 	}
 
 	@Override
-	public List<Course> getTrainerCourse(int userId) {
-		return null;
-		
+	public List<Course> getTrainerCourse(int trainerId) {
+		Query query = getSession().createQuery("from Course INNERJOIN Trainer ON Course.userId=Trainer.userId");
+		List<Course> 
 	}
 
 	@Override
