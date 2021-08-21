@@ -18,7 +18,6 @@ public interface TrainerService {
 	public String updateCourse(String username,Course course);
 	public String deleteCourse(String username,int courseId);
 	public List<Course> getTrainerCourseList(String userName);
-	//public List<Student> listOfStudentsEnrolled(int courseId);
-	public List<Student> getStudentEnrollList(int courseId);//21
+	public List<Student> getStudentEnrollList(int courseId);
 	public List<Course> searchTrainerCourses(String courseName);
 }

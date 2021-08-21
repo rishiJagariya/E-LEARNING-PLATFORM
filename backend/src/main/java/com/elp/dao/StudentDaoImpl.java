@@ -49,7 +49,7 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public List<Course> getStudentEnrollList(int courseId) {
+	public List<Course> getEnrolledCourseList(int courseId) {
 		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=:courseId;");
 		List<Course> stlist = query.list();
 		return stlist; 
@@ -119,5 +119,21 @@ public class StudentDaoImpl implements StudentDao {
 		query.setParameter("userName",username);
 		Student student = query.uniqueResult();
 		return student;
+	}
+
+	@Override
+	public String updatePassword(String username, String password) {
+		Query query = getSession().createQuery("Update Student student set username=:username,password=:password where username=:username");
+		query.setParameter("username", username);
+		query.setParameter("password",password);
+		return "Password Updated";
+		
+	}
+
+	@Override
+	public String removeFromCart(int courseId) {
+		Query query = getSession().createQuery("Delete from Cart where courseId IN (:items)");
+		//Query query = getSession().createQuery("select userId from Cart where )"
+		return "Removed successfully";
 	}
 }

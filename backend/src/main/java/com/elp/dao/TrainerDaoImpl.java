@@ -72,7 +72,7 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 	@Override
-	public String updateCourse(Course course) {
+	public String updateCourse(String userName,Course course) {
 		Query query = getSession().createQuery("Update Course course set courseName=:courseName,fee=:fee,duration=:duration,rating=:rating,trainerId=:trainerId,description=:description,category=:category where courseId=:courseId");
 		query.setParameter("courseName",course.getCourseName());
 		query.setParameter("fee",course.getFee());
@@ -100,14 +100,14 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 	@Override
-	public List<Course> getTrainerCoursesList(int trainerId) {
+	public List<Course> getTrainerCourseList(String userName) {
 		Query query = getSession().createQuery("from Course INNERJOIN Trainer ON Course.trainerId=Trainer.userId");
 		List<Course> course = query.list();
 		return course;
 	}
 
 	@Override
-	public List<Student> listOfStudentsEnrolled(int courseId) {
+	public List<Student> getStudentEnrollList(int courseId) {
 		Query query = getSession().createQuery("select Enrollment.userId from Enrollment where courseId=:courseId");
 		List<Student> userid = query.list();
 		Query query1 = getSession().createQuery("select userName from Student where userId=:userid");
@@ -126,7 +126,16 @@ public class TrainerDaoImpl implements TrainerDao {
 		Query query = getSession().createQuery("Update Trainer trainer set username=:username,password=:password where username=:username");
 		query.setParameter("username", username);
 		query.setParameter("password",password);
-		
 		return "Password Updated";
+	}
+	@Override
+	public String deleteTrainer(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Course> searchTrainerCourses(String courseName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
