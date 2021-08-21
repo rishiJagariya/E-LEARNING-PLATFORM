@@ -13,12 +13,14 @@ public interface StudentService {
 	public String deleteStudent(int userId);
 	public Student getStudentById(int userId);
 	public Student getStudentByUsername(String username);
-	public void updatePassword(String username, String password);
+	public String updatePassword(String username, String password);
+	//public List<Course> viewEnrolledCourse(int courseId);
 	public String enroll(int userId,int courseId);
 	public String unEnroll(int enrollId);
 	public String addToCart(Cart cart);
 	public String removeFromCart(int courseId);
 	public List<Course> viewCart(int userId);
+	public List<Course> getCourseList(Course course);
+	public List<Course> getEnrolledCourseList(int userId);//16
 	public List<Course> searchCourses(String courseName);
-	public List<Course> getEnrolledCourseList(int userId);
 }
