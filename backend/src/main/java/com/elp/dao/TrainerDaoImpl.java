@@ -66,8 +66,8 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public String deleteTrainer(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = getSession().createQuery("Delete from Trainer where userId=:userId");
+		return "Deleted" ;
 	}
 	
 	@Override
@@ -135,9 +135,10 @@ public class TrainerDaoImpl implements TrainerDao {
 		return student;
 	}
 
-	@Override
-	public List<Course> searchTrainerCourses(String courseName) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override//changing String courseName
+	public List<Course> searchTrainerCourses(String username, String courseName) {
+		Query query = getSession().createQuery("select ");
+		List<Course> course = query.list();
+		return course;
 	}
 }

@@ -124,13 +124,13 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public List<Course> getCourseList(Course course) {
-		// TODO Auto-generated method stub
+		Query query = getSession().createQuery("select Course.courseName from Course");
 		return null;
 	}
 	
 	@Override
 	public List<Course> getEnrolledCourseList(int courseId) {
-		Query query = getSession().createQuery("select Course.courseName,Course.courseId from Course INNERJOIN Enrollment ON Course.courseId=:courseId;");
+		Query query = getSession().createQuery("select Course.courseName from Course INNERJOIN Enrollment ON Enrollment.courseId=:courseId;");
 		List<Course> stlist = query.list();
 		return stlist; 
 	}
