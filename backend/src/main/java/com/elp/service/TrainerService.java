@@ -9,13 +9,16 @@ import com.elp.entity.Trainer;
 public interface TrainerService {
 	
 	public String createTrainer(Trainer trainer);
+	public String updateTrainer(Trainer trainer);
+	public String deleteTrainer(int userId);
 	public Trainer getTrainerById(int userId);
 	public Trainer getTrainerByUsername(String username);
+	public String updatePassword(String username, String password);
 	public String createCourse(Course course);
 	public String updateCourse(String username,Course course);
-	public String updateTrainer(Trainer trainer);
-	public List<Course> getTrainerCourse(int userId);
-	public List<Student> listOfStudentsEnrolled(int courseId);
 	public String deleteCourse(String username,int courseId);
-	public String updatePassword(String username, String password);
+	public List<Course> getTrainerCourseList(String userName);
+	//public List<Student> listOfStudentsEnrolled(int courseId);
+	public List<Student> getStudentEnrollList(int courseId);//21
+	public List<Course> searchTrainerCourses(String courseName);
 }
