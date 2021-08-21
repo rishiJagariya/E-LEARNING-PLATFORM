@@ -49,6 +49,8 @@ public class Trainer extends User{
 
 	@Override
 	public String toString() {
-		return "Trainer [courseOffered=" + courseOffered + "]";
+		return "Trainer [courseOffered=" + courseOffered + ", userId=" + userId + ", userType=" + userType
+				+ ", username=" + username + ", password=" + password + ", fname=" + fname + ", lname=" + lname
+				+ ", dob=" + dob + ", phoneNo=" + phoneNo + "]";
 	}
 }

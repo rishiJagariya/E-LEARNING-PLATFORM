@@ -96,6 +96,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		return student;
 	}
 
+
 	@Override
 	public String deleteCourse(int courseId) {
 		Query query = getSession().createQuery("Delete from Trainer where courseId IN (:courseOffered)");

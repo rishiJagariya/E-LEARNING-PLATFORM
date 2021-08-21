@@ -13,7 +13,6 @@ import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Enrollment;
 import com.elp.entity.Student;
-import com.elp.entity.Trainer;
 
 @Repository("studentDao")
 public class StudentDaoImpl implements StudentDao {
@@ -121,4 +120,14 @@ public class StudentDaoImpl implements StudentDao {
 		Student student = query.uniqueResult();
 		return student;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
