@@ -2,13 +2,9 @@ package com.elp.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NamedQueries;
@@ -57,6 +53,5 @@ public class Student extends User {
 
 	public Student() {
 		super();
-		// TODO Auto-generated constructor stub
 	}	
 }

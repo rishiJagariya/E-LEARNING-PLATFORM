@@ -11,7 +11,6 @@ import com.elp.dao.TrainerDao;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
-import com.elp.entity.User;
 
 @Service("trainerService")
 @Transactional

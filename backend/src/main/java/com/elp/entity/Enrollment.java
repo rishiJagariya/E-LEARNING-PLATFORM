@@ -3,8 +3,6 @@ package com.elp.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Enrollment {
@@ -28,7 +26,6 @@ public class Enrollment {
 
 	public Enrollment() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Enrollment(int registrationId, int studentId, int courseId, String dateOfEnroll, String dateOfCompletion) {
