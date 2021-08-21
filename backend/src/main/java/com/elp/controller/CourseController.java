@@ -104,7 +104,7 @@ public class CourseController {
 		System.out.println("Im here in course enroll list");
 		String message = null;
 		
-		List<Course> coursesEnrolled = studentService.getCourseEnrollList(userId);
+		List<Course> coursesEnrolled = studentService.getEnrolledCourseList(userId);
 		message = "course enroll list viewed successfully";
 		System.out.println(message);
 		
