@@ -99,9 +99,9 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getCourseEnrollList")
-	public ResponseEntity<List<Course>> getCourseEnrollList(int userId) {
-		System.out.println("Im here in course enroll list");
+	@GetMapping("/getEnrolledCourseList")
+	public ResponseEntity<List<Course>> getEnrolledCourseList(int userId) {
+		System.out.println("Im here in enrolled course list");
 		String message = null;
 		
 		List<Course> coursesEnrolled = studentService.getEnrolledCourseList(userId);
