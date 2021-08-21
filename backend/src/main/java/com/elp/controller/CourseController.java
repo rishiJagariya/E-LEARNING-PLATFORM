@@ -112,11 +112,11 @@ public class CourseController {
 	}
 	
 	@GetMapping("/searchTrainerCourses")
-	public ResponseEntity<List<Course>> searchTrainerCourses(String courseName) {
+	public ResponseEntity<List<Course>> searchTrainerCourses(String username, String courseName) {
 		System.out.println("Im here in search trainer courses");
 		String message = null;
 		
-		List<Course> trainerCourseSearched = trainerService.searchTrainerCourses(courseName);
+		List<Course> trainerCourseSearched = trainerService.searchTrainerCourses(username, courseName);
 		message = "trainer course searched successfully";
 		System.out.println(message);
 		

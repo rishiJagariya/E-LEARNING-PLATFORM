@@ -11,7 +11,6 @@ import com.elp.dao.TrainerDao;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
-import com.elp.entity.User;
 
 @Service("trainerService")
 @Transactional
@@ -78,8 +77,8 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 
 	@Override
-	public List<Course> searchTrainerCourses(String courseName) {
-		return trainerDao.searchTrainerCourses(courseName);
+	public List<Course> searchTrainerCourses(String username, String courseName) {
+		return trainerDao.searchTrainerCourses(username, courseName);
 	}
 	
 }

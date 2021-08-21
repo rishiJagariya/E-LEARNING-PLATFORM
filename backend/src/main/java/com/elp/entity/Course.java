@@ -102,7 +102,6 @@ public class Course {
 
 	public Course() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -120,7 +119,7 @@ public class Course {
 		this.fee = fee;
 		this.duration = duration;
 		this.rating = rating;
-		this.trainerId = trainerId;
+		this.trainerId = userId;
 		this.description = description;
 		this.category = category;
 	}
