@@ -8,6 +8,8 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { TrainerprofileComponent } from './trainerprofile/trainerprofile.component';
 import { FormsModule } from '@angular/forms';
+import { AddcourseComponent } from './addcourse/addcourse.component';
+import { UpdatecourseComponent } from './updatecourse/updatecourse.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
     LoginComponent,
     ForgotpasswordComponent,
-    TrainerprofileComponent
+    TrainerprofileComponent,
+    AddcourseComponent, 
+    UpdatecourseComponent
   ],
   imports: [
     BrowserModule,
