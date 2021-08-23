@@ -1,18 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddcourseComponent } from './addcourse/addcourse.component';
+import { CartComponent } from './cart/cart.component';
+import { CoursesComponent } from './courses/courses.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 import { TrainerprofileComponent } from './trainerprofile/trainerprofile.component';
+import { UpdatecourseComponent } from './updatecourse/updatecourse.component';
 
 
 const routes: Routes = [
-  { path: 'register', component:RegisterComponent  },
   { path: 'login', component:LoginComponent},
   { path: 'forgotpassword', component:ForgotpasswordComponent},
   { path: 'trainerprofile', component:TrainerprofileComponent},
-  { path: 'studentprofile', component:StudentprofileComponent}
+  { path: 'addcourse', component:AddcourseComponent},
+  { path: 'updatecourse', component:UpdatecourseComponent},
+  { path: 'studentprofile', component:StudentprofileComponent},
+  { path: 'cart', component:CartComponent},
+  { path: 'courses', component:CoursesComponent},
+  { path: 'header', component:HeaderComponent},
+  { path: 'home', component:HomeComponent},
+  { path: 'register', component: RegisterComponent}
+  
 ];
 
 @NgModule({
@@ -20,7 +33,16 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
 export const routingComponents = [
-  RegisterComponent, LoginComponent,ForgotpasswordComponent,
-  TrainerprofileComponent,StudentprofileComponent
+  RegisterComponent, 
+  LoginComponent,
+  ForgotpasswordComponent,
+  TrainerprofileComponent, 
+  AddcourseComponent, 
+  UpdatecourseComponent,
+  StudentprofileComponent,
+  CartComponent,
+  CoursesComponent,
+  HeaderComponent
 ];
