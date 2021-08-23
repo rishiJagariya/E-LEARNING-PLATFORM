@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
+
 import { ElpServiceService } from '../elp-service.service';
 
 
