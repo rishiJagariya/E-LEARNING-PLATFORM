@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { TrainerprofileComponent } from './trainerprofile/trainerprofile.component';
 import { FormsModule } from '@angular/forms';
+import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
     LoginComponent,
     ForgotpasswordComponent,
-    TrainerprofileComponent
+    TrainerprofileComponent,
+    StudentprofileComponent
   ],
   imports: [
     BrowserModule,
