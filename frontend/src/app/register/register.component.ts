@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
 
   submitForm() {
     this.restApi.createUser(this.newUser).subscribe((data : {}) => {
-      this.router.navigate(['/home']);
+      this.router.navigate(["/home"]);
     })
   }
 }

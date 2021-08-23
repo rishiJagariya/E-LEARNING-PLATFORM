@@ -25,9 +25,9 @@
           <div class=" d-flex justify-content-between">
             <div class="" style="display: inline-block; width: 47%;">
               <label for="fname" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name" [( ngModel)]="newUser.fname" required>  
+              <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name" required>
             </div>
-         
+
             <div class="" style="display: inline-block; width: 47%;">
               <label for="lname" class="form-label">Last Name</label>
               <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter last name" required>
@@ -48,7 +48,7 @@
               placeholder="Enter Password" placement="bottom" #password
               title="Password must contain atleast 1 small character, 1 capital character, 1 digit and 1 special symbol from (@, #, $, -, _, =) and must be 8 to 12 digit long"
               required>
-    
+
             <small>Password must be 8 character long</small>
           </div>
           <div class="form-group" style="margin-top: 7px;">
@@ -57,7 +57,7 @@
               pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$-_=]).{8,12}$" id="confirmpassword"
               name="confirmpassword" placeholder="Enter Confirm Password" (focusout)="checkPassword()" required>
           </div>
-          
+
           <div class="" style="margin-top: 7px;">
             <label for="phonenumber" class="form-label">Phone Number</label>
             <input type="text" class="form-control" id="phonenumber" placeholder="Enter Phone Number">
@@ -67,10 +67,11 @@
             <label class="form-check-label" for="exampleCheck1">Please check the box to accept <strong>Terms and
                 Conditions</strong></label>
           </div>
-          <button type="submit" class="btn btn-primary" style="margin-top: 7px;" (click)="submitForm()">Sign Up</button>
+          <button type="submit" class="btn btn-primary" style="margin-top: 7px;" (click )="submitForm()">Sign
+            Up</button>
+          <!--make changes eherer-->
         </form>
       </div>
     </div>
   </div>
-
 </div>
