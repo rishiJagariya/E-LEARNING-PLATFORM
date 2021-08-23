@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddcourseComponent } from './addcourse/addcourse.component';
+import { CartComponent } from './cart/cart.component';
+import { CoursesComponent } from './courses/courses.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
@@ -16,7 +18,12 @@ const routes: Routes = [
   { path: 'forgotpassword', component:ForgotpasswordComponent},
   { path: 'trainerprofile', component:TrainerprofileComponent},
   { path: 'addcourse', component:AddcourseComponent},
-  { path: 'updatecourse', component:UpdatecourseComponent}
+  { path: 'updatecourse', component:UpdatecourseComponent},
+  { path: 'studentprofile', component:StudentprofileComponent},
+  { path: 'cart', component:CartComponent},
+  { path: 'courses', component:CoursesComponent},
+  { path: 'header', component:HeaderComponent},
+  
 ];
 
 @NgModule({
@@ -30,5 +37,9 @@ export const routingComponents = [
   ForgotpasswordComponent,
   TrainerprofileComponent, 
   AddcourseComponent, 
-  UpdatecourseComponent
+  UpdatecourseComponent,
+  StudentprofileComponent,
+  CartComponent,
+  CoursesComponent,
+  HeaderComponent
 ];

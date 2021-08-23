@@ -10,6 +10,10 @@ import { TrainerprofileComponent } from './trainerprofile/trainerprofile.compone
 import { FormsModule } from '@angular/forms';
 import { AddcourseComponent } from './addcourse/addcourse.component';
 import { UpdatecourseComponent } from './updatecourse/updatecourse.component';
+import { StudentprofileComponent } from './studentprofile/studentprofile.component';
+import { CartComponent } from './cart/cart.component';
+import { CoursesComponent } from './courses/courses.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { UpdatecourseComponent } from './updatecourse/updatecourse.component';
     ForgotpasswordComponent,
     TrainerprofileComponent,
     AddcourseComponent, 
-    UpdatecourseComponent
+    UpdatecourseComponent,
+    StudentprofileComponent,
+    CartComponent,
+    CoursesComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
