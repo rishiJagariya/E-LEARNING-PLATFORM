@@ -6,13 +6,19 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { CartComponent } from './cart/cart.component';
+import { CoursesComponent } from './courses/courses.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    ForgotpasswordComponent
+    ForgotpasswordComponent,
+    CartComponent,
+    CoursesComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
