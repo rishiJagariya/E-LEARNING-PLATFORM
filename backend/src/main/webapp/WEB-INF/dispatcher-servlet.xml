@@ -37,6 +37,7 @@
 				<value>com.elp.entity.Student</value>
 				<value>com.elp.entity.Trainer</value>
 				<value>com.elp.entity.Course</value>
+				<value>com.elp.model.wrapper.UsernameAndCourse</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -54,6 +55,7 @@
 	
 	<bean id="User" class="com.elp.entity.User"/>
 	<bean id="Course" class="com.elp.entity.Course"/>
+	<bean id="UsernameAndCourse" class="com.elp.model.wrapper.UsernameAndCourse"/>
 	<bean id="Student" class="com.elp.entity.Student"/>
 	<bean id="Trainer" class="com.elp.entity.Trainer"/>
 	<bean id="StudentDao" class="com.elp.dao.StudentDaoImpl"/>
