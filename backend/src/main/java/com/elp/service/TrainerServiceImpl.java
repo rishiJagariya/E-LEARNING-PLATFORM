@@ -77,8 +77,8 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 
 	@Override
-	public List<Course> searchTrainerCourses(String username, String courseName) {
-		return trainerDao.searchTrainerCourses(username, courseName);
+	public List<Course> searchTrainerCourses(String username) {
+		return trainerDao.searchTrainerCourses(username);
 	}
 	
 }

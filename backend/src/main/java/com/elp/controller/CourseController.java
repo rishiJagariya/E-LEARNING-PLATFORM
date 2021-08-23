@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elp.entity.Course;
 import com.elp.entity.Student;
+import com.elp.model.wrapper.UsernameAndCourse;
 import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
@@ -42,8 +44,10 @@ public class CourseController {
 	}
 	
 	@PutMapping("/updatecourse")
-	public ResponseEntity<String> updateCourse(@RequestBody String username, Course course) {
-		System.out.println("Im here in update course");
+	public ResponseEntity<String> updateCourse(@RequestBody UsernameAndCourse usernameAndCourse) {
+		String username = usernameAndCourse.getUsername();
+		Course course = usernameAndCourse.getCourse();
+		System.out.println(username + " " + course);
 		String message = null;
 		
 		message = trainerService.updateCourse(username, course);
@@ -53,7 +57,7 @@ public class CourseController {
 	}
 	
 	@DeleteMapping("/deletecourse")
-	public ResponseEntity<String> deleteCourse(@RequestBody String username, int courseId) {
+	public ResponseEntity<String> deleteCourse(@RequestParam String username, @RequestParam("courseid") int courseId) {
 		System.out.println("Im here in delete course");
 		String message = null;
 		
@@ -116,7 +120,7 @@ public class CourseController {
 		System.out.println("Im here in search trainer courses");
 		String message = null;
 		
-		List<Course> trainerCourseSearched = trainerService.searchTrainerCourses(username, courseName);
+		List<Course> trainerCourseSearched = trainerService.searchTrainerCourses(username);
 		message = "trainer course searched successfully";
 		System.out.println(message);
 		

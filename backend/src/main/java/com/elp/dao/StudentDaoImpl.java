@@ -1,7 +1,7 @@
 package com.elp.dao;
 
 import java.util.List;
-
+import java.util.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
@@ -16,7 +16,7 @@ import com.elp.entity.Student;
 
 @Repository("studentDao")
 public class StudentDaoImpl implements StudentDao {
-	
+	Date mydate = new Date();
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -50,8 +50,17 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public String updateStudent(Student student) {
-		getSession().saveOrUpdate(student);
-		return "User updated successfully";
+		Query query = getSession().createQuery("Update Student student set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType,enroll=:enroll where userId=:userId");
+		query.setParameter("userName", student.getUsername());
+		query.setParameter("password", student.getPassword());
+		query.setParameter("fname", student.getFname());
+		query.setParameter("lname", student.getLname());
+		query.setParameter("Dob", student.getDob());
+		query.setParameter("phoneNo", student.getPhoneNo());
+		query.setParameter("userType", student.getUserType());
+		query.setParameter("enroll", student.getEnroll());
+		query.setParameter("trainerId", student.getUserId());
+		return "Updated Successfully";
 	}
 
 	@Override
@@ -90,7 +99,7 @@ public class StudentDaoImpl implements StudentDao {
 		Enrollment enrollment = new Enrollment();
 		enrollment.setStudentId(studentId);
 		enrollment.setCourseId(courseId);
-		enrollment.setDateOfEnroll("currentDate,new java.util.Date()");//TODO: add property
+		enrollment.setDateOfEnroll(mydate.toString());//TODO: add property
 		enrollment.setDateOfCompletion(null);
 		getSession().saveOrUpdate(enrollment);
 		return null;
@@ -124,7 +133,7 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public List<Course> getCourseList(Course course) {
-		Query query = getSession().createQuery("select Course.courseName from Course");
+		Query query = getSession().createQuery("from Course");
 		return null;
 	}
 	
