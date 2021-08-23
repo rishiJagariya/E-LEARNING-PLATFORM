@@ -8,13 +8,15 @@ import com.elp.entity.Trainer;
 
 public interface TrainerDao {
 	public String createTrainer(Trainer trainer);
+	public String updateTrainer(Trainer trainer);
+	public String deleteTrainer(int userId);
 	public Trainer getTrainerById(int userId);
 	public Trainer getTrainerByUsername(String username);
+	public String updatePassword(String username, String password);
 	public String createCourse(Course course);
 	public String updateCourse(String username,Course course);
-	public String updateTrainer(Trainer trainer);
-	public List<Course> viewTrainerCourse(int userId);
-	public List<Student> listOfStudentsEnrolled(int courseId);
 	public String deleteCourse(String username,int courseId);
-	public String updatePassword(String username, String password);
+	public List<Course> getTrainerCourseList(String username);
+	public List<Student> getStudentEnrollList(int courseId);
+	public List<Course> searchTrainerCourses(String username,String courseName);
 }

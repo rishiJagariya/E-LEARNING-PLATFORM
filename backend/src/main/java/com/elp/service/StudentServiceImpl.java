@@ -27,36 +27,6 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public List<Course> viewEnrolledCourse(int courseId) {
-		return studentDao.viewEnrolledCourse(courseId);
-	}
-	
-	@Override
-	public String addToCart(Cart cart) {
-		return studentDao.addToCart(cart);
-	}
-	
-	@Override
-	public List<Course> viewCart(int userId) {
-		return studentDao.viewCart(userId);
-	}
-	
-	@Override
-	public List<Course> searchCourses(String courseName) {
-		return studentDao.searchCourses(courseName);
-	}
-	
-	@Override
-	public String enroll(int userId, int courseId) {
-		return studentDao.enroll(userId, courseId);
-	}
-	
-	@Override
-	public String unEnroll(int enrollId) {
-		return studentDao.unEnroll(enrollId);
-	}
-	
-	@Override
 	public String updateStudent(Student student) {
 		return studentDao.updateStudent(student);
 	}
@@ -79,5 +49,45 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public String updatePassword(String username, String password) {
 		return studentDao.updatePassword(username, password);
+	}
+	
+	@Override
+	public String enroll(int userId, int courseId) {
+		return studentDao.enroll(userId, courseId);
+	}
+	
+	@Override
+	public String unEnroll(int enrollId) {
+		return studentDao.unEnroll(enrollId);
+	}
+	
+	@Override
+	public String addToCart(Cart cart) {
+		return studentDao.addToCart(cart);
+	}
+	
+	@Override
+	public String removeFromCart(int courseId) {
+		return studentDao.removeFromCart(courseId);
+	}
+	
+	@Override
+	public List<Course> viewCart(int userId) {
+		return studentDao.viewCart(userId);
+	}
+
+	@Override
+	public List<Course> getCourseList(Course course) {
+		return studentDao.getCourseList(course);
+	}
+
+	@Override
+	public List<Course> getEnrolledCourseList(int userId) {
+		return studentDao.getEnrolledCourseList(userId);
+	}
+	
+	@Override
+	public List<Course> searchCourses(String courseName) {
+		return studentDao.searchCourses(courseName);
 	}
 }

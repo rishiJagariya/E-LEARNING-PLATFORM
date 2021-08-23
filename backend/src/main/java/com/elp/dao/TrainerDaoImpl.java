@@ -2,8 +2,10 @@ package com.elp.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,58 +48,97 @@ public class TrainerDaoImpl implements TrainerDao {
 			return "Execption occured";
 		}
 	}
-
+	
+	@Override
+	public String updateTrainer(Trainer trainer) {
+		Query query = getSession().createQuery("Update Trainer trainer set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType,courseOffered=:courseOffered where userId=:trainerId");
+		query.setParameter("userName", trainer.getUsername());
+		query.setParameter("password", trainer.getPassword());
+		query.setParameter("fname", trainer.getFname());
+		query.setParameter("lname", trainer.getLname());
+		query.setParameter("Dob", trainer.getDob());
+		query.setParameter("phoneNo", trainer.getPhoneNo());
+		query.setParameter("userType", trainer.getUserType());
+		query.setParameter("courseOffered", trainer.getCourseOffered());
+		query.setParameter("trainerId", trainer.getUserId());
+		return "Updated Successfully";
+	}
+	
+	@Override
+	public String deleteTrainer(int userId) {
+		Query query = getSession().createQuery("Delete from Trainer where userId=:userId");
+		return "Deleted" ;
+	}
+	
 	@Override
 	public Trainer getTrainerById(int userId) {
-		return null;
-	}
-
-	//TODO: complete it Rudresh
-	@Override
-	public Trainer getTrainerByUsername(String username) {
-		Query query = getSession().createQuery("from Trainer where username=:username");
-		Trainer trainer = (Trainer)query.uniqueResult();
+		Query<Trainer> query = getSession().getNamedQuery("getTrainerById");
+		query.setParameter("userId",userId);
+		Trainer trainer = query.uniqueResult();
 		return trainer;
 	}
 
 	@Override
-	public String createCourse(Course course) {
-		// TODO Auto-generated method stub
-		return null;
+	public Trainer getTrainerByUsername(String username) {
+		Query<Trainer> query = getSession().getNamedQuery("getTrainerByName");
+		query.setParameter("userName", username);
+		Trainer trainer = query.uniqueResult();
+		return trainer;
 	}
-
-	@Override
-	public String updateTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Course> viewTrainerCourse(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Student> listOfStudentsEnrolled(int courseid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public String deleteCourse(String username, int courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String updateCourse(String username, Course course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	@Override
 	public String updatePassword(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = getSession().createQuery("Update Trainer trainer set username=:username,password=:password where username=:username");
+		query.setParameter("username", username);
+		query.setParameter("password",password);
+		return "Password Updated";
+	}
+	
+	@Override
+	public String createCourse(Course course) {
+		getSession().saveOrUpdate(course);
+		return "Course created";
+	}
+
+	@Override
+	public String updateCourse(String userName,Course course) {
+		Query query = getSession().createQuery("Update Course course set courseName=:courseName,fee=:fee,duration=:duration,rating=:rating,trainerId=:trainerId,description=:description,category=:category where courseId=:courseId");
+		query.setParameter("courseName",course.getCourseName());
+		query.setParameter("fee",course.getFee());
+		query.setParameter("duration",course.getDuration());
+		query.setParameter("rating",course.getRating());
+		query.setParameter("trainerId",course.gettrainerId());
+		query.setParameter("description",course.getDescription());
+		query.setParameter("category",course.getCategory());
+		return "Updated Successfully";
+	}
+	
+	@Override
+	public String deleteCourse(String username,int courseId) {
+		Query query = getSession().createQuery("Delete from Trainer where courseId IN (:courseOffered) and username=:username");
+		return "Course deleted";
+	}
+	
+	@Override
+	public List<Course> getTrainerCourseList(String username) {
+		Query query = getSession().createQuery("from Course INNERJOIN Trainer ON Course.trainerId=Trainer.userId");
+		List<Course> course = query.list();
+		return course;
+	}
+
+	@Override
+	public List<Student> getStudentEnrollList(int courseId) {
+		Query query = getSession().createQuery("select Enrollment.userId from Enrollment where courseId=:courseId");
+		List<Student> userid = query.list();
+		Query query1 = getSession().createQuery("select userName from Student where userId=:userid");
+		List<Student> student = query1.list();
+		return student;
+	}
+
+	@Override//changing String courseName
+	public List<Course> searchTrainerCourses(String username, String courseName) {
+		Query query = getSession().createQuery("select ");
+		List<Course> course = query.list();
+		return course;
 	}
 }

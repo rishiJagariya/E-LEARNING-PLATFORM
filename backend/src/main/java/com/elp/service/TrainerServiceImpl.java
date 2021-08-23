@@ -11,7 +11,6 @@ import com.elp.dao.TrainerDao;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
-import com.elp.entity.User;
 
 @Service("trainerService")
 @Transactional
@@ -28,6 +27,16 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 	
 	@Override
+	public String updateTrainer(Trainer trainer) {
+		return trainerDao.updateTrainer(trainer);
+	}
+	
+	@Override
+	public String deleteTrainer(int userId) {
+		return trainerDao.deleteTrainer(userId);
+	}
+	
+	@Override
 	public Trainer getTrainerById(int userId) {
 		return trainerDao.getTrainerById(userId);
 	}
@@ -38,26 +47,15 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 	
 	@Override
+	public String updatePassword(String username, String password) {
+		return trainerDao.updatePassword(username, password);
+	}
+	
+	@Override
 	public String createCourse(Course course) {
 		return trainerDao.createCourse(course);
 	}
 	
-	@Override
-	public String updateTrainer(Trainer trainer) {
-		return trainerDao.updateTrainer(trainer);
-	}
-	
-	@Override
-	public List<Course> viewTrainerCourse(int userId) {
-		return trainerDao.viewTrainerCourse(userId);
-	}
-	
-	@Override
-	public List<Student> listOfStudentsEnrolled(int courseId) {
-		return trainerDao.listOfStudentsEnrolled(courseId);
-	}
-
-
 	@Override
 	public String updateCourse(String username, Course course) {
 		return trainerDao.updateCourse(username, course);
@@ -69,8 +67,18 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 
 	@Override
-	public String updatePassword(String username, String password) {
-		return trainerDao.updatePassword(username, password);
+	public List<Course> getTrainerCourseList(String username) {
+		return trainerDao.getTrainerCourseList(username);
+	}
+
+	@Override
+	public List<Student> getStudentEnrollList(int courseId) {
+		return trainerDao.getStudentEnrollList(courseId);
+	}
+
+	@Override
+	public List<Course> searchTrainerCourses(String username, String courseName) {
+		return trainerDao.searchTrainerCourses(username, courseName);
 	}
 	
 }

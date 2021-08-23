@@ -2,6 +2,8 @@ package com.elp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,9 +12,7 @@ import javax.persistence.Table;
 public class Course {
 
 	@Id
-	//@ManyToOne
-	//@JoinColumn(name = "courseId")
-	@Column
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int courseId;
 
 	@Column
@@ -28,7 +28,7 @@ public class Course {
 	private int rating;
 
 	//@ManyToOne
-	private int userId;
+	private int trainerId;
 
 	@Column
 	private String description;
@@ -76,12 +76,12 @@ public class Course {
 		this.rating = rating;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int gettrainerId() {
+		return trainerId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void settrainerId(int userId) {
+		this.trainerId = userId;
 	}
 
 	public String getDescription() {
@@ -102,13 +102,12 @@ public class Course {
 
 	public Course() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", fee=" + fee + ", duration=" + duration
-				+ ", rating=" + rating + ", userId=" + userId + ", description=" + description + ", category="
+				+ ", rating=" + rating + ", trainerId=" +  trainerId + ", description=" + description + ", category="
 				+ category + "]";
 	}
 
@@ -120,7 +119,7 @@ public class Course {
 		this.fee = fee;
 		this.duration = duration;
 		this.rating = rating;
-		this.userId = userId;
+		this.trainerId = userId;
 		this.description = description;
 		this.category = category;
 	}

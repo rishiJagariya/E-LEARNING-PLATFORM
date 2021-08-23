@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { HomeComponent } from './home/home.component';
+import { TrainerprofileComponent } from './trainerprofile/trainerprofile.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,11 +15,13 @@ import { HomeComponent } from './home/home.component';
     RegisterComponent,
     LoginComponent,
     ForgotpasswordComponent,
-    HomeComponent
+    TrainerprofileComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

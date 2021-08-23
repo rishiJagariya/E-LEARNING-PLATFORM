@@ -2,15 +2,15 @@ package com.elp.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+@NamedQueries(value = { @NamedQuery(name = "getStudentById", query = "from Student where userId=:userId"),
+		@NamedQuery(name = "getStudentByName", query = "from Student where username=:userName")})
 @Entity
 @Table(name = "student")
 public class Student extends User {
@@ -53,6 +53,5 @@ public class Student extends User {
 
 	public Student() {
 		super();
-		// TODO Auto-generated constructor stub
 	}	
 }
