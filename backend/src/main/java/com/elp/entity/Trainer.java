@@ -15,6 +15,7 @@ import org.hibernate.annotations.NamedQuery;
 public class Trainer extends User{
 	
 	@ElementCollection(targetClass=Integer.class)
+	//@ElementCollection(targetClass=Course.class)
 	private List<Integer> courseOffered;
 	 
 	public Trainer() {

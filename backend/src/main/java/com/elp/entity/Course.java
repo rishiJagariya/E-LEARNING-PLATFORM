@@ -76,11 +76,11 @@ public class Course {
 		this.rating = rating;
 	}
 
-	public int gettrainerId() {
+	public int getTrainerId() {
 		return trainerId;
 	}
 
-	public void settrainerId(int userId) {
+	public void setTrainerId(int userId) {
 		this.trainerId = userId;
 	}
 

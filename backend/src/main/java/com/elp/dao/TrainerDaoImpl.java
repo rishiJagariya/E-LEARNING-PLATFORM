@@ -37,7 +37,7 @@ public class TrainerDaoImpl implements TrainerDao {
 			else
 			{
 				System.out.println("Into else part");
-				getSession().saveOrUpdate(trainer);
+				getSession().save(trainer);
 				System.out.println("after save and update");
 				return "user created successfully";
 			}
@@ -96,21 +96,42 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public String createCourse(Course course) {
-		getSession().saveOrUpdate(course);
+		Query query = getSession().createQuery("Update Trainer set courseOffered.add(course.courseId)");
+		//query.executeUpdate();
+		getSession().save(course);
 		return "Course created";
 	}
 
 	@Override
-	public String updateCourse(String userName,Course course) {
-		Query query = getSession().createQuery("Update Course course set courseName=:courseName,fee=:fee,duration=:duration,rating=:rating,trainerId=:trainerId,description=:description,category=:category where courseId=:courseId");
-		query.setParameter("courseName",course.getCourseName());
-		query.setParameter("fee",course.getFee());
-		query.setParameter("duration",course.getDuration());
-		query.setParameter("rating",course.getRating());
-		query.setParameter("trainerId",course.gettrainerId());
-		query.setParameter("description",course.getDescription());
-		query.setParameter("category",course.getCategory());
-		return "Updated Successfully";
+	public String updateCourse(String username, Course course) {
+		System.out.println("dao layer");
+		Query query1 = getSession().createQuery("select userId from Trainer where username=:username");
+		query1.setParameter("username", username);
+		int userid = (int) query1.uniqueResult();
+		System.out.println(userid);
+		if(userid==course.getTrainerId())
+		{
+			System.out.println("3");
+			Query query = getSession().createQuery("Update Course c set courseName=:courseName,fee=:fee,duration=:duration,rating=:rating,description=:description,category=:category where trainerId=:userid");
+			query.setParameter("userid",userid);
+			System.out.println("4");
+			query.setParameter("courseName",course.getCourseName());
+			query.setParameter("fee",course.getFee());
+			query.setParameter("duration",course.getDuration());
+			query.setParameter("rating",course.getRating());
+			query.setParameter("description",course.getDescription());
+			query.setParameter("category",course.getCategory());
+			int noofrows = query.executeUpdate();
+			if(noofrows >0)
+			{
+				System.out.println("Updated " + noofrows + " rows");
+			}
+			return "Updated Successfully";
+		}
+		else
+		{
+			return "You cannot Update this Course";
+		}
 	}
 	
 	@Override
@@ -121,24 +142,31 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public List<Course> getTrainerCourseList(String username) {
-		Query query = getSession().createQuery("from Course INNERJOIN Trainer ON Course.trainerId=Trainer.userId");
-		List<Course> course = query.list();
+		Query query = getSession().createQuery("select userId from Trainer where username=:username");
+		query.setParameter("username",username);
+		int userid = (int) query.uniqueResult();
+		System.out.println(userid);
+		Query query1 = getSession().createQuery("from Course where trainerId=:userid");
+		List<Course> course = query1.list();
 		return course;
 	}
 
 	@Override
 	public List<Student> getStudentEnrollList(int courseId) {
-		Query query = getSession().createQuery("select Enrollment.userId from Enrollment where courseId=:courseId");
+		Query query = getSession().createQuery("select Enrollment.userId from Enrollment where courseId" + courseId);
 		List<Student> userid = query.list();
-		Query query1 = getSession().createQuery("select userName from Student where userId=:userid");
+		Query query1 = getSession().createQuery("select userName from Student where" + userid + "IN (:enroll)");
 		List<Student> student = query1.list();
 		return student;
 	}
 
 	@Override//changing String courseName
-	public List<Course> searchTrainerCourses(String username, String courseName) {
-		Query query = getSession().createQuery("select ");
-		List<Course> course = query.list();
+	//, String courseName
+	public List<Course> searchTrainerCourses(String username) {
+		Query query = getSession().createQuery("select userId from Trainer where username=:username");
+		int userid = (int) query.uniqueResult();
+		Query query1 = getSession().createQuery("select courseName from Course where trainerId=:userid");
+		List<Course> course = query1.list();
 		return course;
 	}
 }
