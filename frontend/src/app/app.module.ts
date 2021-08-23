@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { CartComponent } from './cart/cart.component';
-import { CoursesComponent } from './courses/courses.component';
-import { HeaderComponent } from './header/header.component';
+import { TrainerprofileComponent } from './trainerprofile/trainerprofile.component';
+import { FormsModule } from '@angular/forms';
+import { AddcourseComponent } from './addcourse/addcourse.component';
+import { UpdatecourseComponent } from './updatecourse/updatecourse.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,15 @@ import { HeaderComponent } from './header/header.component';
     RegisterComponent,
     LoginComponent,
     ForgotpasswordComponent,
-    CartComponent,
-    CoursesComponent,
-    HeaderComponent
+    TrainerprofileComponent,
+    AddcourseComponent, 
+    UpdatecourseComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

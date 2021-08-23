@@ -4,14 +4,18 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+@NamedQueries(value = { @NamedQuery(name = "getTrainerById", query = "from Trainer where userId=:userId"),
+		@NamedQuery(name = "getTrainerByName", query = "from Trainer where Username=:userName")})
 @Entity
 @Table(name = "trainer")
 public class Trainer extends User{
 	
 	@ElementCollection(targetClass=Integer.class)
+	//@ElementCollection(targetClass=Course.class)
 	private List<Integer> courseOffered;
 	 
 	public Trainer() {
