@@ -1,49 +1,9 @@
 <body style="background-color: rgb(192,192,192);">
     <div id="box1">
         <div class="form-group" class="text-center">
-            <label for="rfname">Course</label>
+            <h1 for="course">Add Course</h1>
         </div>
     <form style=" padding: 20px; border-radius: 10px;">
-        <div class="form-group" >
-            <label for="courseName">Course Name</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="courseName" 
-            name="courseName"
-            placeholder="Enter Course Name"
-            required>
-        </div>
-        <div class="form-group">
-            <label for="fee">Course Fee</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="fee" 
-            name="fee"
-            placeholder="Enter Course Fee"
-            required>
-        </div>
-        <div class="form-group">
-            <label for="duration">Course Duration</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="duration" 
-            name="duration"
-            placeholder="Enter Course Duratiuon"
-            required>
-        </div>
-        <div class="form-group">
-            <label for="rating">Course Rating</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="rating" 
-            name="rating"
-            placeholder="Enter Course Rating"
-            required>
-        </div>
         <div class="form-group">
             <label for="trainerId">Trainer Id</label>
             <input 
@@ -52,6 +12,16 @@
             id="tarinerId" 
             name="trainerId"
             placeholder="Enter Trainer Id"
+            disabled>
+        </div>
+        <div class="form-group" >
+            <label for="courseName">Course Name</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="courseName" 
+            name="courseName"
+            placeholder="Enter Course Name"
             required>
         </div>
         <div class="form-group">
@@ -74,8 +44,27 @@
             placeholder="Enter Course Category"
             required>
         </div>
+        <div class="form-group">
+            <label for="fee">Course Fee</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="fee" 
+            name="fee"
+            placeholder="Enter Course Fee"
+            required>
+        </div>
+        <div class="form-group">
+            <label for="duration">Course Duration</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="duration" 
+            name="duration"
+            placeholder="Enter Course Duratiuon"
+            required>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
     </body>
-    
