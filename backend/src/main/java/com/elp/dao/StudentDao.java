@@ -18,4 +18,5 @@ public interface StudentDao {
 	public String deleteStudent(int userId);
 	public Student getStudentById(int userId);
 	public Student getStudentByUsername(String userName);
+	public String updatePassword(String username, String password);
 }

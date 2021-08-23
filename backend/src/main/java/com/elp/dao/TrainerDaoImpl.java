@@ -67,12 +67,6 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 	@Override
-	public String updateCourse(Course course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String updateTrainer(Trainer trainer) {
 		// TODO Auto-generated method stub
 		return null;
@@ -93,6 +87,16 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public String deleteCourse(String username, int courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String updateCourse(String username, Course course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String updatePassword(String username, String password) {
 		// TODO Auto-generated method stub
 		return null;
 	}

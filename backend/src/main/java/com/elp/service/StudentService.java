@@ -19,4 +19,5 @@ public interface StudentService {
 	public String deleteStudent(int userId);
 	public Student getStudentById(int userId);
 	public Student getStudentByUsername(String username);
+	public String updatePassword(String username, String password);
 }

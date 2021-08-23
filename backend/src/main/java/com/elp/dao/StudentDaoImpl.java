@@ -119,6 +119,12 @@ public class StudentDaoImpl implements StudentDao {
 		//System.out.println(student.getUsername());
 		return student; 
 	}
+
+	@Override
+	public String updatePassword(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
