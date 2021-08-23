@@ -1,89 +1,77 @@
-<body style="background-color: rgb(192,192,192);">
-<div id="box1">
-    <div class="form-group" class="text-center">
-        <label for="rfname">Register</label>
-    </div>
-<form style=" padding: 20px; border-radius: 10px;">
-  <div>
-    <label for="usertype">User Type</label>&nbsp;&nbsp;<br/>
-    <input id="usertype" name="usertype" type="radio" value="trainer">trainer&nbsp;&nbsp;
-    <input id="usertype" name="usertype" type="radio" value="student">student
-</div>
-    <div class="form-group" >
-        <label for="fname">First Name</label>
-        <input 
-        type="text" 
-        class="form-control" 
-        id="fname" 
-        name="fname"
-        placeholder="Enter First Name"
-        required>
-    </div>
-    <div class="form-group">
-        <label for="lname">Last Name</label>
-        <input 
-        type="text" 
-        class="form-control" 
-        id="lname" 
-        name="lname"
-        placeholder="Enter Last Name"
-        required>
-      </div>
-      <div class="form-group">
-        <label for="dateOfBirth">Date Of Birth</label>
-        <input 
-        type="date" 
-        class="form-control" 
-        id="dateofbirth" 
-        name="dateofbirth">
-    </div> 
-    <div class="form-group">
-      <label for="username">User Name</label>
-      <input 
-      type="text" 
-      class="form-control" 
-      id="username"
-      name="username"
-      placeholder="Enter User Name"
-      required>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input 
-      type="password" 
-      class="form-control" 
-      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-      id="password" 
-      name="password"
-      placeholder="Enter Password"
-      required>
-      <small>Password Must be 8 character, one uppercase, one lowercase and one numeric</small>
-    </div>
-    <div class="form-group">
-      <label for="confirmpassword">Confirm Password</label>
-      <input 
-      type="password" 
-      class="form-control" 
-      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-      id="confirmpassword" 
-      name="confirmpassword"
-      placeholder="Enter Confirm Password"
-      required>
+<div id="main-box" class="d-flex">
+  <div id="left-box" class="col-sm-0 col-md-4 col-lg-6 d-flex align-items-center justify-content-center"
+    style="background-color: rgb(255, 255, 255); display:inline-block; height: 100vh;">
+    <img src="../../assets/cutout-registerpage.png" style="width:70%;" />
   </div>
-    <div class="form-group">
-        <label for="phonenumber">Phone Number</label>
-        <input 
-        type="text" 
-        class="form-control" 
-        id="phonenumber" 
-        placeholder="Enter Phone Number">
+  <div id="right-box" class="col-sm-12 col-md-8 col-lg-6"
+    style="background-color: rgb(255, 186, 172); display: inline-block; height: 100vh;">
+    <div id="register-box" style="margin-top: 40px;">
+      <h2 style="text-align: center; color: rgb(39, 39, 39); font-weight: bold;">Register</h2>
+      <hr style="width: 65%; height: 1.5px;" class="mx-auto" />
+      <div class="mx-auto" style="width: 70%;">
+
+        <form style=" padding: 20px; border-radius: 10px;" method="GET">
+          <div class="d-flex justify-content-between" style="width: 55%;">
+            <label for="usertype" class="form-label fw-bold">User Type &nbsp; - </label>
+            <div class="form-check">
+              <label class="form-label">Trainer</label>
+              <input class="form-check-input" name="usertype" type="radio" value="trainer" />
+            </div>
+            <div class="form-check">
+              <label class="form-label">Student</label>
+              <input class="form-check-input" name="usertype" type="radio" value="student" checked />
+            </div>
+          </div>
+          <div class=" d-flex justify-content-between">
+            <div class="" style="display: inline-block; width: 47%;">
+              <label for="fname" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name" required>
+            </div>
+
+            <div class="" style="display: inline-block; width: 47%;">
+              <label for="lname" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter last name" required>
+            </div>
+          </div>
+          <div class="">
+            <label for="dateOfBirth" class="form-label" style="margin-top: 7px;">Date Of Birth</label>
+            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth">
+          </div>
+          <div class="" style="margin-top: 7px;">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+          </div>
+          <div class="form-group" style="margin-top: 7px;">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control"
+              pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$-_=]).{8,12}$" id="password" name="password"
+              placeholder="Enter Password" placement="bottom" #password
+              title="Password must contain atleast 1 small character, 1 capital character, 1 digit and 1 special symbol from (@, #, $, -, _, =) and must be 8 to 12 digit long"
+              required>
+
+            <small>Password must be 8 character long</small>
+          </div>
+          <div class="form-group" style="margin-top: 7px;">
+            <label for="confirmpassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control mr-2" #confirmpassword
+              pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$-_=]).{8,12}$" id="confirmpassword"
+              name="confirmpassword" placeholder="Enter Confirm Password" (focusout)="checkPassword()" required>
+          </div>
+
+          <div class="" style="margin-top: 7px;">
+            <label for="phonenumber" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phonenumber" placeholder="Enter Phone Number">
+          </div>
+          <div class="form-group form-check" style="margin-top: 7px;">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Please check the box to accept <strong>Terms and
+                Conditions</strong></label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="margin-top: 7px;" (click )="submitForm()">Sign
+            Up</button>
+          <!--make changes eherer-->
+        </form>
+      </div>
     </div>
-    <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Terms and Conditions</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </div>
 </div>
-</body>
