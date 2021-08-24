@@ -52,6 +52,15 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
+  updateCourse(course : Course) : Observable<Course> {
+    return this.http
+      .post<Course>(
+        this.courseRestUrl + '/updatecourse',
+        JSON.stringify(course)
+      )
+      .pipe(catchError(this.handleError))
+  }
+
   handleError(err : any) {
     let errorMessage = ""
     if (err.error instanceof ErrorEvent)
