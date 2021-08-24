@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Course } from '../course';
+import { ElpServiceService } from '../elp-service.service';
+import { TrainerData } from '../trainerData';
 
 @Component({
   selector: 'trainerprofile',
@@ -6,46 +10,57 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./trainerprofile.component.css']
 })
 export class TrainerprofileComponent implements OnInit {
-  name='Ritika';
-  Title='Trainer';
-  constructor(
-  ) {
+  constructor( public restApi: ElpServiceService, public router: Router ) { }
+
+  searchText : string = ''
+  trainerData : TrainerData = {
+    userId: 0,
+    userType: 'trainer',
+    username: '',
+    password: '',
+    fname: 'Rishi',
+    lname: 'Jagariya',
+    dob: '',
+    phoneNo: '9582346634',
+    courseOffered: []
   }
-  trainer={
-    Courseid:'',
-    Coursename:'',
-    Catagory:'',
-  } ;
-  
-  rows = [
-    {
-      "Courseid" : "1",
-      "Coursename" : "JAVA",
-      "Catagory" : "CS",
-
+  courseList : Course[] = [ {
+    "courseId" : 1,
+    "courseName" : "JAVA",
+    "fee" : 400,
+    "category" : "CS",
+    "trainerId" : 101,
+    "duration" : 0,
+    "description" : "",
+    "rating" : 0
     },
-    {
-      "Courseid" : "2",
-      "Coursename" : "C++",
-      "Catagory" : "CS",
-      
-    },
-    {
-      "Courseid" : "3",
-      "Coursename" : "Applied Physics",
-      "Catagory" : "EEE",
-
-    },
-    {
-      "Courseid" : "4",
-      "Coursename" : "Electronic Devices and Circuits",
-      "Catagory" : "EEE",
-
-    },
-
   ]
-  
+    
   ngOnInit(): void {
+    this.loadCourses()
+  }
+
+  //form search course
+  submitForm(fromData : any) {
+
+  }
+
+  loadCourses() {
+    return this.restApi
+      .loadTrainerCourses(this.trainerData.username)
+      .subscribe((data) => { this.courseList = data})
+  }
+
+  editCourse() {
+    
+  }
+
+  deleteCourse() {
+
+  }
+
+  logout() {
+
   }
 
 }

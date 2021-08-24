@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       response.subscribe(data => {
         console.log(data)
         
-        if(data == "success"){
+        if(data.message == "Success"){
           if(this.userLoginInfo.userType == "student")
             this.router.navigate(['/home'])
           else
