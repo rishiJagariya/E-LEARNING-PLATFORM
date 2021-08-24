@@ -97,18 +97,14 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public String createCourse(Course course) {
-		//Trainer trnr = new Trainer();
 		int courseId = course.getCourseId();
 		System.out.println(courseId);
 		Query<?> query = getSession().createQuery("from Trainer where userId=:trainerId");
 		query.setParameter("trainerId", course.getTrainerId());
-		
 		Trainer trainer = (Trainer) query.uniqueResult();
 		System.out.print(trainer.getFname());
-//		System.out.println(trnr);
 		List<Integer> courseList = trainer.getCourseOffered();
 		System.out.print(courseList);
-//		System.out.println(courseList);
 		courseList.add(courseId);
 		trainer.setCourseOffered(courseList);
 		getSession().update(trainer);
