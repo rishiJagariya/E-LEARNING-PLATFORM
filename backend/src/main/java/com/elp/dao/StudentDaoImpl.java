@@ -138,6 +138,7 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	
+	
 	@Override
 	public List<Course> getEnrolledCourseList(int courseId) {
 		Query query = getSession().createQuery("select Course.courseName from Course INNERJOIN Enrollment ON Enrollment.courseId=:courseId;");
