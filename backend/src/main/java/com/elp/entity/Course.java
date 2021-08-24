@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +30,9 @@ public class Course {
 
 	//@ManyToOne
 	private int trainerId;
+	/*@ManyToOne
+	@JoinColumn(name="userId")
+	private Trainer trainerId;*/
 
 	@Column
 	private String description;

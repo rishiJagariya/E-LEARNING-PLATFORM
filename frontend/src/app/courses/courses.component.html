@@ -1,1 +1,39 @@
-<p>courses works!</p>
+<body style="background-color: rgb(240,128,128);">
+    <div class="form-group"  class="text-center">
+        <h1 for="courses">Course List</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <form class="form-inline my-2 my-md-0" class="form-inline" >
+                <div style="position: absolute; right: 200px"><input class="form-control" type="text" placeholder="Type here"></div>
+                <div style="position: absolute; right: 150px"> <button type="button" class="btn btn-secondary">Search</button></div>
+              </form>
+        </div>
+    </div>
+    <br/><br/><br/>
+    <div class="container emp-profile">
+        <div class="row">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Courseid</th>
+                        <th>Course name</th>
+                        <th>Catagory</th>
+                        <th>Actions</th> 
+                    </tr>   
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let row of rows">
+                        <td><span>{{row.Courseid}}</span></td>
+                        <td><span>{{row.Coursename}}</span></td>
+                        <td><span>{{row.Catagory}}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-warning">
+                              <i class="fa fa-edit"></i>Add to Cart</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>         
+    </div>
+</body>
