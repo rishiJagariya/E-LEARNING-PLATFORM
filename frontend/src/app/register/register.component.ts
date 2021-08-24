@@ -55,6 +55,7 @@ export class RegisterComponent implements OnInit {
       this.restApi
         .createUser(this.newUser)
         .subscribe(data => {
+          console.log(data)
           this.router.navigate(['/login'])
         })
     } else {
