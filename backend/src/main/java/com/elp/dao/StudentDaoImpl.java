@@ -91,9 +91,10 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public String updatePassword(String username, String password) {
-		Query query = getSession().createQuery("Update Student student set username=:username,password=:password where username=:username");
+		Query query = getSession().createQuery("Update Student student set password=:password where username=:username");
 		query.setParameter("username", username);
 		query.setParameter("password",password);
+		query.executeUpdate();
 		return "Password Updated";
 		
 	}
@@ -134,28 +135,34 @@ public class StudentDaoImpl implements StudentDao {
 	}
 	
 	@Override
-	public String removeFromCart(int courseId) {
-		Query query = getSession().createQuery("select trainerId from Coursetable where courseId=:courseId");
-		query.setParameter("courseId", courseId);
-		int trainerid = (int) query.uniqueResult();
-		//Query query = getSession().createQuery("select userId from Cart where )"
-		Query query1 = getSession().createQuery("Delete from Cart where userId=:trainerid");
-		query1.setParameter("trainerid", trainerid);
-		query.executeUpdate();
+	public String removeFromCart(int courseId, int studentId) {
+		Query query = getSession().createQuery("from Cart where userId=:studentId");
+		query.setParameter("studentId",studentId);
+		Cart cart = (Cart) query.uniqueResult();
+		cart.getItems().remove(new Integer(courseId));
+		getSession().update(cart);
+		System.out.println(cart);
 		return "Removed successfully";
 	}
 	
 	@Override
 	public List<Course> viewCart(int userId) {
-		Query query = getSession().createQuery("select enroll from Student where userId=:userId");
+		//Query query = getSession().createQuery("from Student where userId=:userId");
+		//query.setParameter("userId", userId);
+		//Student student = (Student) query.uniqueResult();
+		//Cart cart = new Cart();
+		//cart.setItems();
+		//getSession().update(cart);
+		Query query = getSession().createQuery("from Cart where userId=:userId");
 		query.setParameter("userId", userId);
-		List <Integer> item = query.getResultList();
-		Cart cart = new Cart();
-		cart.setItems(item);
-		getSession().update(cart);
-		Query query1 = getSession().createQuery("from Cart where userId=:userId");
-		query1.setParameter("userId", userId);
-		List<Course> clist = query1.list();
+		Cart cart = (Cart) query.uniqueResult();
+		List<Course> clist = null;
+		for(int i : cart.getItems()) {
+			Query query1 = getSession().createQuery("from Course where courseId=:i");
+			query1.setParameter("i",i);
+			Course course = (Course) query1.uniqueResult();
+			clist.add(course);
+		}
 		return clist; 
 	}
 	

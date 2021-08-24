@@ -65,19 +65,19 @@ public class CartController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/removeFromCart/{courseId}")
-	public ResponseEntity<String> removeFromCart(@PathVariable int courseId) {
+	@DeleteMapping("/removeFromCart/{courseId}/{studentId}")
+	public ResponseEntity<String> removeFromCart(@PathVariable int courseId,@PathVariable int studentId) {
 		System.out.println("Im here in remove from cart");
 		String message = null;
 		
-		message = studentService.removeFromCart(courseId);
+		message = studentService.removeFromCart(courseId,studentId);
 		System.out.println(message);
 		
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-	@GetMapping("/viewCart")
-	public ResponseEntity<List<Course>> viewCart(int userId) {
+	@GetMapping("/viewCart/{userId}")
+	public ResponseEntity<List<Course>> viewCart(@PathVariable int userId) {
 		System.out.println("Im here in view cart");
 		String message = null;
 		
