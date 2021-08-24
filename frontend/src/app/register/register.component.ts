@@ -28,31 +28,37 @@ export class RegisterComponent implements OnInit {
 
   }
   ngOnInit(): void {
+
     //tried to add tooltips using jquery but not worked
     // $(document).ready(function() { 
     //   (<any>$('[data-toggle="tooltip"]')).tooltip(); 
     // }); 
   }
   
-  checkPassword() {
-      console.log("inside checkpassword");
-      this.newUser.password = (<HTMLInputElement>document.getElementById("password")).value;
-      this.newUser.confirmPassword = (<HTMLInputElement>document.getElementById("confirmpassword")).value;
-      if(this.newUser.password == "" || this.newUser.confirmPassword == ""){
-        alert("password can't be empty")
-        return false
-      }
-      if(this.newUser.password === this.newUser.confirmPassword) {
-        return true 
-      }else
-        //TODO: make it better
-        alert("password are not same")
-        return false
-  }
+  // checkPassword() {
+  //     console.log("inside checkpassword");
+  //     this.newUser.password = (<HTMLInputElement>document.getElementById("password")).value;
+  //     this.newUser.confirmPassword = (<HTMLInputElement>document.getElementById("confirmpassword")).value;
+  //     if(this.newUser.password == "" || this.newUser.confirmPassword == ""){
+  //       return false
+  //     }
+  //     if(this.newUser.password === this.newUser.confirmPassword) {
+  //       return true 
+  //     }else{
+  //       return false
+  //     }
+  // }
 
-  submitForm() {
-    this.restApi.createUser(this.newUser).subscribe((data : {}) => {
-      this.router.navigate(["/home"]);
-    })
+  submitForm(formData : any) {
+    if(formData.valid){
+      console.log(this.newUser)
+      this.restApi
+        .createUser(this.newUser)
+        .subscribe(data => {
+          this.router.navigate(['/login'])
+        })
+    } else {
+      alert("fields are empty")
+    }  
   }
 }

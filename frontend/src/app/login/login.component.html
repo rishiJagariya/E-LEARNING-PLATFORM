@@ -1,34 +1,47 @@
-<body style="background-color: rgb(192,192,192);">
-<div id="box1">
-    <div class="form-group" class="text-center">
-        <h1 for="login">Log In</h1>
+<div id="main-box" class="d-flex">
+    <div id="left-box" class="col-sm-0 col-md-4 col-lg-6 d-flex align-items-center justify-content-center"
+      style="background-color: rgb(255, 255, 255); display:inline-block; height: 100vh;">
+      <img src="../../assets/cutout-registerpage.png" style="width:70%;" />
     </div>
-    <form style=" padding: 20px; border-radius: 10px;">
-        <div>
-            <label for="usertype">User Type</label>&nbsp;&nbsp;
-            <input id="usertype" name="usertype" type="radio" value="trainer">trainer&nbsp;&nbsp;
-            <input id="usertype" name="usertype" type="radio" value="student">student
+    <div id="right-box" class="col-sm-12 col-md-8 col-lg-6"
+      style="background-color: rgb(255, 186, 172); display: inline-block; height: 100vh;">
+      <div id="register-box" style="margin-top: 40px;">
+        <h2 style="text-align: center; color: rgb(39, 39, 39); font-weight: bold;">Login</h2>
+        <hr style="width: 65%; height: 1.5px;" class="mx-auto" />
+        <div class="mx-auto" style="width: 70%;">
+  
+          <form style=" padding: 20px; border-radius: 10px;" method="GET">
+            <div class="d-flex justify-content-between" style="width: 55%;">
+              <label for="usertype" class="form-label fw-bold">User Type &nbsp; - </label>
+              <div class="form-check">
+                <label class="form-label">Trainer</label>
+                <input class="form-check-input" name="usertype" type="radio" value="trainer" [(ngModel)]="userLoginInfo.userType"/>
+              </div>
+              <div class="form-check">
+                <label class="form-label">Student</label>
+                <input class="form-check-input" name="usertype" type="radio" value="student" checked [(ngModel)]="userLoginInfo.userType"/>
+              </div>
+            </div>
+    
+            <div class="" style="margin-top: 7px;">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required [(ngModel)]="userLoginInfo.username">
+            </div>
+            
+            <div class="form-group" style="margin-top: 7px;">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control"
+                pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$-_=]).{8,12}$" id="password" name="password"
+                placeholder="Enter Password" placement="bottom"
+                title="Password must contain atleast 1 small character, 1 capital character, 1 digit and 1 special symbol from (@, #, $, -, _, =) and must be 8 to 12 digit long"
+                required [(ngModel)]="userLoginInfo.password">
+            </div>
+  
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px;" (click)="submitForm()">Sign In</button> 
+
+          </form>
+          <a routerLink="/forgotpassword" class="" style="text-decoration: none; margin-left: 20px; margin-bottom: 40px;">Forgot Password?</a>
         </div>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input 
-            type="text" 
-            class="form-control"
-            id="username"
-            placeholder="Enter Username"
-            required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input 
-            type="password" 
-            class="form-control" 
-            id="password"
-            placeholder="Enter Password"
-            required>
-        </div>
-        <button type="submit" class="btn btn-primary">Log In</button>
-    </form>
-    <a routerLink="/forgotpassword" class="btn btn-primary">Forgot Password?</a>
-</div>
-</body>
+      </div>
+    </div>
+  </div>
