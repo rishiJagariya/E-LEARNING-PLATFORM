@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elp.service.StudentService;
@@ -79,7 +80,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/deletetrainer")
-	public ResponseEntity<String> deleteTrainer(int userId) {
+	public ResponseEntity<String> deleteTrainer(@RequestParam int userId) {
 		System.out.println("Im here in delete trainer");
 		String message = null;
 		
@@ -90,7 +91,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/deletestudent")
-	public ResponseEntity<String> deleteStudent(int userId) {
+	public ResponseEntity<String> deleteStudent(@RequestParam int userId) {
 		System.out.println("Im here in delete student");
 		String message = null;
 		

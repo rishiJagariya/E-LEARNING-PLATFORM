@@ -3,7 +3,7 @@
         <div class="form-group" class="text-center">
             <h1 for="updatecourse">Update Course</h1>
         </div>
-    <form style=" padding: 20px; border-radius: 10px;">
+    <form #formData="ngForm" style=" padding: 20px; border-radius: 10px;" (ngSubmit)="submitForm(formData)">
         <div class="form-group">
             <label for="trainerId">Trainer Id</label>
             <input 
@@ -12,6 +12,7 @@
             id="tarinerId" 
             name="trainerId"
             placeholder="Enter Trainer Id"
+            [(ngModel)]="updateCourse.trainerId"
             disabled>
         </div>
         <div class="form-group">
@@ -22,6 +23,7 @@
             id="courseId" 
             name="courseId"
             placeholder="Enter Course Id"
+            [(ngModel)]="updateCourse.courseId"
             disabled>
         </div>
         <div class="form-group" >
@@ -32,6 +34,7 @@
             id="courseName" 
             name="courseName"
             placeholder="Enter Course Name"
+            [(ngModel)]="updateCourse.courseName"
             required>
         </div>
         <div class="form-group">
@@ -42,6 +45,7 @@
             id="description" 
             name="description"
             placeholder="Enter Course Description"
+            [(ngModel)]="updateCourse.description"
             required>
         </div>
         <div class="form-group">
@@ -52,6 +56,7 @@
             id="category" 
             name="category"
             placeholder="Enter Course Category"
+            [(ngModel)]="updateCourse.category"
             required>
         </div>
         <div class="form-group">
@@ -62,6 +67,7 @@
             id="fee" 
             name="fee"
             placeholder="Enter Course Fee"
+            [(ngModel)]="updateCourse.fee"
             required>
         </div>
         <div class="form-group">
@@ -71,7 +77,8 @@
             class="form-control" 
             id="duration" 
             name="duration"
-            placeholder="Enter Course Duratiuon"
+            placeholder="Enter Course Duratiuon in number of days"
+            [(ngModel)]="updateCourse.duration"
             required>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>

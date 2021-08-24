@@ -55,15 +55,13 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
-  userLogin(userLoginInfo : UserLoginInfo) : Observable<String> {
+  updateCourse(course : Course) : Observable<Course> {
     return this.http
-      .post<String>(
-        this.userRestUrl + '/userlogin',
-        JSON.stringify(userLoginInfo),
-        this.httpOptions
-        //incomplete
+      .post<Course>(
+        this.courseRestUrl + '/updatecourse',
+        JSON.stringify(course)
       )
-
+      .pipe(catchError(this.handleError))
   }
 
   handleError(err : any) {

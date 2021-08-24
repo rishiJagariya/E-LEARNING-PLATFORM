@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elp.entity.Cart;
@@ -30,8 +32,8 @@ public class CartController {
 	@Autowired
 	TrainerService trainerService;
 
-	@PostMapping("/enrollToCourse")
-	public ResponseEntity<String> enrollToCourse(@RequestBody int userId,int courseId) {
+	@PostMapping("/enrollToCourse/{userId}/{courseId}")
+	public ResponseEntity<String> enrollToCourse(@PathVariable int userId,@PathVariable int courseId) {
 		System.out.println("Im here in enroll to course");
 		String message = null;
 		
@@ -53,8 +55,8 @@ public class CartController {
 	}
 	
 	@PostMapping("/addToCart")
-	public ResponseEntity<String> addToCart(Cart cart) {
-		System.out.println("Im here in add to cart");
+	public ResponseEntity<String> addToCart(@RequestBody Cart cart) {
+		System.out.println("Im here in add to cart" + cart);
 		String message = null;
 		
 		message = studentService.addToCart(cart);
@@ -63,8 +65,8 @@ public class CartController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/removeFromCart")
-	public ResponseEntity<String> removeFromCart(int courseId) {
+	@DeleteMapping("/removeFromCart/{courseId}")
+	public ResponseEntity<String> removeFromCart(@PathVariable int courseId) {
 		System.out.println("Im here in remove from cart");
 		String message = null;
 		

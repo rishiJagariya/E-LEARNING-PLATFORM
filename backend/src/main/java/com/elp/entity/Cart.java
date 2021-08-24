@@ -37,7 +37,7 @@ public class Cart {
 		super();
 		this.cartId = cartId;
 		this.userId = studentId;
-		this.items = items;
+		this.items = null;
 		this.totalAmount = totalAmount;
 		this.discount = discount;
 	}

@@ -1,4 +1,5 @@
 export interface Course {
+    courseId : Number,
     courseName : string;
     description : string;
     category : string;
