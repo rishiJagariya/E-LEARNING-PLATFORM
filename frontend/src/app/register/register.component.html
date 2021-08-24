@@ -8,67 +8,97 @@
     <div id="register-box" style="margin-top: 40px;">
       <h2 style="text-align: center; color: rgb(39, 39, 39); font-weight: bold;">Register</h2>
       <hr style="width: 65%; height: 1.5px;" class="mx-auto" />
+      <!-- {{newUser.userType}} {{newUser.fname}} {{newUser.lname}} {{newUser.username}} {{newUser.password}} {{newUser.dob}} -->
       <div class="mx-auto" style="width: 70%;">
 
-        <form style=" padding: 20px; border-radius: 10px;" method="GET">
+        <form style=" padding: 20px; border-radius: 10px;" #formData="ngForm" (ngSubmit)="submitForm(formData)">
           <div class="d-flex justify-content-between" style="width: 55%;">
             <label for="usertype" class="form-label fw-bold">User Type &nbsp; - </label>
             <div class="form-check">
               <label class="form-label">Trainer</label>
-              <input class="form-check-input" name="usertype" type="radio" value="trainer" />
+              <input class="form-check-input" name="usertype" type="radio" value="trainer" [(ngModel)]="newUser.userType"/>
             </div>
             <div class="form-check">
               <label class="form-label">Student</label>
-              <input class="form-check-input" name="usertype" type="radio" value="student" checked />
+              <input class="form-check-input" name="usertype" type="radio" value="student" [(ngModel)]="newUser.userType"/>
             </div>
           </div>
           <div class=" d-flex justify-content-between">
             <div class="" style="display: inline-block; width: 47%;">
               <label for="fname" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name" required>
+              <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name" [(ngModel)]="newUser.fname" required>  
             </div>
 
             <div class="" style="display: inline-block; width: 47%;">
               <label for="lname" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter last name" required>
+              <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter last name" [(ngModel)]="newUser.lname" required>
             </div>
           </div>
           <div class="">
             <label for="dateOfBirth" class="form-label" style="margin-top: 7px;">Date Of Birth</label>
-            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth">
+            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" [(ngModel)]="newUser.dob">
           </div>
           <div class="" style="margin-top: 7px;">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
+            pattern="^(?=.{8,12}$)(?![_.])(?![0-9])[a-zA-Z0-9._]+$" #usernameField="ngModel"
+            [(ngModel)]="newUser.username" required>
+            <small *ngIf="usernameField.invalid && usernameField.touched">Please follow username 
+              <span style="text-decoration: underline;" 
+                title="username should not start with . or _ or digits and must be 8 to 12 digit long">format
+              </span>
+            </small>
           </div>
+
           <div class="form-group" style="margin-top: 7px;">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control"
-              pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$-_=]).{8,12}$" id="password" name="password"
-              placeholder="Enter Password" placement="bottom" #password
-              title="Password must contain atleast 1 small character, 1 capital character, 1 digit and 1 special symbol from (@, #, $, -, _, =) and must be 8 to 12 digit long"
-              required>
-
-            <small>Password must be 8 character long</small>
+            <input type="password" class="form-control" 
+              id="password" name="password"
+              placeholder="Enter Password"
+              pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$_=]).{8,12}"
+              title="Password must contain atleast 1 small character, 1 capital character, 1 digit and 1 special symbol from (@, #, $, _, =) and must be 8 to 12 digit long"
+              #passwordField = "ngModel"
+              [(ngModel)]="newUser.password" required>
+            <small *ngIf="passwordField.invalid && passwordField.touched">Please follow password 
+              <span style="text-decoration: underline;" 
+                title="Password must contain atleast 1 small character, 1 capital character, 1 digit and 1 special symbol from (@, #, $, _, =) and must be 8 to 12 digit long">format
+              </span>
+            </small>
           </div>
+
           <div class="form-group" style="margin-top: 7px;">
             <label for="confirmpassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control mr-2" #confirmpassword
-              pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$-_=]).{8,12}$" id="confirmpassword"
-              name="confirmpassword" placeholder="Enter Confirm Password" (focusout)="checkPassword()" required>
+            <input type="password" class="form-control mr-2"
+              pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$_=]).{8,12}" id="confirmpassword" #confrimPasswordField = "ngModel"
+              name="confirmPassword" placeholder="Enter Confirm Password" [(ngModel)]="newUser.confirmPassword" required>
+            <small *ngIf="confrimPasswordField.invalid && confrimPasswordField.touched">Please follow password 
+              <span style="text-decoration: underline;" 
+                title="Password must contain atleast 1 small character, 1 capital character, 1 digit and 1 special symbol from (@, #, $, _, =) and must be 8 to 12 digit long">format
+              </span> <div></div>
+            </small>
+            <small *ngIf="confrimPasswordField.dirty && passwordField.value != confrimPasswordField.value">
+              Passwords didn't matched
+            </small>
           </div>
 
           <div class="" style="margin-top: 7px;">
             <label for="phonenumber" class="form-label">Phone Number</label>
-            <input type="text" class="form-control" id="phonenumber" placeholder="Enter Phone Number">
+            <input type="text" class="form-control" id="phonenumber" placeholder="Enter Phone Number" name="phoneNo"
+            pattern="(?=.*[0-9]).{10}" #phoneField="ngModel" [(ngModel)]="newUser.phoneNo" required>
+            <small *ngIf="phoneField.invalid && phoneField.touched">Enter 10 digit phone number</small>
           </div>
+
           <div class="form-group form-check" style="margin-top: 7px;">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="termAndConditions" ngModel required #checkbox>
             <label class="form-check-label" for="exampleCheck1">Please check the box to accept <strong>Terms and
                 Conditions</strong></label>
           </div>
-          <button type="submit" class="btn btn-primary" style="margin-top: 7px;" (click)="submitForm()">Sign
-            Up</button>
+          <div class="d-flex justify-content-between" style="margin-top: 7px;">
+            <button type="submit" class="btn btn-primary" [disabled]="!checkbox.checked">Sign
+              Up</button>
+            <p style = "margin-bottom: -10px;">or have an account ?</p>
+            <a routerLink="/login" class="btn btn-outline-dark">Login</a>
+          </div>
           <!--make changes eherer-->
         </form>
       </div>

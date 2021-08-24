@@ -137,11 +137,6 @@ public class StudentDaoImpl implements StudentDao {
 		return null;
 	}
 
-	@Override
-	public String updatePassword(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
 	public List<Course> getEnrolledCourseList(int courseId) {

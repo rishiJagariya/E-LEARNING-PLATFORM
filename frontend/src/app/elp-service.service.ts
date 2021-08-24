@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { User } from './user';
+import { Course } from './course';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +23,33 @@ export class ElpServiceService {
   };
 
   createUser(user: any): Observable<User> {
+    //pares user to User type
+    var newUser : User = {
+      //userId: 0,
+      userType: user.userType,
+      username: user.username,
+      password: user.password,
+      fname: user.fname,
+      lname: user.lname,
+      dob: user.dob,
+      phoneNo: user.phoneNo
+    }
+
     return this.http
       .post<User>(
         this.userRestUrl + '/createuser',
-        JSON.stringify(user),
-        this.httpOptions
+        JSON.stringify(newUser)
       )
-      .pipe(retry(1), catchError(this.handleError))
+      .pipe(catchError(this.handleError))
+  }
+
+  createCourse(course : Course) : Observable<Course> {
+    return this.http
+      .post<Course>(
+        this.courseRestUrl + '/createcourse',
+        JSON.stringify(course)
+      )
+      .pipe(catchError(this.handleError))
   }
 
   handleError(err : any) {
