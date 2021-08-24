@@ -64,6 +64,17 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
+  userLogin(userLoginInfo : UserLoginInfo) : Observable<String> {
+    return this.http
+      .post<String>(
+        this.userRestUrl + '/userlogin',
+        JSON.stringify(userLoginInfo),
+        this.httpOptions
+        //incomplete
+      )
+
+  }
+
   handleError(err : any) {
     let errorMessage = ""
     if (err.error instanceof ErrorEvent)
