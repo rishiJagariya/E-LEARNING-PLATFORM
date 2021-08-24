@@ -34,9 +34,11 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.elp.entity.User</value>
+				<value>com.elp.entity.Enrollment</value>
 				<value>com.elp.entity.Student</value>
 				<value>com.elp.entity.Trainer</value>
 				<value>com.elp.entity.Course</value>
+				<value>com.elp.entity.Cart</value>
 				<value>com.elp.model.wrapper.UsernameAndCourse</value>
 			</list>
 		</property>
@@ -54,6 +56,8 @@
 	</bean>
 	
 	<bean id="User" class="com.elp.entity.User"/>
+	<bean id="Enrollment" class="com.elp.entity.Enrollment"/>
+	<bean id="Cart" class="com.elp.entity.Cart"/>
 	<bean id="Course" class="com.elp.entity.Course"/>
 	<bean id="UsernameAndCourse" class="com.elp.model.wrapper.UsernameAndCourse"/>
 	<bean id="Student" class="com.elp.entity.Student"/>

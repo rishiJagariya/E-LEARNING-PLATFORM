@@ -68,8 +68,8 @@ public class CourseController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 
-	@GetMapping("/getTrainerCourseList")
-	public ResponseEntity<List<Course>> getTrainerCourseList(String username) {
+	@GetMapping("/getTrainerCourseList/{username}")
+	public ResponseEntity<List<Course>> getTrainerCourseList(@PathVariable String username) {
 		System.out.println("Im here in trainer course list");
 		String message = null;
 		
@@ -80,8 +80,8 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(trainerCourses, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getStudentEnrollList")
-	public ResponseEntity<List<Student>> getStudentEnrollList(int courseId) {
+	@GetMapping("/getStudentEnrollList/{courseId}")
+	public ResponseEntity<List<Student>> getStudentEnrollList(@PathVariable int courseId) {
 		System.out.println("Im here in student enroll list");
 		String message = null;
 		
@@ -93,7 +93,7 @@ public class CourseController {
 	}
 	
 	@GetMapping("/getCourseList")
-	public ResponseEntity<List<Course>> getCourseList(Course course) {
+	public ResponseEntity<List<Course>> getCourseList(@RequestBody Course course) {
 		System.out.println("Im here in course list");
 		String message = null;
 		
@@ -105,7 +105,7 @@ public class CourseController {
 	}
 	
 	@GetMapping("/getEnrolledCourseList")
-	public ResponseEntity<List<Course>> getEnrolledCourseList(int userId) {
+	public ResponseEntity<List<Course>> getEnrolledCourseList(@RequestParam int userId) {
 		System.out.println("Im here in enrolled course list");
 		String message = null;
 		
@@ -116,8 +116,8 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(coursesEnrolled, HttpStatus.OK);
 	}
 	
-	@GetMapping("/searchTrainerCourses")
-	public ResponseEntity<List<Course>> searchTrainerCourses(String username, String courseName) {
+	@GetMapping("/searchTrainerCourses/{username}/{courseName}")
+	public ResponseEntity<List<Course>> searchTrainerCourses(@PathVariable String username, @PathVariable String courseName) {
 		System.out.println("Im here in search trainer courses");
 		String message = null;
 		

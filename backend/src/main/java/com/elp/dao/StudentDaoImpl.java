@@ -13,6 +13,7 @@ import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Enrollment;
 import com.elp.entity.Student;
+import com.elp.entity.Trainer;
 
 @Repository("studentDao")
 public class StudentDaoImpl implements StudentDao {
@@ -37,7 +38,7 @@ public class StudentDaoImpl implements StudentDao {
 			}
 			else
 			{
-				getSession().saveOrUpdate(student);
+				getSession().save(student);
 				return "user created successfully";
 			}
 		}
@@ -60,12 +61,15 @@ public class StudentDaoImpl implements StudentDao {
 		query.setParameter("userType", student.getUserType());
 		query.setParameter("enroll", student.getEnroll());
 		query.setParameter("trainerId", student.getUserId());
+		query.executeUpdate();
 		return "Updated Successfully";
 	}
 
 	@Override
 	public String deleteStudent(int userId) {
 		Query query = getSession().createQuery("Delete from Student where userId=:userId");
+		query.setParameter("userId", userId);
+		query.executeUpdate();
 		return "Deleted" ;
 	}
 	
@@ -95,19 +99,31 @@ public class StudentDaoImpl implements StudentDao {
 	}
 	
 	@Override
-	public String enroll(int studentId, int courseId) {
+	public String enroll(int userId, int courseId) {
 		Enrollment enrollment = new Enrollment();
-		enrollment.setStudentId(studentId);
+		enrollment.setStudentId(userId);
 		enrollment.setCourseId(courseId);
 		enrollment.setDateOfEnroll(mydate.toString());//TODO: add property
 		enrollment.setDateOfCompletion(null);
-		getSession().saveOrUpdate(enrollment);
-		return null;
+		getSession().save(enrollment);
+		//System.out.println(courseId);
+		int userid = enrollment.getStudentId();
+		Query query = getSession().createQuery("from Student where userId=:userid");
+		query.setParameter("userid", userid);
+		Student student = (Student) query.uniqueResult();
+		List<Integer> enrollList = student.getEnroll();
+		System.out.print(enrollList);
+		enrollList.add(userid);
+		student.setEnroll(enrollList);
+		getSession().update(student);
+		System.out.println(student);
+		return "enrolled";
 	}
 
 	@Override
 	public String unEnroll(int enrollId) {
-		getSession().createQuery("Delete from Enrollment where enrollId=:enrollId");
+		Query query = getSession().createQuery("Delete from Enrollment where courseId=:enrollId");
+		query.setParameter("enrollId", enrollId);
 		return "Unenrolled";
 	}
 	
@@ -119,31 +135,49 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public String removeFromCart(int courseId) {
-		Query query = getSession().createQuery("Delete from Cart where courseId IN (:items)");
+		Query query = getSession().createQuery("select trainerId from Coursetable where courseId=:courseId");
+		query.setParameter("courseId", courseId);
+		int trainerid = (int) query.uniqueResult();
 		//Query query = getSession().createQuery("select userId from Cart where )"
+		Query query1 = getSession().createQuery("Delete from Cart where userId=:trainerid");
+		query1.setParameter("trainerid", trainerid);
+		query.executeUpdate();
 		return "Removed successfully";
 	}
 	
 	@Override
 	public List<Course> viewCart(int userId) {
-		Query query = getSession().createQuery("from Cart where userId=:userId");
-		List<Course> clist = query.list();
+		Query query = getSession().createQuery("select enroll from Student where userId=:userId");
+		query.setParameter("userId", userId);
+		List <Integer> item = query.getResultList();
+		Cart cart = new Cart();
+		cart.setItems(item);
+		getSession().update(cart);
+		Query query1 = getSession().createQuery("from Cart where userId=:userId");
+		query1.setParameter("userId", userId);
+		List<Course> clist = query1.list();
 		return clist; 
 	}
 	
 	@Override
 	public List<Course> getCourseList(Course course) {
 		Query query = getSession().createQuery("from Course");
-		return null;
+		List<Course> CourseList = query.list();
+		return CourseList;
 	}
 
 	
 	
 	@Override
 	public List<Course> getEnrolledCourseList(int courseId) {
-		Query query = getSession().createQuery("select Course.courseName from Course INNERJOIN Enrollment ON Enrollment.courseId=:courseId;");
-		List<Course> stlist = query.list();
-		return stlist; 
+		//Query query = getSession().createQuery("from Course where courseId=:courseId");
+		//query.setParameter("courseId", courseId);
+		//Course course = 
+		Query query = getSession().createQuery("select courseId from Student where" + courseId + "IN (:enroll)");
+		List<Student> CourseList = query.list();
+		Query query1 = getSession().createQuery("from Course where courseId" + CourseList);
+		List<Course> course = query1.list();
+		return course;
 	}
 	
 	@Override

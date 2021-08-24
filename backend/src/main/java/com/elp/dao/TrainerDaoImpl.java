@@ -59,8 +59,10 @@ public class TrainerDaoImpl implements TrainerDao {
 		query.setParameter("Dob", trainer.getDob());
 		query.setParameter("phoneNo", trainer.getPhoneNo());
 		query.setParameter("userType", trainer.getUserType());
-		query.setParameter("courseOffered", trainer.getCourseOffered());
+		List<Integer> courseList = trainer.getCourseOffered();
+		query.setParameter("courseOffered", courseList);
 		query.setParameter("trainerId", trainer.getUserId());
+		query.executeUpdate();
 		return "Updated Successfully";
 	}
 	
@@ -68,6 +70,7 @@ public class TrainerDaoImpl implements TrainerDao {
 	public String deleteTrainer(int userId) {
 		Query query = getSession().createQuery("Delete from Trainer where userId=:userId");
 		query.setParameter("userId", userId);
+		query.executeUpdate();
 		return "Deleted" ;
 	}
 	
@@ -92,11 +95,14 @@ public class TrainerDaoImpl implements TrainerDao {
 		Query query = getSession().createQuery("Update Trainer trainer set username=:username,password=:password where username=:username");
 		query.setParameter("username", username);
 		query.setParameter("password",password);
+		query.executeUpdate();
 		return "Password Updated";
 	}
 	
 	@Override
 	public String createCourse(Course course) {
+		getSession().save(course);
+		System.out.println(course);
 		int courseId = course.getCourseId();
 		System.out.println(courseId);
 		Query<?> query = getSession().createQuery("from Trainer where userId=:trainerId");
@@ -109,7 +115,6 @@ public class TrainerDaoImpl implements TrainerDao {
 		trainer.setCourseOffered(courseList);
 		getSession().update(trainer);
 		System.out.println(trainer);
-		getSession().save(course);
 		return "Course created";
 	}
 
@@ -147,8 +152,19 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public String deleteCourse(String username,int courseId) {
-		Query query = getSession().createQuery("Delete from Trainer where courseId IN (:courseOffered) and username=:username");
-		return "Course deleted";
+		Query query = getSession().createQuery("select userId from Trainer where username=:username");
+		query.setParameter("username",username);
+		int userid = (int) query.uniqueResult();
+		Query query1 = getSession().createQuery("from Course where courseId=:courseId");
+		query1.setParameter("courseId",courseId);
+		Course course = (Course) query1.uniqueResult();
+		if(userid==course.getTrainerId())
+		{
+			Query query2 = getSession().createQuery("Delete from Course where courseId=:courseId");
+			query2.setParameter("courseId", courseId);
+			query2.executeUpdate();
+		}
+		return "Deleted";
 	}
 	
 	@Override
@@ -158,7 +174,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		query.setParameter("username",username);
 		Integer userid = (Integer) query.uniqueResult();
 		System.out.println(userid);
-		Query query1 = getSession().createQuery("from Course where trainerId=:userid");
+		Query query1 = getSession().createQuery("select courseName from Course where trainerId=:userid");
 		query1.setParameter("userid", userid);
 		List<Course> course = query1.list();
 		return course;
@@ -166,9 +182,11 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public List<Student> getStudentEnrollList(int courseId) {
-		Query query = getSession().createQuery("select Enrollment.userId from Enrollment where courseId" + courseId);
+		Query query = getSession().createQuery("select studentId from Enrollment where courseId=:courseId");
+		query.setParameter("courseId", courseId);
 		List<Student> userid = query.list();
-		Query query1 = getSession().createQuery("select userName from Student where" + userid + "IN (:enroll)");
+		Query query1 = getSession().createQuery("select userName from Student where userid IN (:enroll)");
+		query.setParameter("userid", userid);
 		List<Student> student = query1.list();
 		return student;
 	}
@@ -177,8 +195,10 @@ public class TrainerDaoImpl implements TrainerDao {
 	//, String courseName
 	public List<Course> searchTrainerCourses(String username) {
 		Query query = getSession().createQuery("select userId from Trainer where username=:username");
+		query.setParameter("username", username);
 		int userid = (int) query.uniqueResult();
 		Query query1 = getSession().createQuery("select courseName from Course where trainerId=:userid");
+		query.setParameter("userid", userid);
 		List<Course> course = query1.list();
 		return course;
 	}
