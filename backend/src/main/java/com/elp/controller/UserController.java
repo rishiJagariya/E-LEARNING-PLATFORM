@@ -18,6 +18,7 @@ import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
 import com.elp.entity.User;
+import com.elp.model.wrapper.LoginData;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 
@@ -123,46 +124,36 @@ public class UserController {
 //	}
 
 	@PostMapping("/userlogin")
-	public ResponseEntity<String> userLogin(@RequestBody MultiValueMap<String, String> formData)
+	public ResponseEntity<String> userLogin(@RequestBody LoginData loginData)
 	{
-    	System.out.println("Into UserLogin Controller");
+    	System.out.println("Into UserLogin Controller" + loginData);
     	String message = null;
-    	String username = formData.getFirst("username");
-    	String password = formData.getFirst("password");
-    	String userType = formData.getFirst("usertype");
+    	String username = loginData.getUsername();
+    	String password = loginData.getPassword();
+    	String userType = loginData.getUserType();
    
         if (userType.equals("trainer")) {
             Trainer trainer = trainerService.getTrainerByUsername(username);
-           
             if (trainer == null)
-                message = "Username is incorrect"; 
+                message = "UsernameError"; 
             else if (trainer.getPassword().equals(password))
-                message = "User logged in successfully";  
+                message = "Success";  
             else 
-                message = "Password is incorrect";
-        	
-//        	HttpSession oldSession = HttpSession.getSession(false);
-//        	
-//        	if(oldSession != null) {
-//        		oldSession.invalidate();
-//        	}
-//        	HttpSession newSession = request.getSession(true);
-//        	
-        	//TODO: save the session & token(JWT) to Cookies (client)
-        	
-        } else if (userType.equals("student")) {
-        	
-          	System.out.println("i'm here - student ");
-            Student student = studentService.getStudentByUsername(username);
+                message = "PasswordError";
             
+            System.out.println(trainer);
+         	
+        } else if (userType.equals("student")) {
+          	System.out.println("i'm here in student login ");
+            Student student = studentService.getStudentByUsername(username);
             if (student == null)
-                message = "Username is incorrect";
+                message = "UsernameError";
             else if (student.getPassword().equals(password))
-                message = "User logged in successfully"; 
+                message = "Success"; 
             else
-                message = "Password is incorrect";
+                message = "PasswordError";
         	
-        	System.out.println(student);
+        	System.out.println(message + student);
         }
         
         return new ResponseEntity<String>(message, HttpStatus.OK);

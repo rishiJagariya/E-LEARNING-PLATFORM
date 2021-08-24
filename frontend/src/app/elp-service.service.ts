@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { User } from './user';
 import { Course } from './course';
+import { UserLoginInfo } from './userLoginInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class ElpServiceService {
 
   httpOptions = {
     headers: new HttpHeaders({
+      'Accept' : 'application/json',
       'Content-Type': 'application/json',
     }),
   };
@@ -38,7 +40,8 @@ export class ElpServiceService {
     return this.http
       .post<User>(
         this.userRestUrl + '/createuser',
-        JSON.stringify(newUser)
+        JSON.stringify(newUser),
+        this.httpOptions,
       )
       .pipe(catchError(this.handleError))
   }
@@ -59,6 +62,17 @@ export class ElpServiceService {
         JSON.stringify(course)
       )
       .pipe(catchError(this.handleError))
+  }
+
+  userLogin(userLoginInfo : UserLoginInfo) : Observable<String> {
+    return this.http
+      .post<String>(
+        this.userRestUrl + '/userlogin',
+        JSON.stringify(userLoginInfo),
+        this.httpOptions
+        //incomplete
+      )
+
   }
 
   handleError(err : any) {
