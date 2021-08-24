@@ -92,7 +92,7 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public String updatePassword(String username, String password) {
-		Query query = getSession().createQuery("Update Trainer trainer set username=:username,password=:password where username=:username");
+		Query query = getSession().createQuery("Update Trainer trainer set password=:password where username=:username");
 		query.setParameter("username", username);
 		query.setParameter("password",password);
 		query.executeUpdate();

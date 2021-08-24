@@ -67,8 +67,8 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public String removeFromCart(int courseId) {
-		return studentDao.removeFromCart(courseId);
+	public String removeFromCart(int courseId,int studentId) {
+		return studentDao.removeFromCart(courseId,studentId);
 	}
 	
 	@Override

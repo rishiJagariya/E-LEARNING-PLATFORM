@@ -16,7 +16,7 @@ public interface StudentDao {
 	public String enroll(int userId,int courseId);
 	public String unEnroll(int enrollId);
 	public String addToCart(Cart cart);
-	public String removeFromCart(int courseId);
+	public String removeFromCart(int courseId,int studentId);
 	public List<Course> viewCart(int userId);
 	public List<Course> getEnrolledCourseList(int userId);
 	public List<Course> getCourseList(Course course);
