@@ -6,6 +6,7 @@ import { User } from './user';
 import { Course } from './course';
 import { UserLoginInfo } from './userLoginInfo';
 import { ResponseObject } from './responseObject';
+import { UsernameAndCourse } from './usernameAndCourse';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,26 @@ export class ElpServiceService {
 
   constructor(private http: HttpClient) {}
 
+  //object for add
+  public trainerUpdateCourseData : UsernameAndCourse = {
+    course:  {
+      courseId : 0,
+      courseName : '',
+      description : '',
+      category : '',
+      fee: 0,
+      duration: 0,
+      rating : 0,
+      trainerId : 0
+    },
+    username: ''
+  }
+
   httpOptions = {
     headers: new HttpHeaders({
       'Accept' : 'application/json',
       'Content-Type': 'application/json',
+
     }),
   };
 
@@ -70,36 +87,52 @@ export class ElpServiceService {
   
   /* COURSE RELATED FUNCTIONS */
 
-  createCourse(course : Course) : Observable<Course> {
+  createCourse(course : Course) : Observable<ResponseObject> {
     return this.http
-      .post<Course>(
+      .post<ResponseObject>(
         this.courseRestUrl + '/createcourse',
-        JSON.stringify(course)
+        JSON.stringify(course),
+        this.httpOptions
       )
       .pipe(catchError(this.handleError))
   }
 
-  updateCourse(course : Course) : Observable<Course> {
+  updateCourse(updateCourseData : UsernameAndCourse) : Observable<ResponseObject> {
     return this.http
-      .post<Course>(
+      .put<ResponseObject>(
         this.courseRestUrl + '/updatecourse',
-        JSON.stringify(course)
+        JSON.stringify(updateCourseData),
+        this.httpOptions
       )
       .pipe(catchError(this.handleError))
   }
 
   loadTrainerCourses(username : string) : Observable<Course[]> {
     return this.http
-      .get<Course[]>(
-        this.courseRestUrl + '/getTrainerCourseList' + '/' + username,
-      )
+      .get<Course[]>(this.courseRestUrl + '/getTrainerCourseList/' + username, this.httpOptions)
+      .pipe(catchError(this.handleError))
   }
 
   loadEnrolledCourses(userId : Number) : Observable<Course[]> {
     return this.http
+      .get<Course[]>(this.courseRestUrl + '/getEnrolledCourseList' + '/' + userId, this.httpOptions)
+      .pipe(catchError(this.handleError))
+  }
+
+  loadCourses() : Observable<Course[]> {
+    return this.http
       .get<Course[]>(
-        this.courseRestUrl + '/getEnrolledCourseList' + '/' + userId,
+        this.courseRestUrl + '/getCourseList',
       )
+  }
+
+  deleteCourse(username : string, courseId : Number) : Observable<ResponseObject> {
+    console.log("into delete course service")
+    return this.http
+      .delete<ResponseObject>(
+        this.courseRestUrl + '/deletecourse/' + username + '/' + courseId,
+        this.httpOptions
+      ).pipe(catchError(this.handleError))
   }
 
   handleError(err : any) {

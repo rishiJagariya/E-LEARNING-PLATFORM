@@ -3,6 +3,10 @@ package com.elp.model.wrapper;
 import com.elp.entity.Course;
 
 
+/**
+ * @author Rishi Jagariya
+ *
+ */
 public class UsernameAndCourse {
 	String username;
 	Course course;

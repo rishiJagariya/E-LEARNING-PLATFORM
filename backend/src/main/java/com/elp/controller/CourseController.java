@@ -19,10 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.elp.entity.Course;
 import com.elp.entity.Student;
+import com.elp.entity.Trainer;
+import com.elp.model.wrapper.ResponseMsgObject;
 import com.elp.model.wrapper.UsernameAndCourse;
 import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
+/**
+ * @author Ritika
+ *
+ */
 @RestController()
 @RequestMapping(value = "/course")
 @CrossOrigin(origins = "http://localhost:4200",allowCredentials = "false",allowedHeaders = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
@@ -34,18 +40,20 @@ public class CourseController {
 	@Autowired
 	TrainerService trainerService;
 	@PostMapping("/createcourse")
-	public ResponseEntity<String> createCourse(@RequestBody Course course) {
+	public ResponseEntity<ResponseMsgObject> createCourse(@RequestBody Course course) {
 		System.out.println("Im here in create course");
 		String message = null;
 		
 		message = trainerService.createCourse(course);
 		System.out.println(message);
+		Trainer trainer = trainerService.getTrainerById(course.getTrainerId());
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+        ResponseMsgObject res = new ResponseMsgObject(message, "trainer", trainer.getUsername());
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatecourse")
-	public ResponseEntity<String> updateCourse(@RequestBody UsernameAndCourse usernameAndCourse) {
+	public ResponseEntity<ResponseMsgObject> updateCourse(@RequestBody UsernameAndCourse usernameAndCourse) {
 		String username = usernameAndCourse.getUsername();
 		Course course = usernameAndCourse.getCourse();
 		System.out.println(username + " " + course);
@@ -54,20 +62,23 @@ public class CourseController {
 		message = trainerService.updateCourse(username, course);
 		System.out.println(message);
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, "trainer", username);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletecourse/{username}/{courseId}")
-	public ResponseEntity<String> deleteCourse(@PathVariable String username, @PathVariable int courseId) {
-		System.out.println("Im here in delete course");
+	public ResponseEntity<ResponseMsgObject> deleteCourse(@PathVariable("username") String username, @PathVariable("courseId") int courseId) {
+		System.out.println("Im here in delete course" + username + " " + courseId);
 		String message = null;
 		
 		message = trainerService.deleteCourse(username, courseId);
 		System.out.println(message);
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, "trainer", username);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getTrainerCourseList/{username}")
 	public ResponseEntity<List<Course>> getTrainerCourseList(@PathVariable String username) {
 		System.out.println("Im here in trainer course list");

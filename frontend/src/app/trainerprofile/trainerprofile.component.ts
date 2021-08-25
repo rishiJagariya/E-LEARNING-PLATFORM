@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { data } from 'jquery';
 import { Course } from '../course';
 import { ElpServiceService } from '../elp-service.service';
 import { TrainerData } from '../trainerData';
+import { UsernameAndCourse } from '../usernameAndCourse';
 
 @Component({
   selector: 'trainerprofile',
@@ -14,9 +16,9 @@ export class TrainerprofileComponent implements OnInit {
 
   searchText : string = ''
   trainerData : TrainerData = {
-    userId: 0,
+    userId: 26,
     userType: 'trainer',
-    username: '',
+    username: 'rishabhajgariya',
     password: '',
     fname: 'Rishi',
     lname: 'Jagariya',
@@ -24,17 +26,7 @@ export class TrainerprofileComponent implements OnInit {
     phoneNo: '9582346634',
     courseOffered: []
   }
-  courseList : Course[] = [ {
-    "courseId" : 1,
-    "courseName" : "JAVA",
-    "fee" : 400,
-    "category" : "CS",
-    "trainerId" : 101,
-    "duration" : 0,
-    "description" : "",
-    "rating" : 0
-    },
-  ]
+  courseList : Course[] = []
     
   ngOnInit(): void {
     this.loadCourses()
@@ -48,15 +40,26 @@ export class TrainerprofileComponent implements OnInit {
   loadCourses() {
     return this.restApi
       .loadTrainerCourses(this.trainerData.username)
-      .subscribe((data) => { this.courseList = data})
+      .subscribe((data) => { console.log(data); this.courseList = data})
   }
 
-  editCourse() {
-    
+  editCourse(course : Course) {
+    console.log("im here in edit course")
+    var username : string = this.trainerData.username
+    this.restApi.trainerUpdateCourseData = {
+      course: course,
+      username: username
+    }
+    console.log(this.restApi.trainerUpdateCourseData)
+    this.router.navigate(['/updatecourse'])
   }
 
-  deleteCourse() {
-
+  deleteCourse(courseId : Number) {
+      var username : string = this.trainerData.username
+      console.log(courseId + " " + username)
+    return this.restApi.deleteCourse(username, courseId).subscribe(data => {
+      console.log("deleted")
+    })
   }
 
   logout() {

@@ -1,87 +1,43 @@
-<body style="background-color: rgb(192,192,192);">
-    <div id="box1">
-        <div class="form-group" class="text-center">
-            <h1 for="updatecourse">Update Course</h1>
-        </div>
+<div id="box1" class="container">
+    <div class="form-group" class="text-center">
+        <h1 for="updatecourse">Update Course</h1>
+    </div>
     <form #formData="ngForm" style=" padding: 20px; border-radius: 10px;" (ngSubmit)="submitForm(formData)">
         <div class="form-group">
             <label for="trainerId">Trainer Id</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="tarinerId" 
-            name="trainerId"
-            placeholder="Enter Trainer Id"
-            [(ngModel)]="updateCourse.trainerId"
-            disabled>
+            <input type="text" class="form-control" id="tarinerId" name="trainerId" placeholder="Enter Trainer Id"
+                [(ngModel)]="updateCourse.trainerId" disabled>
         </div>
         <div class="form-group">
             <label for="courseId">Course Id</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="courseId" 
-            name="courseId"
-            placeholder="Enter Course Id"
-            [(ngModel)]="updateCourse.courseId"
-            disabled>
+            <input type="text" class="form-control" id="courseId" name="courseId" placeholder="Enter Course Id"
+                [(ngModel)]="updateCourse.courseId" disabled>
         </div>
-        <div class="form-group" >
+        <div class="form-group">
             <label for="courseName">Course Name</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="courseName" 
-            name="courseName"
-            placeholder="Enter Course Name"
-            [(ngModel)]="updateCourse.courseName"
-            required>
+            <input type="text" class="form-control" id="courseName" name="courseName" placeholder="Enter Course Name"
+                [(ngModel)]="updateCourse.courseName" required>
         </div>
         <div class="form-group">
             <label for="description">Course Description</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="description" 
-            name="description"
-            placeholder="Enter Course Description"
-            [(ngModel)]="updateCourse.description"
-            required>
+            <input type="text" class="form-control" id="description" name="description"
+                placeholder="Enter Course Description" [(ngModel)]="updateCourse.description" required>
         </div>
         <div class="form-group">
             <label for="category">Course Category</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="category" 
-            name="category"
-            placeholder="Enter Course Category"
-            [(ngModel)]="updateCourse.category"
-            required>
+            <input type="text" class="form-control" id="category" name="category" placeholder="Enter Course Category"
+                [(ngModel)]="updateCourse.category" required>
         </div>
         <div class="form-group">
             <label for="fee">Course Fee</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="fee" 
-            name="fee"
-            placeholder="Enter Course Fee"
-            [(ngModel)]="updateCourse.fee"
-            required>
+            <input type="text" class="form-control" id="fee" name="fee" placeholder="Enter Course Fee"
+                [(ngModel)]="updateCourse.fee" required>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="duration">Course Duration</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="duration" 
-            name="duration"
-            placeholder="Enter Course Duratiuon in number of days"
-            [(ngModel)]="updateCourse.duration"
-            required>
+            <input type="text" class="form-control" id="duration" name="duration"
+                placeholder="Enter Course Duratiuon in number of days" [(ngModel)]="updateCourse.duration" required>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
-      </form>
-    </div>
-    </body>
+    </form>
+</div>

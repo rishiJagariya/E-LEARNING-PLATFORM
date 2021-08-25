@@ -19,7 +19,7 @@ export class AddcourseComponent implements OnInit {
     fee: 0,
     duration: 0,
     rating : 8,
-    trainerId : 101
+    trainerId : 26
   }
 
   constructor(public restApi: ElpServiceService, public router: Router) {}
@@ -34,7 +34,10 @@ export class AddcourseComponent implements OnInit {
       this.restApi
         .createCourse(this.newCourse)
         .subscribe(data => {
-          this.router.navigate(['/trainerprofile'])
+          if(data.message == "Success")
+            this.router.navigate(['/trainerprofile'])
+          else
+            alert("some error occured")
         })
     } else {
       alert("fields are empty")

@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Course } from '../course';
 
 import { ElpServiceService } from '../elp-service.service';
+import { UsernameAndCourse } from '../usernameAndCourse';
 
 @Component({
   selector: 'updatecourse',
@@ -11,7 +13,7 @@ import { ElpServiceService } from '../elp-service.service';
 export class UpdatecourseComponent implements OnInit {
 
   @Input()
-  updateCourse = {
+  updateCourse : Course = {
     courseId : 1,
     courseName : 'Java',
     description : 'Java is a programming language',
@@ -25,16 +27,28 @@ export class UpdatecourseComponent implements OnInit {
   constructor(public restApi: ElpServiceService, public router: Router) { }
 
   ngOnInit(): void {
+    this.updateCourse = this.restApi.trainerUpdateCourseData.course
   }
 
   submitForm(formData : any) {
     if(formData.valid){
-      console.log(this.updateCourse)
-      this.restApi
-        .updateCourse(this.updateCourse)
-        .subscribe(data => {
-          this.router.navigate(['/trainerprofile'])
-        })
+      if(this.updateCourse.trainerId == 0)
+      {
+        alert("wrong trainer id");
+        this.router.navigate(['/trainerprofile'])
+      } else {
+        console.log(this.updateCourse)
+        var updateCourseData : UsernameAndCourse = {
+          course : this.updateCourse,
+          username : this.restApi.trainerUpdateCourseData.username
+        }
+        this.restApi
+          .updateCourse(updateCourseData)
+          .subscribe(data => {
+            this.router.navigate(['/trainerprofile'])
+            alert("course updated sccessfully")
+          })
+      }
     } else {
       alert("fields are empty")
     }  

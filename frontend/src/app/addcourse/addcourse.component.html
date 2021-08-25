@@ -1,77 +1,38 @@
-<body style="background-color: rgb(192,192,192);">
-    <div id="box1">
-        <div class="form-group" class="text-center">
-            <h1 for="course">Add Course</h1>
-        </div>
+<div id="box1" class="container">
+    <div class="form-group" class="text-center">
+        <h1 for="course">Add Course</h1>
+    </div>
     <form #formData="ngForm" style=" padding: 20px; border-radius: 10px;" (ngSubmit)="submitForm(formData)">
         <div class="form-group">
             <label for="trainerId">Trainer Id</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="tarinerId" 
-            name="trainerId"
-            placeholder="Enter Trainer Id"
-            [(ngModel)]="newCourse.trainerId"
-            disabled>
+            <input type="text" class="form-control" id="tarinerId" name="trainerId" placeholder="Enter Trainer Id"
+                [(ngModel)]="newCourse.trainerId" disabled>
         </div>
-        <div class="form-group" >
+        <div class="form-group">
             <label for="courseName">Course Name</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="courseName" 
-            name="courseName"
-            [(ngModel)]="newCourse.courseName"
-            placeholder="Enter Course Name"
-
-            required>
+            <input type="text" class="form-control" id="courseName" name="courseName" [(ngModel)]="newCourse.courseName"
+                placeholder="Enter Course Name" required>
         </div>
         <div class="form-group">
             <label for="description">Course Description</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="description" 
-            name="description"
-            placeholder="Enter Course Description"
-            [(ngModel)]="newCourse.description"
-            required>
+            <input type="text" class="form-control" id="description" name="description"
+                placeholder="Enter Course Description" [(ngModel)]="newCourse.description" required>
         </div>
         <div class="form-group">
             <label for="category">Course Category</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="category" 
-            name="category"
-            placeholder="Enter Course Category"
-            [(ngModel)]="newCourse.category"
-            required>
+            <input type="text" class="form-control" id="category" name="category" placeholder="Enter Course Category"
+                [(ngModel)]="newCourse.category" required>
         </div>
         <div class="form-group">
             <label for="fee">Course Fee</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="fee" 
-            name="fee"
-            placeholder="Enter Course Fee"
-            [(ngModel)]="newCourse.fee"
-            required>
+            <input type="text" class="form-control" id="fee" name="fee" placeholder="Enter Course Fee"
+                [(ngModel)]="newCourse.fee" required>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="duration">Course Duration</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="duration" 
-            name="duration"
-            placeholder="Enter Course Duratiuon in number of days"
-            [(ngModel)]="newCourse.duration"
-            required>
+            <input type="text" class="form-control" id="duration" name="duration"
+                placeholder="Enter Course Duratiuon in number of days" [(ngModel)]="newCourse.duration" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
-    </body>
+        <button type="submit" class="btn btn-primary" >Submit</button>
+    </form>
+</div>

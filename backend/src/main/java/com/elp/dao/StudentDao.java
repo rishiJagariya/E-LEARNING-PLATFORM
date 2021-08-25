@@ -6,6 +6,10 @@ import com.elp.entity.Cart;
 import com.elp.entity.Course;
 import com.elp.entity.Student;
 
+/**
+ * @author Rudresh Sunagad
+ *
+ */
 public interface StudentDao {
 	public String createStudent(Student student);
 	public String updateStudent(Student student);
