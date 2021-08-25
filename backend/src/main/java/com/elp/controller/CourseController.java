@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.elp.entity.Course;
 import com.elp.entity.Student;
+import com.elp.entity.Trainer;
+import com.elp.model.wrapper.ResponseMsgObject;
 import com.elp.model.wrapper.UsernameAndCourse;
 import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
@@ -34,14 +36,16 @@ public class CourseController {
 	@Autowired
 	TrainerService trainerService;
 	@PostMapping("/createcourse")
-	public ResponseEntity<String> createCourse(@RequestBody Course course) {
+	public ResponseEntity<ResponseMsgObject> createCourse(@RequestBody Course course) {
 		System.out.println("Im here in create course");
 		String message = null;
 		
 		message = trainerService.createCourse(course);
 		System.out.println(message);
+		Trainer trainer = trainerService.getTrainerById(course.getTrainerId());
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+        ResponseMsgObject res = new ResponseMsgObject(message, "trainer", trainer.getUsername());
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatecourse")
@@ -68,6 +72,7 @@ public class CourseController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getTrainerCourseList/{username}")
 	public ResponseEntity<List<Course>> getTrainerCourseList(@PathVariable String username) {
 		System.out.println("Im here in trainer course list");

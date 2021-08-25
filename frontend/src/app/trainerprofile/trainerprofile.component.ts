@@ -14,9 +14,9 @@ export class TrainerprofileComponent implements OnInit {
 
   searchText : string = ''
   trainerData : TrainerData = {
-    userId: 0,
+    userId: 26,
     userType: 'trainer',
-    username: '',
+    username: 'rishabhajgariya',
     password: '',
     fname: 'Rishi',
     lname: 'Jagariya',
@@ -48,7 +48,7 @@ export class TrainerprofileComponent implements OnInit {
   loadCourses() {
     return this.restApi
       .loadTrainerCourses(this.trainerData.username)
-      .subscribe((data) => { this.courseList = data})
+      .subscribe((data) => { console.log(data); this.courseList = data})
   }
 
   editCourse() {

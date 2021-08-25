@@ -115,7 +115,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		trainer.setCourseOffered(courseList);
 		getSession().update(trainer);
 		System.out.println(trainer);
-		return "Course created";
+		return "Success";
 	}
 
 	@Override
