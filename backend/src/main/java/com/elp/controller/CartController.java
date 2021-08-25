@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,12 +55,12 @@ public class CartController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-	@PostMapping("/addToCart")
-	public ResponseEntity<String> addToCart(@RequestBody Cart cart) {
-		System.out.println("Im here in add to cart" + cart);
+	@PostMapping("/addToCart/{courseId}/{userId}")
+	public ResponseEntity<String> addToCart(@PathVariable int courseId,@PathVariable int userId) {
+		System.out.println("Im here in add to cart" + courseId);
 		String message = null;
 		
-		message = studentService.addToCart(cart);
+		message = studentService.addToCart(courseId,userId);
 		System.out.println(message);
 		
 		return new ResponseEntity<String>(message, HttpStatus.OK);
