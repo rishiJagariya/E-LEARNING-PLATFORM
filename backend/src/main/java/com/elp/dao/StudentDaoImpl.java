@@ -120,7 +120,7 @@ public class StudentDaoImpl implements StudentDao {
 		Student student = (Student) query.uniqueResult();
 		List<Integer> enrollList = student.getEnroll();
 		System.out.print(enrollList);
-		enrollList.add(userid);
+		enrollList.add(courseId);
 		student.setEnroll(enrollList);
 		getSession().update(student);
 		System.out.println(student);
@@ -129,17 +129,22 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public String unEnroll(int userId,int courseId) {
+		int courseid = courseId;
 		Query query = getSession().createQuery("from Student where userId=:userId");
 		query.setParameter("userId", userId);
 		Student student = (Student) query.uniqueResult();
 		List<Integer> cList = student.getEnroll();
+		System.out.println(cList);
 		if(cList.contains(courseId))
 		{
-			student.getEnroll().remove(courseId);
-			Query query1 = getSession().createQuery("Delete from Enrollment where courseId=:courseId");
-			query1.setParameter("courseId", courseId);
-			query.executeUpdate();
+			Query query1 = getSession().createQuery("Delete from Enrollment where courseId=:courseid");
+			query1.setParameter("courseid", courseid);
+			query1.executeUpdate();
 		}
+		cList.remove(courseId);
+		System.out.println(cList);
+		student.setEnroll(cList);
+		getSession().update(student);
 		return "Unenrolled";
 	}
 	
@@ -232,7 +237,7 @@ public class StudentDaoImpl implements StudentDao {
 			Query query1 = getSession().createQuery("from Course where courseId=:i");
 			query1.setParameter("i",i);
 			Course course = (Course) query1.setMaxResults(1).uniqueResult();
-			clist.add(course);
+			clist = query1.list();
 		}
 		return clist; 
 	}

@@ -49,7 +49,7 @@ public class CartController {
 	}
 	
 	@DeleteMapping("/unenrollFromCourse/{userId}/{courseId}")
-	public ResponseEntity<String> unenrollFromCourse(@PathVariable int userId,int courseId) {
+	public ResponseEntity<String> unenrollFromCourse(@PathVariable int userId,@PathVariable int courseId) {
 		System.out.println("Im here in unenroll from course");
 		String message = null;
 		

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Course } from '../course';
+import { ElpServiceService } from '../elp-service.service';
 
 @Component({
   selector: 'cart',
@@ -7,44 +10,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
-  products={
-    Courseid:'',
-    Coursename:'',
-    Catagory:'',
-    Price:'',
-  } ;
-  
-  rows = [
-    {
-      "Courseid" : "1",
-      "Coursename" : "JAVA",
-      "Catagory" : "CS",
-       "Price":"200",
-    },
-    {
-      "Courseid" : "2",
-      "Coursename" : "C++",
-      "Catagory" : "CS",
-      "Price":"500",
-      
-    },
-    {
-      "Courseid" : "3",
-      "Coursename" : "Applied Physics",
-      "Catagory" : "EEE",
-      "Price":"200"
+  constructor( public restApi: ElpServiceService, public router: Router ) { } 
 
+  cartItems : Course[] = [{
+    courseId: 0,
+    courseName: '',
+    description: '',
+    category: '',
+    fee: 0,
+    duration: 0,
+    rating: 0,
+    trainerId: 0
     },
-    {
-      "Courseid" : "4",
-      "Coursename" : "Electronic Devices and Circuits",
-      "Catagory" : "EEE",
-
-    },
-
   ]
-  ngOnInit(): void {
+  courseList : Course[] = []
+  total(){
+
   }
- 
+
+  ngOnInit(): void {
+   // this.getCartItems(userId : Number)
+  }
+
+  getCartItems(userId : Number) {
+    //fetch data from backend
+    console.log("im here in view cart")
+   // this.cartItems = this.restApi.getCartItems(userId : Number)
+  }
+  deleteCart(courseId : Number) {
+    console.log(courseId)
+  }
 }
+
+
+
