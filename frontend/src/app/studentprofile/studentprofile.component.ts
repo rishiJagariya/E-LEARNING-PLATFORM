@@ -24,17 +24,7 @@ export class StudentprofileComponent implements OnInit {
     phoneNo: '9887736549',
     enroll: []
   }
-  courseList : Course[] = [ {
-    "courseId" : 1,
-    "courseName" : "JAVA",
-    "fee" : 400,
-    "category" : "CS",
-    "trainerId" : 101,
-    "duration" : 0,
-    "description" : "",
-    "rating" : 0
-    },
-  ]
+  courseList : Course[] = [ ]
     
   ngOnInit(): void {
     this.loadCourses()
@@ -49,6 +39,17 @@ export class StudentprofileComponent implements OnInit {
     return this.restApi
       .loadEnrolledCourses(this.studentData.userId)
       .subscribe((data) => { console.log(data); this.courseList = data})
+  }
+
+  courseCompletion() {
+    console.log("Course is completed")
+  }
+
+  unenrollCourse(courseId : Number) {
+    console.log("im here in unenroll course")
+    var userId : Number = this.studentData.userId
+    return this.restApi.unenrollFromCourse(courseId, userId)
+    .subscribe(data => { console.log(data) })
   }
 
   logout() {
