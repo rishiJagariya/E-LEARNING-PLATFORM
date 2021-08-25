@@ -56,7 +56,7 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public String updateTrainer(Trainer trainer) {
-		Query query = getSession().createQuery("Update Trainer trainer set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType,courseOffered=:courseOffered where userId=:trainerId");
+		Query query = getSession().createQuery("Update Trainer trainer set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType where userId=:userId");
 		query.setParameter("userName", trainer.getUsername());
 		query.setParameter("password", trainer.getPassword());
 		query.setParameter("fname", trainer.getFname());
@@ -64,9 +64,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		query.setParameter("Dob", trainer.getDob());
 		query.setParameter("phoneNo", trainer.getPhoneNo());
 		query.setParameter("userType", trainer.getUserType());
-		List<Integer> courseList = trainer.getCourseOffered();
-		query.setParameter("courseOffered", courseList);
-		query.setParameter("trainerId", trainer.getUserId());
+		query.setParameter("userId", trainer.getUserId());
 		query.executeUpdate();
 		return "Updated Successfully";
 	}

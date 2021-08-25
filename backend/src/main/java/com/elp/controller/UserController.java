@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +43,7 @@ public class UserController {
 	public ResponseEntity<ResponseMsgObject> createUser(@RequestBody User user) {
 		System.out.println("Im here in create user");	
 		String message = null;
-		
-		if (user.getUserType().equals("trainer")) {
+		if(user.getUserType().equals("trainer")) {
 			System.out.println("hello trainer");
 			Trainer newTrainer = new Trainer(user);
 			
@@ -96,8 +96,8 @@ public class UserController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/deletestudent")
-	public ResponseEntity<String> deleteStudent(@RequestParam int userId) {
+	@DeleteMapping("/deletestudent/{userId}")
+	public ResponseEntity<String> deleteStudent(@PathVariable int userId) {
 		System.out.println("Im here in delete student");
 		String message = null;
 		
