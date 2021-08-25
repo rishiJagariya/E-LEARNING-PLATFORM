@@ -58,6 +58,7 @@ export class TrainerprofileComponent implements OnInit {
       console.log(courseId + " " + username)
     return this.restApi.deleteCourse(username, courseId).subscribe(data => {
       console.log("deleted")
+      this.loadCourses()
     })
   }
 

@@ -243,31 +243,21 @@ public class StudentDaoImpl implements StudentDao {
 		List<Course> CourseList = query.list();
 		return CourseList;
 	}
-
-	
 	
 	@Override
-	public List<Course> getEnrolledCourseList(int courseId) {
-		//Query query = getSession().createQuery("from Course where courseId=:courseId");
-		//query.setParameter("courseId", courseId);
-		//Course course = 
-		
-		Query query = getSession().createQuery("select userId from Enrollment where courseId=:courseId");
-		query.setParameter("courseId",courseId);
-		int userid = (int) query.uniqueResult();
-		Query query1 = getSession().createQuery("from Student where userId=:userid");
-		query1.setParameter("userid", userid);
-		Student student = (Student) query.setMaxResults(1).uniqueResult();
-		List<Course> cList = null;
-		List<Integer> enrollList = student.getEnroll();
-		for(int i : enrollList)
-		{
-			Query query2 = getSession().createQuery("from Course where courseId=:i");
-			query.setParameter("i", i);
+	public List<Course> getEnrolledCourseList(int userId) {
+		Query query = getSession().createQuery("from Student where userId=:userId");
+		query.setParameter("userId",userId);
+		Student student = (Student) query.uniqueResult();
+		List<Course> courseList = null;
+		for(int courseId : student.getEnroll()) {
+			Query query2 = getSession().createQuery("from Coursetable where courseId=:courseId");
+			query.setParameter("courseId", courseId);
 			Course course = (Course) query2.setMaxResults(1).uniqueResult();
-			cList.add(course);
+			courseList.add(course);
 		}
-		return cList;
+		
+		return courseList;
 	}
 	
 	@Override
