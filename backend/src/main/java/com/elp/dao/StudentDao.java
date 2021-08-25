@@ -17,12 +17,12 @@ public interface StudentDao {
 	public Student getStudentById(int userId);
 	public Student getStudentByUsername(String username);
 	public String updatePassword(String username, String password);
-	public String enroll(int userId,int courseId);
+	public String enroll(int userId);
 	public String unEnroll(int userId,int courseId);
 	public String addToCart(int courseId,int userId);
 	public String removeFromCart(int courseId,int studentId);
 	public List<Course> viewCart(int userId);
 	public List<Course> getEnrolledCourseList(int userId);
-	public List<Course> getCourseList(Course course);
+	public List<Course> getCourseList();
 	public List<Course> searchCourses(String courseName);
 }

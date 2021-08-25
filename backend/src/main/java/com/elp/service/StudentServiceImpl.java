@@ -56,8 +56,8 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public String enroll(int userId, int courseId) {
-		return studentDao.enroll(userId, courseId);
+	public String enroll(int userId) {
+		return studentDao.enroll(userId);
 	}
 	
 	@Override
@@ -81,8 +81,8 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public List<Course> getCourseList(Course course) {
-		return studentDao.getCourseList(course);
+	public List<Course> getCourseList() {
+		return studentDao.getCourseList();
 	}
 
 	@Override

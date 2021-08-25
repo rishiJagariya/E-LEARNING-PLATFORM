@@ -14,38 +14,9 @@ export class CoursesComponent implements OnInit {
   
   searchText : string = ''
 
-  userid : Number = 101 //TODO
+  userid : Number = 27 //TODO
 
-  courseList : Course[] = [ {
-    "courseId" : 1,
-    "courseName" : "JAVA",
-    "fee" : 400,
-    "category" : "CS",
-    "trainerId" : 101,
-    "duration" : 0,
-    "description" : "",
-    "rating" : 0
-    },
-    {
-      "courseId" : 1,
-      "courseName" : "JAVA",
-      "fee" : 400,
-      "category" : "CS",
-      "trainerId" : 101,
-      "duration" : 0,
-      "description" : "",
-      "rating" : 0
-      },{
-        "courseId" : 1,
-        "courseName" : "JAVA",
-        "fee" : 400,
-        "category" : "CS",
-        "trainerId" : 101,
-        "duration" : 0,
-        "description" : "",
-        "rating" : 0
-        },
-  ]
+  courseList : Course[] = []
 
   ngOnInit(): void {
     this.loadCourses()
@@ -63,7 +34,11 @@ export class CoursesComponent implements OnInit {
   }
 
   addToCart(course : Course) {
-    //return this.restApi.addToCart(course.courseId, this.userid )
+    console.log(course.courseId)
+    return this.restApi.addToCart(course.courseId, this.userid)
+      .subscribe(data => {
+        console.log(data)
+      })
   }
 }
 

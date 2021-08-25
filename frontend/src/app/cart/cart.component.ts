@@ -12,6 +12,10 @@ export class CartComponent implements OnInit {
 
   constructor( public restApi: ElpServiceService, public router: Router ) { } 
 
+  name : String = 'Rishi'  //todo
+  studentId : Number = 27
+  totalSum : Number = 0
+
   cartItems : Course[] = [{
     courseId: 0,
     courseName: '',
@@ -23,13 +27,8 @@ export class CartComponent implements OnInit {
     trainerId: 0
     },
   ]
-  courseList : Course[] = []
-  total(){
-
-  }
-
   ngOnInit(): void {
-   // this.getCartItems(userId : Number)
+    this.getCartItems(this.studentId)
   }
 
   getCartItems(userId : Number) {
@@ -38,12 +37,39 @@ export class CartComponent implements OnInit {
       .subscribe(data => {
           console.log(data)
           this.cartItems = data
+          this.updateTotalSum()
       })
   }
+
   deleteCart(courseId : Number) {
     console.log(courseId)
+    return this.restApi.deleteCart(courseId, this.studentId)
+      .subscribe(data => {
+        console.log(data.message)
+        this.getCartItems(this.studentId)
+      })
+  }
+
+  updateTotalSum() {
+    //2 ways - one to fetch from backend and second way is to calculate here
+    var sum : Number = 0
+    this.cartItems.forEach(element => {
+      sum = sum.valueOf() + element.fee.valueOf()
+    });
+    this.totalSum = sum
+  }
+
+  checkout() {
+    //remove everything from cart and sent it to enroll[] list of student (**or add also in Enrollment table)
+    return this.restApi.checkout(this.studentId)
+      .subscribe(data => {
+        console.log(data.message)
+        if(data.message == "Success"){
+          this.router.navigate(['/studentprofile'])
+        }
+        else {
+          alert("some error occured")
+        }
+      })
   }
 }
-
-
-

@@ -38,7 +38,6 @@ export class ElpServiceService {
     headers: new HttpHeaders({
       'Accept' : 'application/json',
       'Content-Type': 'application/json',
-
     }),
   };
 
@@ -153,7 +152,31 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
-  
+  addToCart(courseId : Number, userId : Number) : Observable<ResponseObject>{
+    //Add this courseId to this student's cart 
+    return this.http
+      .get<ResponseObject>(
+        this.cartRestUrl + '/addToCart/' + courseId + '/' + userId,
+        this.httpOptions
+      ).pipe(catchError(this.handleError))
+  }
+
+  deleteCart(courseId : Number, studentId : Number) : Observable<ResponseObject>{
+    return this.http  
+      .delete<ResponseObject>(
+        this.cartRestUrl + '/removeFromCart/' + courseId + '/' + studentId,
+        this.httpOptions
+      ).pipe(catchError(this.handleError))
+  }
+
+  checkout(userId : Number) : Observable<ResponseObject>{
+    return this.http
+      .get<ResponseObject>(
+        this.cartRestUrl + '/checkout/' + userId,
+        this.httpOptions
+      ).pipe(catchError(this.handleError))
+  }
+
   /* ERROR HANDLING FUNCIONS */
 
   handleError(err : any) {

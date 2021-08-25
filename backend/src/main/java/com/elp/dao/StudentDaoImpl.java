@@ -106,25 +106,29 @@ public class StudentDaoImpl implements StudentDao {
 	}
 	
 	@Override
-	public String enroll(int userId, int courseId) {
-		Enrollment enrollment = new Enrollment();
-		enrollment.setStudentId(userId);
-		enrollment.setCourseId(courseId);
-		enrollment.setDateOfEnroll(mydate.toString());//TODO: add property
-		enrollment.setDateOfCompletion(null);
-		getSession().save(enrollment);
-		//System.out.println(courseId);
-		int userid = enrollment.getStudentId();
+	public String enroll(int userId) {
+		Query query1 = getSession().createQuery("from Cart where userId=:userId");
+		query1.setParameter("userId", userId);
+		Cart cart = (Cart) query1.uniqueResult();
+		List<Integer> items = cart.getItems();
+		
 		Query query = getSession().createQuery("from Student where userId=:userid");
-		query.setParameter("userid", userid);
+		query.setParameter("userid", userId);
 		Student student = (Student) query.uniqueResult();
 		List<Integer> enrollList = student.getEnroll();
 		System.out.print(enrollList);
-		enrollList.add(courseId);
+		for(int i : items)
+			enrollList.add(i);
 		student.setEnroll(enrollList);
 		getSession().update(student);
-		System.out.println(student);
-		return "enrolled";
+		
+		cart.setItems(null);
+//		Query query2 = getSession().createQuery("Delete from Cart where userId=:userId");
+//		query2.setParameter("userId", userId);
+//		query2.executeUpdate();
+		getSession().update(cart);
+		
+		return "Success";
 	}
 
 	@Override
@@ -151,52 +155,45 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	//courseId,userId
 	public String addToCart(int courseId,int userId) {
-		
-		/*switch(expression)
-		{
-		case 1:
-				Query query = getSession().createQuery("from Cart where userId=:userId");
-				Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
-				List<Integer> courseList = cart.getItems();
-				if(courseList.contains(courseId))
-				{
-					System.out.println("Course present in Cart");
-				else {
-					courseList.add(courseId);
-				}
-		
-			case 2://student not present in cart
-				List<Integer> cList = null;
-				cList.add(courseId);
-				Cart cart1 = new Cart();
-				cart1.setUserId(userId);
-				cart1.setItems(cList);
-				getSession().save(cart1);
-		}*/
 		Query query = getSession().createQuery("from Cart where userId=:userId");
 		query.setParameter("userId", userId);
 		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
-		List<Integer> courseList = cart.getItems();
-		if(courseList == null)
-		{
-			courseList.add(courseId);
-		}
-		else if(courseList.contains(courseId))
-		{
-			System.out.println("Course present in Cart");
-		}
-		else {
+		String message = "";
+		if(cart == null){
+			List<Integer> items = new ArrayList<Integer>();
+			items.add(courseId);
+			Cart newCart = new Cart();
+			newCart.setUserId(userId);
+			newCart.setItems(items);
+			newCart.setDiscount(0);
+			newCart.setTotalAmount(0);
+			int total = findSum(newCart.getTotalAmount(), courseId);
+			newCart.setTotalAmount(total);
+			getSession().save(newCart);
+			message = "Course added to Cart";	
+		} else if(cart.getItems().contains(courseId)) {
+			return "alreadt present into cart";
+		} else {
+			List<Integer> courseList = cart.getItems();
 			courseList.add(courseId);
 			cart.setItems(courseList);
+			int total = findSum(cart.getTotalAmount(), courseId);
+			cart.setTotalAmount(total);
 			getSession().save(cart);
-			System.out.println("Course added to Cart");
+			message = "Course added to Cart";
 		}	
-		System.out.println(courseList);
-		cart.setItems(courseList);
-		getSession().save(cart);
-		return "Course added to Cart";
+		return message;
 	}
 	
+	private int findSum(int totalSum, int courseId) {
+		System.out.println(courseId);
+		Query query = getSession().createQuery("from Course where courseId=:courseId");
+		query.setParameter("courseId", courseId);
+		Course course = (Course) query.uniqueResult();
+		int courseFee = course.getFee();
+		return courseFee + totalSum;
+	}
+
 	@Override
 	public String removeFromCart(int courseId, int studentId) {
 		Query query = getSession().createQuery("from Cart where userId=:studentId");
@@ -221,29 +218,23 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public List<Course> viewCart(int userId) {
-		//Query query = getSession().createQuery("from Student where userId=:userId");
-		//query.setParameter("userId", userId);
-		//Student student = (Student) query.uniqueResult();
-		//Cart cart = new Cart();
-		//cart.setItems();
-		//getSession().update(cart);
 		Query query = getSession().createQuery("from Cart where userId=:userId");
 		query.setParameter("userId", userId);
 		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
-		List<Course> clist = null;
-		List<Integer> cList = cart.getItems();
-		System.out.println(cList);
-		for(int i : cList) {
-			Query query1 = getSession().createQuery("from Course where courseId=:i");
-			query1.setParameter("i",i);
+		List<Course> clist = new ArrayList<Course>();
+		List<Integer> listOfCourseId = cart.getItems();
+		System.out.println(listOfCourseId);
+		for(int courseId : listOfCourseId) {
+			Query query1 = getSession().createQuery("from Course where courseId=:courseId");
+			query1.setParameter("courseId",courseId);
 			Course course = (Course) query1.setMaxResults(1).uniqueResult();
-			clist = query1.list();
+			clist.add(course);
 		}
 		return clist; 
 	}
 	
 	@Override
-	public List<Course> getCourseList(Course course) {
+	public List<Course> getCourseList() {
 		Query query = getSession().createQuery("from Course");
 		List<Course> CourseList = query.list();
 		return CourseList;
@@ -251,13 +242,15 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public List<Course> getEnrolledCourseList(int userId) {
+		System.out.println("I'm here into studentDao");
 		Query query = getSession().createQuery("from Student where userId=:userId");
 		query.setParameter("userId",userId);
 		Student student = (Student) query.uniqueResult();
-		List<Course> courseList = null;
-		for(int courseId : student.getEnroll()) {
-			Query query2 = getSession().createQuery("from Coursetable where courseId=:courseId");
-			query.setParameter("courseId", courseId);
+		List<Integer> enrollList = student.getEnroll();
+		List<Course> courseList = new ArrayList<Course>();
+		for(int courseId : enrollList) {
+			Query query2 = getSession().createQuery("from Course where courseId=:courseId");
+			query2.setParameter("courseId", courseId);
 			Course course = (Course) query2.setMaxResults(1).uniqueResult();
 			courseList.add(course);
 		}

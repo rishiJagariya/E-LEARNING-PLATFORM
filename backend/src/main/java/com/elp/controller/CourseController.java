@@ -94,36 +94,27 @@ public class CourseController {
 	@GetMapping("/getStudentEnrollList/{courseId}")
 	public ResponseEntity<List<Student>> getStudentEnrollList(@PathVariable int courseId) {
 		System.out.println("Im here in student enroll list");
-		String message = null;
 		
 		List<Student> studentsEnrolled = trainerService.getStudentEnrollList(courseId);
-		message = "student enroll list viewed successfully";
+		String message = "Success";
 		System.out.println(message);
 		
 		return new ResponseEntity<List<Student>>(studentsEnrolled, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getCourseList")
-	public ResponseEntity<List<Course>> getCourseList(@RequestBody Course course) {
+	public ResponseEntity<List<Course>> getCourseList() {
 		System.out.println("Im here in course list");
-		String message = null;
-		
-		List<Course> courses = studentService.getCourseList(course);
-		message = "course list viewed successfully";
-		System.out.println(message);
-		
+		List<Course> courses = studentService.getCourseList();		
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getEnrolledCourseList/{userId}")
 	public ResponseEntity<List<Course>> getEnrolledCourseList(@PathVariable int userId) {
 		System.out.println("Im here in enrolled course list" + userId);
-		String message = null;
-		
+	
 		List<Course> coursesEnrolled = studentService.getEnrolledCourseList(userId);
-		message = "Success";
-		System.out.println(message);
-		
+		String message = "Success";	
 		return new ResponseEntity<List<Course>>(coursesEnrolled, HttpStatus.OK);
 	}
 	
