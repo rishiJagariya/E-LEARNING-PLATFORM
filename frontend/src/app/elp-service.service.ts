@@ -133,6 +133,15 @@ export class ElpServiceService {
       )
   }
 
+  deleteCourse(username : string, courseId : Number) : Observable<ResponseObject> {
+    console.log("into delete course service")
+    return this.http
+      .delete<ResponseObject>(
+        this.courseRestUrl + '/deletecourse/' + username + '/' + courseId,
+        this.httpOptions
+      ).pipe(catchError(this.handleError))
+  }
+
   handleError(err : any) {
     let errorMessage = ""
     if (err.error instanceof ErrorEvent)

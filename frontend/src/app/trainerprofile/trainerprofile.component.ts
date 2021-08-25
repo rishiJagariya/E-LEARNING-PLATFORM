@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { data } from 'jquery';
 import { Course } from '../course';
 import { ElpServiceService } from '../elp-service.service';
 import { TrainerData } from '../trainerData';
@@ -54,7 +55,11 @@ export class TrainerprofileComponent implements OnInit {
   }
 
   deleteCourse(courseId : Number) {
-    console.log(courseId)
+      var username : string = this.trainerData.username
+      console.log(courseId + " " + username)
+    return this.restApi.deleteCourse(username, courseId).subscribe(data => {
+      console.log("deleted")
+    })
   }
 
   logout() {

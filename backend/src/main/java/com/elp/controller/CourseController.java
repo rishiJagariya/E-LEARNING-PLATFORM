@@ -67,14 +67,15 @@ public class CourseController {
 	}
 	
 	@DeleteMapping("/deletecourse/{username}/{courseId}")
-	public ResponseEntity<String> deleteCourse(@PathVariable String username, @PathVariable int courseId) {
-		System.out.println("Im here in delete course");
+	public ResponseEntity<ResponseMsgObject> deleteCourse(@PathVariable("username") String username, @PathVariable("courseId") int courseId) {
+		System.out.println("Im here in delete course" + username + " " + courseId);
 		String message = null;
 		
 		message = trainerService.deleteCourse(username, courseId);
 		System.out.println(message);
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, "trainer", username);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
