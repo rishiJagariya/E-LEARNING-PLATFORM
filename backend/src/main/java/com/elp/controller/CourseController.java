@@ -49,7 +49,7 @@ public class CourseController {
 	}
 	
 	@PutMapping("/updatecourse")
-	public ResponseEntity<String> updateCourse(@RequestBody UsernameAndCourse usernameAndCourse) {
+	public ResponseEntity<ResponseMsgObject> updateCourse(@RequestBody UsernameAndCourse usernameAndCourse) {
 		String username = usernameAndCourse.getUsername();
 		Course course = usernameAndCourse.getCourse();
 		System.out.println(username + " " + course);
@@ -58,7 +58,8 @@ public class CourseController {
 		message = trainerService.updateCourse(username, course);
 		System.out.println(message);
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, "trainer", username);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletecourse/{username}/{courseId}")

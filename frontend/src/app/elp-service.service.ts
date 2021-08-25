@@ -6,6 +6,7 @@ import { User } from './user';
 import { Course } from './course';
 import { UserLoginInfo } from './userLoginInfo';
 import { ResponseObject } from './responseObject';
+import { UsernameAndCourse } from './usernameAndCourse';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,21 @@ export class ElpServiceService {
   private cartRestUrl: String = "http://localhost:8080/backend/cart"
 
   constructor(private http: HttpClient) {}
+
+  //object for add
+  public trainerUpdateCourseData : UsernameAndCourse = {
+    course:  {
+      courseId : 0,
+      courseName : '',
+      description : '',
+      category : '',
+      fee: 0,
+      duration: 0,
+      rating : 0,
+      trainerId : 0
+    },
+    username: ''
+  }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -81,11 +97,12 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
-  updateCourse(course : Course) : Observable<Course> {
+  updateCourse(updateCourseData : UsernameAndCourse) : Observable<ResponseObject> {
     return this.http
-      .post<Course>(
+      .put<ResponseObject>(
         this.courseRestUrl + '/updatecourse',
-        JSON.stringify(course)
+        JSON.stringify(updateCourseData),
+        this.httpOptions
       )
       .pipe(catchError(this.handleError))
   }

@@ -50,12 +50,12 @@
                     <td><span>{{course.fee}}</span></td>
                     <td><span>{{course.category}}</span></td>
                     <td>
-                        <button class="btn btn-sm btn-warning">
+                        <button class="btn btn-sm btn-warning" (click)="editCourse(course)">
                             <i class="fa fa-edit"></i>
                             Edit
                         </button> 
                             &nbsp; &nbsp; &nbsp;
-                        <button class="btn btn-sm btn-danger">
+                        <button class="btn btn-sm btn-danger" (click)="deleteCourse(course.courseId)">
                             <i class="fa fa-remove"></i>
                             Delete
                         </button>
