@@ -20,7 +20,7 @@
             </div>  
         </div>
         <div id="middle-part" class="d-flex justify-content-between flex-wrap" style="padding-top: 20px;">
-            <button type="button" routerLink="/cart" class="btn btn-secondary">+Go To Cart</button>
+            <button type="button" routerLink="/cart" class="btn btn-secondary">Go To Cart</button>
             <div>
                 <form #formData="ngForm" (ngSubmit)="submitForm(formData)" class="d-flex">
                     <input class="form-control" type="text" placeholder="Search your courses" name="searchText" [(ngModel)]="searchText">
@@ -50,12 +50,12 @@
                         <td><span>{{course.fee}}</span></td>
                         <td><span>{{course.category}}</span></td>
                         <td>
-                            <button class="btn btn-sm btn-success">
+                            <button class="btn btn-sm btn-success" (click)="courseCompletion()">
                                 <i class="fa fa-edit"></i>
                                 Completion
                             </button> 
                                 &nbsp; &nbsp; &nbsp;
-                            <button class="btn btn-sm btn-danger">
+                            <button class="btn btn-sm btn-danger" (click)="unenrollCourse(course.courseId)">
                                 <i class="fa fa-remove"></i>
                                 Unenroll
                             </button>

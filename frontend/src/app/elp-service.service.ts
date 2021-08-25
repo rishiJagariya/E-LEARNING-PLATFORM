@@ -107,6 +107,13 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
+  unenrollFromCourse(courseId : Number, userId : Number) : Observable<ResponseObject> {
+    return this.http
+      .delete<ResponseObject>(
+        this.cartRestUrl + '/unenrollFromCourse'+ userId + '/' + courseId, this.httpOptions
+        ).pipe(catchError(this.handleError))
+    }
+
   loadTrainerCourses(username : string) : Observable<Course[]> {
     return this.http
       .get<Course[]>(this.courseRestUrl + '/getTrainerCourseList/' + username, this.httpOptions)
