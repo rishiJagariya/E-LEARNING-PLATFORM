@@ -1,74 +1,68 @@
-<body style="background-color: rgb(240,128,128);">
-    <div class="container emp-profile">
-                    <div class="row">
-                        
-                        <div class="col-md-4">
-                            <div class="profile-img">
-                                <img src="assets/student.jpg" alt="" class="img-fluid rounded-circle" style="height:200px; margin-left:-15px;" >
-                                
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="profile-head">
-                                        <h4 style="Color: white;">
-                                            {{name}}
-                                        </h4>
-                                        <h4>
-                                            {{Title}}
-                                        </h4>
-                                        <h4 style="Color: white;">Phone no: <span>8976543212</span></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="profile-work">
-                                <form class="form-inline my-2 my-md-0" style="position: absolute; left: 1000px;">
-                                <button type="button" class="btn btn-secondary">Go To Cart</button>  
-                            </form> 
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <form class="form-inline my-2 my-md-0" class="form-inline" >
-                                <div style="position: absolute; left: 500px"><input class="form-control" type="text" placeholder="Type here"></div>
-                                <div style="position: absolute; left: 700px"> <button type="button" class="btn btn-secondary">Search</button></div>
-                              </form>
-                        </div>
-                        <div class="col-md-4">
-                            <form class="form-inline my-2 my-md-0" style="position: absolute; right: 220px">
-                                <button type="button" class="btn btn-secondary">Logout</button>   
-                            </form>
-                        </div>
-                        
-                    </div>
-                <br/><br/><br/>
-                
-                <div class="row">
-                 
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Courseid</th>
-                                <th>Course name</th>
-                                <th>Catagory</th>
-                                <th>Actions</th> 
-                            </tr>   
-                        </thead>
-                        <tbody>
-                            <tr *ngFor = "let row of rows">
-                                <td><span>{{row.Courseid}}</span></td>
-                                <td><span>{{row.Coursename}}</span></td>
-                                <td><span>{{row.Catagory}}</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-warning">
-                                      <i class="fa fa-edit"></i>Completion</button>	&nbsp;	&nbsp;	&nbsp;
-                                    <button class="btn btn-sm btn-danger">
-                                      <i class="fa fa-remove"></i>Unenroll</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>         
+<div style="background-color: thistle;">
+    <div class="container">
+        <div id="top-part" class="row" style="padding-top: 50px ;">
+            <div class="col-md-4">
+                <img src="../../assets/user-profile.png" alt="" class="img-fluid rounded-circle" style="height:200px;">
             </div>
-        </body>
+            <div class="col-md-6">
+                <h4>
+                    Name : {{studentData.fname}}  {{studentData.lname}}
+                </h4>
+                <h4>
+                    Role : {{studentData.userType}}
+                </h4>
+                <h4>About :  
+                    <small>
+                        student to successfully understand the courses and implement in their life.
+                    </small>
+                </h4>
+                <h4>Phone no: <span style="font-size: 25px;">{{studentData.phoneNo}}</span></h4>
+            </div>  
+        </div>
+        <div id="middle-part" class="d-flex justify-content-between flex-wrap" style="padding-top: 20px;">
+            <button type="button" routerLink="/cart" class="btn btn-secondary">+Go To Cart</button>
+            <div>
+                <form #formData="ngForm" (ngSubmit)="submitForm(formData)" class="d-flex">
+                    <input class="form-control" type="text" placeholder="Search your courses" name="searchText" [(ngModel)]="searchText">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </form>
+            </div>
+            <button type="button" (click)="logout()" class="btn btn-secondary">Logout</button>
+        </div>
     
+        <br /><br /><br />
+    
+        <div id="bottom-part" class="row">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Course Id</th>
+                        <th>Course Name</th>
+                        <th>Fee</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of courseList">
+                        <td><span>{{course.courseId}}</span></td>
+                        <td><span>{{course.courseName}}</span></td>
+                        <td><span>{{course.fee}}</span></td>
+                        <td><span>{{course.category}}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-success">
+                                <i class="fa fa-edit"></i>
+                                Completion
+                            </button> 
+                                &nbsp; &nbsp; &nbsp;
+                            <button class="btn btn-sm btn-danger">
+                                <i class="fa fa-remove"></i>
+                                Unenroll
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>

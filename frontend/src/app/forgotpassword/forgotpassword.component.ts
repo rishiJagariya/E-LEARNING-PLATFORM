@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ElpServiceService } from '../elp-service.service';
 
 @Component({
   selector: 'forgotpassword',
@@ -15,29 +17,23 @@ export class ForgotpasswordComponent implements OnInit {
     password : '',
     confirmPassword : ''
   }
-  constructor() { }
+  constructor(public restApi: ElpServiceService, public router: Router) { }
 
   ngOnInit(): void {
   }
 
-  checkPassword() {
-    console.log("inside checkpassword");
-    this.forgotPasswordDetails.password = (<HTMLInputElement>document.getElementById("password")).value;
-    this.forgotPasswordDetails.confirmPassword = (<HTMLInputElement>document.getElementById("confirmpassword")).value;
-    if(this.forgotPasswordDetails.password == "" || this.forgotPasswordDetails.confirmPassword == ""){
-      alert("password can't be empty")
-      return false
-    }
-    if(this.forgotPasswordDetails.password === this.forgotPasswordDetails.confirmPassword) {
-      return true 
-    }else {
-      alert("password are not same")
-      return false
-    }
-  }
-
-  submitForm() {
-    
+  submitForm(formData : any) {
+    if(formData.valid){
+      console.log(this.forgotPasswordDetails)
+      this.restApi
+        .forgotPassword(this.forgotPasswordDetails)
+        .subscribe(data => {
+          console.log(data)
+          this.router.navigate(['/login'])
+        })
+    } else {
+      alert("fields are empty")
+    }  
   }
   
 }

@@ -19,6 +19,7 @@ import com.elp.service.TrainerService;
 
 import com.elp.entity.User;
 import com.elp.model.wrapper.LoginData;
+import com.elp.model.wrapper.ResponseMsgObject;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 
@@ -34,7 +35,7 @@ public class UserController {
 	TrainerService trainerService;
 
 	@PostMapping("/createuser")
-	public ResponseEntity<String> createUser(@RequestBody User user) {
+	public ResponseEntity<ResponseMsgObject> createUser(@RequestBody User user) {
 		System.out.println("Im here in create user");	
 		String message = null;
 		
@@ -54,7 +55,8 @@ public class UserController {
 			message = studentService.createStudent(newStudent);
 			System.out.println(message);
 		}
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, user.getUserType(), user.getUsername());
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updateuser")
@@ -101,30 +103,9 @@ public class UserController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-//	@DeleteMapping
-//	public ResponseEntity<String> deleteUser(@RequestParam User user) {
-//		System.out.println("I am here in delete user");	
-//		String message = null;
-//		
-//		if (user.getUserType().equals("trainer")) {
-//			System.out.println("hello trainer");
-//			Trainer newTrainer = new Trainer(user);
-//			
-//			message = trainerService.deleteTrainer(newTrainer);
-//			System.out.println(message);
-//			
-//		} else if (user.getUserType().equals("student")) {
-//			System.out.println("hello student");
-//			Student newStudent = new Student(user);
-//			
-//			message = studentService.deleteStudent(newStudent);
-//			System.out.println(message);
-//		}
-//		return new ResponseEntity<String>(message, HttpStatus.OK);
-//	}
 
 	@PostMapping("/userlogin")
-	public ResponseEntity<String> userLogin(@RequestBody LoginData loginData)
+	public ResponseEntity<ResponseMsgObject> userLogin(@RequestBody LoginData loginData)
 	{
     	System.out.println("Into UserLogin Controller" + loginData);
     	String message = null;
@@ -140,7 +121,7 @@ public class UserController {
                 message = "Success";  
             else 
                 message = "PasswordError";
-            
+             
             System.out.println(trainer);
          	
         } else if (userType.equals("student")) {
@@ -155,43 +136,39 @@ public class UserController {
         	
         	System.out.println(message + student);
         }
-        
-        return new ResponseEntity<String>(message, HttpStatus.OK);
+        ResponseMsgObject res = new ResponseMsgObject(message, userType, username);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 
 	@PostMapping("/forgotpassword")
-	public ResponseEntity<String> forgotPassword(@RequestBody MultiValueMap<String, String> formData)
+	public ResponseEntity<ResponseMsgObject> forgotPassword(@RequestBody LoginData data)
 	{
-		System.out.println("Into ForgotPassword Controller");
+		System.out.println("Into UserLogin Controller" + data);
     	String message = null;
-    	String username = formData.getFirst("username");
-    	String newPassword = formData.getFirst("password");
-    	String userType = formData.getFirst("usertype");
+    	String username = data.getUsername();
+    	String password = data.getPassword();
+    	String userType = data.getUserType();
    
         if (userType.equals("trainer")) {
             Trainer trainer = trainerService.getTrainerByUsername(username);
-           
             if (trainer == null)
-                message = "Username is incorrect";  
+                message = "UsernameError";  
             else {
-            	trainer.setPassword(newPassword);
-            	trainerService.updatePassword(username, newPassword);
-                message = "Password changed successfully";
-            }
-        	
+            	trainerService.updatePassword(username, password);
+                message = "Success";
+            }	
         } else if (userType.equals("student")) {
             Student student = studentService.getStudentByUsername(username);
-            
             if (student == null)
-                message = "Username is incorrect";
+                message = "UsernameError";
             else {
-            	student.setPassword(newPassword);
-            	studentService.updatePassword(username, newPassword);
-                message = "Password changed successfully";
+            	studentService.updatePassword(username, password);
+                message = "Success";
             }
         }
         
-        return new ResponseEntity<String>(message, HttpStatus.OK);
+        ResponseMsgObject res = new ResponseMsgObject(message, userType, username);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	// TODO

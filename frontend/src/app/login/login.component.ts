@@ -1,7 +1,6 @@
 import { INFERRED_TYPE } from '@angular/compiler/src/output/output_ast';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
 import { ElpServiceService } from '../elp-service.service';
 //import { NgserviceService } from
 
@@ -31,7 +30,7 @@ export class LoginComponent implements OnInit {
       response.subscribe(data => {
         console.log(data)
         
-        if(data == "success"){
+        if(data.message == "Success"){
           if(this.userLoginInfo.userType == "student")
             this.router.navigate(['/home'])
           else

@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { User } from './user';
 import { Course } from './course';
 import { UserLoginInfo } from './userLoginInfo';
+import { ResponseObject } from './responseObject';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,11 @@ export class ElpServiceService {
     }),
   };
 
-  createUser(user: any): Observable<User> {
+  /* USER FUNCTIONS */
+
+  createUser(user: any): Observable<ResponseObject> {
     //pares user to User type
     var newUser : User = {
-      //userId: 0,
       userType: user.userType,
       username: user.username,
       password: user.password,
@@ -38,13 +40,35 @@ export class ElpServiceService {
     }
 
     return this.http
-      .post<User>(
+      .post<ResponseObject>(
         this.userRestUrl + '/createuser',
         JSON.stringify(newUser),
         this.httpOptions,
       )
       .pipe(catchError(this.handleError))
   }
+
+  userLogin(userLoginInfo : UserLoginInfo) : Observable<ResponseObject>  {
+    return this.http
+      .post<ResponseObject>(
+        this.userRestUrl + '/userlogin',
+        JSON.stringify(userLoginInfo),
+        this.httpOptions
+        //incomplete
+      )
+  }
+
+  forgotPassword(forgotPasswordData : UserLoginInfo) : Observable<ResponseObject> {
+    return this.http
+      .post<ResponseObject>(
+        this.userRestUrl + '/forgotpassword',
+        JSON.stringify(forgotPasswordData),
+        this.httpOptions
+      )
+  }
+
+  
+  /* COURSE RELATED FUNCTIONS */
 
   createCourse(course : Course) : Observable<Course> {
     return this.http
@@ -64,15 +88,18 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
-  userLogin(userLoginInfo : UserLoginInfo) : Observable<String> {
+  loadTrainerCourses(username : string) : Observable<Course[]> {
     return this.http
-      .post<String>(
-        this.userRestUrl + '/userlogin',
-        JSON.stringify(userLoginInfo),
-        this.httpOptions
-        //incomplete
+      .get<Course[]>(
+        this.courseRestUrl + '/getTrainerCourseList' + '/' + username,
       )
+  }
 
+  loadEnrolledCourses(userId : Number) : Observable<Course[]> {
+    return this.http
+      .get<Course[]>(
+        this.courseRestUrl + '/getEnrolledCourseList' + '/' + userId,
+      )
   }
 
   handleError(err : any) {

@@ -173,7 +173,7 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public List<Course> getTrainerCourseList(String username) {
-		System.out.println(username);
+		System.out.println(username);		
 		Query<?> query = getSession().createQuery("select userId from Trainer where username=:username");
 		query.setParameter("username",username);
 		Integer userid = (Integer) query.uniqueResult();
