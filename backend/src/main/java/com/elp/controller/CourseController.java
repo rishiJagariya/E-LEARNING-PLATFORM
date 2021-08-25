@@ -118,8 +118,8 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(coursesEnrolled, HttpStatus.OK);
 	}
 	
-	@GetMapping("/searchTrainerCourses/{username}/{courseName}")
-	public ResponseEntity<List<Course>> searchTrainerCourses(@PathVariable String username, @PathVariable String courseName) {
+	@GetMapping("/searchTrainerCourses/{username}")
+	public ResponseEntity<List<Course>> searchTrainerCourses(@PathVariable String username) {
 		System.out.println("Im here in search trainer courses");
 		String message = null;
 		
@@ -130,8 +130,8 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(trainerCourseSearched, HttpStatus.OK);
 	}
 	
-	@GetMapping("/searchCourses")
-	public ResponseEntity<List<Course>> searchCourses(String courseName) {
+	@GetMapping("/searchCourses/{courseName}")
+	public ResponseEntity<List<Course>> searchCourses(@PathVariable String courseName) {
 		System.out.println("Im here in search all courses");
 		String message = null;
 		
