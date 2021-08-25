@@ -152,7 +152,6 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	//courseId,userId
 	public String addToCart(int courseId,int userId) {
-		
 		/*switch(expression)
 		{
 		case 1:
@@ -176,26 +175,39 @@ public class StudentDaoImpl implements StudentDao {
 		}*/
 		Query query = getSession().createQuery("from Cart where userId=:userId");
 		query.setParameter("userId", userId);
-		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
-		List<Integer> courseList = cart.getItems();
-		if(courseList == null)
+		Cart cart = (Cart) query.uniqueResult();
+		if(cart!=null)
 		{
-			courseList.add(courseId);
-		}
-		else if(courseList.contains(courseId))
-		{
-			System.out.println("Course present in Cart");
-		}
-		else {
-			courseList.add(courseId);
+			List<Integer> courseList = cart.getItems();
+			if(courseList == null)
+			{
+				courseList.add(courseId);
+			}
+			else if(courseList.contains(courseId))
+			{
+				System.out.println("Course present in Cart");
+			}
+			else {
+				courseList.add(courseId);
+				cart.setItems(courseList);
+				getSession().save(cart);
+				System.out.println("Course added to Cart");
+			}	
+			System.out.println(courseList);
 			cart.setItems(courseList);
 			getSession().save(cart);
-			System.out.println("Course added to Cart");
-		}	
-		System.out.println(courseList);
-		cart.setItems(courseList);
-		getSession().save(cart);
-		return "Course added to Cart";
+			return "Course added to Cart";
+		}
+		else
+		{	
+			List<Integer> courseList = cart.getItems();
+			courseList.add(courseId);
+			cart.setUserId(userId);
+			cart.setItems(courseList);
+			getSession().save(cart);
+		}
+		
+		return "Added successfully";
 	}
 	
 	@Override
@@ -217,7 +229,10 @@ public class StudentDaoImpl implements StudentDao {
 		System.out.println(cList);
 		getSession().update(cart);
 		System.out.println(cart);
-		return "Removed successfully";
+		Query query1 = getSession().createQuery("Delete from Course where courseId=:courseId");
+		query1.setParameter("courseId", courseId);
+		query1.executeUpdate();
+		return "Success";
 	}
 	
 	@Override
