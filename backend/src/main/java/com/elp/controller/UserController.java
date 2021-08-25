@@ -23,6 +23,10 @@ import com.elp.model.wrapper.ResponseMsgObject;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 
+/**
+ * @author Rishi Jagariya
+ *
+ */
 @RestController()
 @RequestMapping(value = "/user")
 @CrossOrigin(origins = "http://localhost:4200",allowCredentials = "false",allowedHeaders = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})

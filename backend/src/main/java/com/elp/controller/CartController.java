@@ -21,6 +21,10 @@ import com.elp.entity.Course;
 import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
+/**
+ * @author Ritika
+ *
+ */
 @RestController()
 @RequestMapping(value = "/user")
 @CrossOrigin(origins = "http://localhost:4200",allowCredentials = "false",allowedHeaders = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})

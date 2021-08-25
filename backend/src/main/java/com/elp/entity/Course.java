@@ -10,6 +10,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NamedQuery;
 
+/**
+ * @author Roli Rai
+ *
+ */
 @Entity
 @Table(name="Coursetable")
 public class Course {

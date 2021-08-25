@@ -9,6 +9,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+/**
+ * @author Roli Rai
+ *
+ */
 @NamedQueries(value = { @NamedQuery(name = "getStudentById", query = "from Student where userId=:userId"),
 		@NamedQuery(name = "getStudentByName", query = "from Student where username=:userName")})
 @Entity
