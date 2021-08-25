@@ -6,6 +6,10 @@ import com.elp.entity.Course;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 
+/**
+ * @author Rudresh Sunagad
+ *
+ */
 public interface TrainerDao {
 	public String createTrainer(Trainer trainer);
 	public String updateTrainer(Trainer trainer);

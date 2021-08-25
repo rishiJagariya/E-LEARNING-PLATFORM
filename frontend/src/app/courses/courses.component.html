@@ -1,55 +1,35 @@
-<body style="background-color: rgb(240,128,128);">
-    <div class="form-group"  class="text-center">
+<div id="middle-part" class="d-flex justify-content-between flex-wrap" style="padding: 20px;">
+    <div>
         <h1 for="courses">Course List</h1>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <form class="form-inline my-2 my-md-0" class="form-inline" >
-                <div style="position: absolute; right: 200px"><input class="form-control" type="text" placeholder="Type here"></div>
-                <div style="position: absolute; right: 150px"> <button type="button" class="btn btn-secondary">Search</button></div>
-              </form>
-        </div>
+    <div>
+        <form #formData="ngForm" (ngSubmit)="submitForm(formData)" class="d-flex">
+            <div >
+                <input class="form-control" type="text" placeholder="Search your courses" name="searchText"
+                    [(ngModel)]="searchText">
+            </div>
+            <div >
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </div>
+        </form>
     </div>
-    <br/><br/><br/>
-    <div class="container emp-profile">
-        <div class="row">
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Courseid</th>
-                        <th>Course name</th>
-                        <th>Catagory</th>
-                        <th>Actions</th> 
-                    </tr>   
-                </thead>
-                <tbody>
-                    <tr *ngFor = "let row of rows">
-                        <td><span>{{row.Courseid}}</span></td>
-                        <td><span>{{row.Coursename}}</span></td>
-                        <td><span>{{row.Catagory}}</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-warning">
-                              <i class="fa fa-edit"></i>Add to Cart</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>         
-    </div>
-</body>
+</div>
 
-
-<!-- testing 
-    <div class="d-flex flex-wrap">
-        <div forLoop = [course in courses]>
-            <div id="box" style="width"> 
-            courseid = {{course.course id}}
-            course name
-            descrip
-            fee
-            who is trainer ---id ? 
-            <button> add to cart </button>
-        </div>
+<div class="d-flex flex-wrap justify-content-between">
+    <div *ngFor="let course of courseList">
+        <div id="box" style="width: 300px; background-color: thistle; padding: 10px; border: 2px solid black; margin: 10px;">
+            Course id : {{course.courseId}} <br/>
+            Course Name : {{course.courseName}}  <br/>
+            Description : {{course.description}}  <br/>
+            Category : {{course.category}}  <br/>
+            Fee : {{course.fee}}  <br/>
+            Duration : {{course.duration}}  <br/>
+            Rating : {{course.rating}}  <br/>
+            Trainer id : {{course.trainerId}}  <br/>
+            <button class="btn btn-sm btn-success">
+                <i class="fa fa-edit"></i>
+                Add To Cart
+            </button>
         </div>
     </div>
--->
+</div>

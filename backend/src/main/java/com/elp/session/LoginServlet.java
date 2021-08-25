@@ -16,6 +16,10 @@ import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
 
+/**
+ * @author Rishi Jagariya
+ *
+ */
 @WebServlet("/userlogin2")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
