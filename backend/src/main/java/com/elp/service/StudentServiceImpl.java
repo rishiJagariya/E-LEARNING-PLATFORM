@@ -57,8 +57,8 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public String unEnroll(int enrollId) {
-		return studentDao.unEnroll(enrollId);
+	public String unEnroll(int userId,int courseId) {
+		return studentDao.unEnroll(userId,courseId);
 	}
 	
 	@Override

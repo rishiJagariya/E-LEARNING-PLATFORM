@@ -54,7 +54,7 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public String updateStudent(Student student) {
-		Query query = getSession().createQuery("Update Student student set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType,enroll=:enroll where userId=:userId");
+		Query query = getSession().createQuery("Update Student student set userName=:userName,password=:password,fname=:fname,lname=:lname,Dob=:Dob,phoneNo=:phoneNo,userType=:userType where userId=:userId");
 		query.setParameter("userName", student.getUsername());
 		query.setParameter("password", student.getPassword());
 		query.setParameter("fname", student.getFname());
@@ -62,8 +62,7 @@ public class StudentDaoImpl implements StudentDao {
 		query.setParameter("Dob", student.getDob());
 		query.setParameter("phoneNo", student.getPhoneNo());
 		query.setParameter("userType", student.getUserType());
-		query.setParameter("enroll", student.getEnroll());
-		query.setParameter("trainerId", student.getUserId());
+		query.setParameter("userId", student.getUserId());
 		query.executeUpdate();
 		return "Updated Successfully";
 	}
@@ -125,13 +124,23 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public String unEnroll(int enrollId) {
-		Query query = getSession().createQuery("Delete from Enrollment where courseId=:enrollId");
-		query.setParameter("enrollId", enrollId);
+	public String unEnroll(int userId,int courseId) {
+		Query query = getSession().createQuery("from Student where userId=:userId");
+		query.setParameter("userId", userId);
+		Student student = (Student) query.uniqueResult();
+		List<Integer> cList = student.getEnroll();
+		if(cList.contains(courseId))
+		{
+			student.getEnroll().remove(courseId);
+			Query query1 = getSession().createQuery("Delete from Enrollment where courseId=:courseId");
+			query1.setParameter("courseId", courseId);
+			query.executeUpdate();
+		}
 		return "Unenrolled";
 	}
 	
 	@Override
+	//courseId,userId
 	public String addToCart(int courseId,int userId) {
 		
 		/*switch(expression)
@@ -156,19 +165,26 @@ public class StudentDaoImpl implements StudentDao {
 				getSession().save(cart1);
 		}*/
 		Query query = getSession().createQuery("from Cart where userId=:userId");
+		query.setParameter("userId", userId);
 		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
 		List<Integer> courseList = cart.getItems();
-		if(courseList.contains(courseId))
+		if(courseList == null)
+		{
+			courseList.add(courseId);
+		}
+		else if(courseList.contains(courseId))
 		{
 			System.out.println("Course present in Cart");
 		}
 		else {
 			courseList.add(courseId);
-			cart.setUserId(userId);
 			cart.setItems(courseList);
 			getSession().save(cart);
-			System.out.println("Course ");
+			System.out.println("Course added to Cart");
 		}	
+		System.out.println(courseList);
+		cart.setItems(courseList);
+		getSession().save(cart);
 		return "Course added to Cart";
 	}
 	
@@ -177,7 +193,18 @@ public class StudentDaoImpl implements StudentDao {
 		Query query = getSession().createQuery("from Cart where userId=:studentId");
 		query.setParameter("studentId",studentId);
 		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
-		cart.getItems().remove(new Integer(courseId));
+		List<Integer> cList = cart.getItems();
+		cList.remove(new Integer(courseId));
+		if(cList.contains(courseId))
+		{
+			System.out.println("Not deleted");
+		}
+		else
+		{
+			System.out.println("Deleted");
+		}
+		cart.setItems(cList);
+		System.out.println(cList);
 		getSession().update(cart);
 		System.out.println(cart);
 		return "Removed successfully";
@@ -195,7 +222,9 @@ public class StudentDaoImpl implements StudentDao {
 		query.setParameter("userId", userId);
 		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
 		List<Course> clist = null;
-		for(int i : cart.getItems()) {
+		List<Integer> cList = cart.getItems();
+		System.out.println(cList);
+		for(int i : cList) {
 			Query query1 = getSession().createQuery("from Course where courseId=:i");
 			query1.setParameter("i",i);
 			Course course = (Course) query1.setMaxResults(1).uniqueResult();
