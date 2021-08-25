@@ -18,6 +18,9 @@ import com.elp.entity.Trainer;
 @Repository("studentDao")
 public class StudentDaoImpl implements StudentDao {
 	Date mydate = new Date();
+	@Autowired 
+	private Cart cart;
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -129,16 +132,51 @@ public class StudentDaoImpl implements StudentDao {
 	}
 	
 	@Override
-	public String addToCart(Cart cart) {
-		getSession().save(cart);
-		return "Added successfully";
+	public String addToCart(int courseId,int userId) {
+		
+		/*switch(expression)
+		{
+		case 1:
+				Query query = getSession().createQuery("from Cart where userId=:userId");
+				Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
+				List<Integer> courseList = cart.getItems();
+				if(courseList.contains(courseId))
+				{
+					System.out.println("Course present in Cart");
+				else {
+					courseList.add(courseId);
+				}
+		
+			case 2://student not present in cart
+				List<Integer> cList = null;
+				cList.add(courseId);
+				Cart cart1 = new Cart();
+				cart1.setUserId(userId);
+				cart1.setItems(cList);
+				getSession().save(cart1);
+		}*/
+		Query query = getSession().createQuery("from Cart where userId=:userId");
+		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
+		List<Integer> courseList = cart.getItems();
+		if(courseList.contains(courseId))
+		{
+			System.out.println("Course present in Cart");
+		}
+		else {
+			courseList.add(courseId);
+			cart.setUserId(userId);
+			cart.setItems(courseList);
+			getSession().save(cart);
+			System.out.println("Course ");
+		}	
+		return "Course added to Cart";
 	}
 	
 	@Override
 	public String removeFromCart(int courseId, int studentId) {
 		Query query = getSession().createQuery("from Cart where userId=:studentId");
 		query.setParameter("studentId",studentId);
-		Cart cart = (Cart) query.uniqueResult();
+		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
 		cart.getItems().remove(new Integer(courseId));
 		getSession().update(cart);
 		System.out.println(cart);
@@ -155,12 +193,12 @@ public class StudentDaoImpl implements StudentDao {
 		//getSession().update(cart);
 		Query query = getSession().createQuery("from Cart where userId=:userId");
 		query.setParameter("userId", userId);
-		Cart cart = (Cart) query.uniqueResult();
+		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
 		List<Course> clist = null;
 		for(int i : cart.getItems()) {
 			Query query1 = getSession().createQuery("from Course where courseId=:i");
 			query1.setParameter("i",i);
-			Course course = (Course) query1.uniqueResult();
+			Course course = (Course) query1.setMaxResults(1).uniqueResult();
 			clist.add(course);
 		}
 		return clist; 
@@ -180,11 +218,23 @@ public class StudentDaoImpl implements StudentDao {
 		//Query query = getSession().createQuery("from Course where courseId=:courseId");
 		//query.setParameter("courseId", courseId);
 		//Course course = 
-		Query query = getSession().createQuery("select courseId from Student where" + courseId + "IN (:enroll)");
-		List<Student> CourseList = query.list();
-		Query query1 = getSession().createQuery("from Course where courseId" + CourseList);
-		List<Course> course = query1.list();
-		return course;
+		
+		Query query = getSession().createQuery("select userId from Enrollment where courseId=:courseId");
+		query.setParameter("courseId",courseId);
+		int userid = (int) query.uniqueResult();
+		Query query1 = getSession().createQuery("from Student where userId=:userid");
+		query1.setParameter("userid", userid);
+		Student student = (Student) query.setMaxResults(1).uniqueResult();
+		List<Course> cList = null;
+		List<Integer> enrollList = student.getEnroll();
+		for(int i : enrollList)
+		{
+			Query query2 = getSession().createQuery("from Course where courseId=:i");
+			query.setParameter("i", i);
+			Course course = (Course) query2.setMaxResults(1).uniqueResult();
+			cList.add(course);
+		}
+		return cList;
 	}
 	
 	@Override

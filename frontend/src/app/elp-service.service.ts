@@ -22,6 +22,7 @@ export class ElpServiceService {
     headers: new HttpHeaders({
       'Accept' : 'application/json',
       'Content-Type': 'application/json',
+
     }),
   };
 
@@ -70,11 +71,12 @@ export class ElpServiceService {
   
   /* COURSE RELATED FUNCTIONS */
 
-  createCourse(course : Course) : Observable<Course> {
+  createCourse(course : Course) : Observable<ResponseObject> {
     return this.http
-      .post<Course>(
+      .post<ResponseObject>(
         this.courseRestUrl + '/createcourse',
-        JSON.stringify(course)
+        JSON.stringify(course),
+        this.httpOptions
       )
       .pipe(catchError(this.handleError))
   }
@@ -90,9 +92,8 @@ export class ElpServiceService {
 
   loadTrainerCourses(username : string) : Observable<Course[]> {
     return this.http
-      .get<Course[]>(
-        this.courseRestUrl + '/getTrainerCourseList' + '/' + username,
-      )
+      .get<Course[]>(this.courseRestUrl + '/getTrainerCourseList/' + username, this.httpOptions)
+      .pipe(catchError(this.handleError))
   }
 
   loadEnrolledCourses(userId : Number) : Observable<Course[]> {
