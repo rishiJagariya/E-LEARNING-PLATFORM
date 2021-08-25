@@ -1,6 +1,7 @@
 import { INFERRED_TYPE } from '@angular/compiler/src/output/output_ast';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../AuthService';
 import { ElpServiceService } from '../elp-service.service';
 //import { NgserviceService } from
 
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
     password : '',
   }
 
-  constructor(public restApi: ElpServiceService, public router: Router) { }
+  constructor(public restApi: ElpServiceService, public router: Router, private authService : AuthService) { }
 
   ngOnInit(): void {
   }
@@ -31,12 +32,14 @@ export class LoginComponent implements OnInit {
         console.log(data)
         
         if(data.message == "Success"){
-          if(this.userLoginInfo.userType == "student")
+          if(this.userLoginInfo.userType == "student"){
+            this.authService.login("student")
             this.router.navigate(['/home'])
-          else
+          }
+          else if(this.userLoginInfo.userType == "trainer"){
+            this.authService.login("trainer")
             this.router.navigate(['/trainerprofile'])
-          sessionStorage.setItem("username",this.userLoginInfo.username)
-          sessionStorage.setItem("userType", this.userLoginInfo.userType)
+          }
         } else {
           this.router.navigate(['/login'])
           alert("invalid username or password")

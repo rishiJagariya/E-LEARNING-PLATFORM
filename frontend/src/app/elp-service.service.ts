@@ -19,6 +19,16 @@ export class ElpServiceService {
 
   constructor(private http: HttpClient) {}
 
+  private currentUserInfo : UserLoginInfo = {
+    userType: '',
+    username: '',
+    password: ''
+  }
+
+  getUserInfo() {
+    return this.currentUserInfo
+  }
+
   //object for add
   public trainerUpdateCourseData : UsernameAndCourse = {
     course:  {
@@ -70,7 +80,6 @@ export class ElpServiceService {
         this.userRestUrl + '/userlogin',
         JSON.stringify(userLoginInfo),
         this.httpOptions
-        //incomplete
       )
   }
 

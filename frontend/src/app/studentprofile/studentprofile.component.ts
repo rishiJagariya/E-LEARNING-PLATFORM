@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../AuthService';
 import { Course } from '../course';
 import { ElpServiceService } from '../elp-service.service';
 import { StudentData } from '../studentData';
@@ -10,7 +11,7 @@ import { StudentData } from '../studentData';
   styleUrls: ['./studentprofile.component.css']
 })
 export class StudentprofileComponent implements OnInit {
-  constructor( public restApi: ElpServiceService, public router: Router ) { }
+  constructor( public restApi: ElpServiceService, public router: Router, private authService : AuthService ) { }
 
   searchText : string = ''
   studentData : StudentData = {
@@ -53,7 +54,9 @@ export class StudentprofileComponent implements OnInit {
   }
 
   logout() {
-
+    console.log("logout")
+    this.authService.logout()
+    this.router.navigate(['/login'])
   }
 
 }
