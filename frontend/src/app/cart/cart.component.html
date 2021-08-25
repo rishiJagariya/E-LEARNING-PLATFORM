@@ -10,11 +10,11 @@
         </tr>  
     </thead> 
     <tbody>
-        <tr *ngFor = "let row of rows">
-            <td><span>{{row.Courseid}}</span></td>
-            <td><span>{{row.Coursename}}</span></td>
-            <td><span>{{row.Catagory}}</span></td>
-            <td><span>{{row.Price}}</span></td>
+        <tr *ngFor = "let cartItem of cartItems">
+            <td><span>{{cartItem.Courseid}}</span></td>
+            <td><span>{{cartItem.Coursename}}</span></td>
+            <td><span>{{cartItem.Catagory}}</span></td>
+            <td><span>{{cartItem.fee}}</span></td>
             <td></td> 
             <td>  
                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
