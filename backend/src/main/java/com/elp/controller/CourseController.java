@@ -115,8 +115,8 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getEnrolledCourseList")
-	public ResponseEntity<List<Course>> getEnrolledCourseList(@RequestParam int userId) {
+	@GetMapping("/getEnrolledCourseList/{userId}")
+	public ResponseEntity<List<Course>> getEnrolledCourseList(@PathVariable int userId) {
 		System.out.println("Im here in enrolled course list");
 		String message = null;
 		
