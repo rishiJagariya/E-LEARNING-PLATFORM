@@ -1,5 +1,9 @@
 package com.elp.model.wrapper;
 
+/**
+ * @author Rishi Jagariya
+ *
+ */
 public class ResponseMsgObject {
 	private String message;
 	private String userType;

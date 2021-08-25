@@ -1,5 +1,9 @@
 package com.elp.model.wrapper;
 
+/**
+ * @author Rishi Jagariya
+ *
+ */
 public class LoginData {
 	private String username;
 	private String password;

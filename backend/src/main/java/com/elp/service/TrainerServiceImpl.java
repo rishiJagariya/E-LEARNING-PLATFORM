@@ -12,6 +12,10 @@ import com.elp.entity.Course;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 
+/**
+ * @author SAGI YASWANTH
+ *
+ */
 @Service("trainerService")
 @Transactional
 public class TrainerServiceImpl implements TrainerService{

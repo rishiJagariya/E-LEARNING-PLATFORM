@@ -9,18 +9,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * @author Roli Rai
+ *
+ */
 @Entity
 public class Cart {
     @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cartId;
 
-	//@OneToOne(mappedBy = "Student")
-	//@JoinColumn(name = "userId")
+	
 	private int userId;
-
-	//@OneToMany(mappedBy = "Course")
-	//@JoinColumn(name = "courseId")
+	
    @ElementCollection(targetClass=Integer.class)
 	private List<Integer> items;
 

@@ -15,6 +15,10 @@ import com.elp.entity.Enrollment;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 
+/**
+ * @author Rudresh Sunagad
+ *
+ */
 @Repository("trainerDao")
 public class TrainerDaoImpl implements TrainerDao {
 

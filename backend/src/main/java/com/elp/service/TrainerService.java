@@ -6,6 +6,10 @@ import com.elp.entity.Course;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 
+/**
+ * @author SAGI YASWANTH
+ *
+ */
 public interface TrainerService {
 	
 	public String createTrainer(Trainer trainer);
