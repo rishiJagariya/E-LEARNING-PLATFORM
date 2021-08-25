@@ -48,7 +48,7 @@ export class StudentprofileComponent implements OnInit {
   loadCourses() {
     return this.restApi
       .loadEnrolledCourses(this.studentData.userId)
-      .subscribe((data) => { this.courseList = data})
+      .subscribe((data) => { console.log(data); this.courseList = data})
   }
 
   logout() {

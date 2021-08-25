@@ -24,6 +24,25 @@ export class CoursesComponent implements OnInit {
     "description" : "",
     "rating" : 0
     },
+    {
+      "courseId" : 1,
+      "courseName" : "JAVA",
+      "fee" : 400,
+      "category" : "CS",
+      "trainerId" : 101,
+      "duration" : 0,
+      "description" : "",
+      "rating" : 0
+      },{
+        "courseId" : 1,
+        "courseName" : "JAVA",
+        "fee" : 400,
+        "category" : "CS",
+        "trainerId" : 101,
+        "duration" : 0,
+        "description" : "",
+        "rating" : 0
+        },
   ]
 
   ngOnInit(): void {
