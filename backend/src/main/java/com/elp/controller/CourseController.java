@@ -117,11 +117,11 @@ public class CourseController {
 	
 	@GetMapping("/getEnrolledCourseList/{userId}")
 	public ResponseEntity<List<Course>> getEnrolledCourseList(@PathVariable int userId) {
-		System.out.println("Im here in enrolled course list");
+		System.out.println("Im here in enrolled course list" + userId);
 		String message = null;
 		
 		List<Course> coursesEnrolled = studentService.getEnrolledCourseList(userId);
-		message = "course enroll list viewed successfully";
+		message = "Success";
 		System.out.println(message);
 		
 		return new ResponseEntity<List<Course>>(coursesEnrolled, HttpStatus.OK);

@@ -27,7 +27,7 @@ import com.elp.service.TrainerService;
  *
  */
 @RestController()
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/cart")
 @CrossOrigin(origins = "http://localhost:4200",allowCredentials = "false",allowedHeaders = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class CartController {
 	

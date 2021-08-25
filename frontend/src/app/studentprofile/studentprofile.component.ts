@@ -14,9 +14,9 @@ export class StudentprofileComponent implements OnInit {
 
   searchText : string = ''
   studentData : StudentData = {
-    userId: 0,
+    userId: 27,
     userType: 'student',
-    username: '',
+    username: 'rishabh',
     password: '',
     fname: 'Ritika',
     lname: 'X',
@@ -24,13 +24,13 @@ export class StudentprofileComponent implements OnInit {
     phoneNo: '9887736549',
     enroll: []
   }
-  courseList : Course[] = [ ]
+  courseList : Course[] = []
     
   ngOnInit(): void {
     this.loadCourses()
   }
 
-  //form search course
+  //for search course
   submitForm(fromData : any) {
 
   }

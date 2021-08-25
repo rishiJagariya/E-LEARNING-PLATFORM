@@ -12,7 +12,7 @@ import { UsernameAndCourse } from './usernameAndCourse';
   providedIn: 'root'
 })
 export class ElpServiceService {
-
+ 
   private userRestUrl: String = "http://localhost:8080/backend/user"
   private courseRestUrl: String = "http://localhost:8080/backend/course"
   private cartRestUrl: String = "http://localhost:8080/backend/cart"
@@ -107,13 +107,6 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
-  unenrollFromCourse(courseId : Number, userId : Number) : Observable<ResponseObject> {
-    return this.http
-      .delete<ResponseObject>(
-        this.cartRestUrl + '/unenrollFromCourse'+ userId + '/' + courseId, this.httpOptions
-        ).pipe(catchError(this.handleError))
-    }
-
   loadTrainerCourses(username : string) : Observable<Course[]> {
     return this.http
       .get<Course[]>(this.courseRestUrl + '/getTrainerCourseList/' + username, this.httpOptions)
@@ -122,7 +115,7 @@ export class ElpServiceService {
 
   loadEnrolledCourses(userId : Number) : Observable<Course[]> {
     return this.http
-      .get<Course[]>(this.courseRestUrl + '/getEnrolledCourseList' + '/' + userId, this.httpOptions)
+      .get<Course[]>(this.courseRestUrl + '/getEnrolledCourseList/' + userId, this.httpOptions)
       .pipe(catchError(this.handleError))
   }
 
@@ -134,13 +127,34 @@ export class ElpServiceService {
   }
 
   deleteCourse(username : string, courseId : Number) : Observable<ResponseObject> {
-    console.log("into delete course service")
     return this.http
       .delete<ResponseObject>(
         this.courseRestUrl + '/deletecourse/' + username + '/' + courseId,
         this.httpOptions
-      ).pipe(catchError(this.handleError))
+      )
   }
+
+  /*  CART RELATED FUNCTIONS  */
+
+  unenrollFromCourse(courseId: Number, userId: Number) : Observable<ResponseObject> {
+    return this.http
+      .delete<ResponseObject>(
+        this.cartRestUrl + '/unenrollFromCourse/' + userId + '/' + courseId,
+        this.httpOptions
+      )
+  }
+
+  getCartItems(userId: Number): Observable<Course[]> {
+    return this.http
+      .get<Course[]>(
+        this.cartRestUrl + '/viewCart/' + userId,
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError))
+  }
+
+  
+  /* ERROR HANDLING FUNCIONS */
 
   handleError(err : any) {
     let errorMessage = ""

@@ -14,6 +14,8 @@ export class CoursesComponent implements OnInit {
   
   searchText : string = ''
 
+  userid : Number = 101 //TODO
+
   courseList : Course[] = [ {
     "courseId" : 1,
     "courseName" : "JAVA",
@@ -58,6 +60,10 @@ export class CoursesComponent implements OnInit {
     return this.restApi
       .loadCourses()
       .subscribe((data) => { this.courseList = data})
+  }
+
+  addToCart(course : Course) {
+    //return this.restApi.addToCart(course.courseId, this.userid )
   }
 }
 
