@@ -102,6 +102,13 @@ export class ElpServiceService {
       )
   }
 
+  loadCourses() : Observable<Course[]> {
+    return this.http
+      .get<Course[]>(
+        this.courseRestUrl + '/getCourseList',
+      )
+  }
+
   handleError(err : any) {
     let errorMessage = ""
     if (err.error instanceof ErrorEvent)

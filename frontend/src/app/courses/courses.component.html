@@ -1,13 +1,17 @@
-<body style="background-color: rgb(240,128,128);">
+<body style="background-color: thistle;">
     <div class="form-group"  class="text-center">
         <h1 for="courses">Course List</h1>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <form class="form-inline my-2 my-md-0" class="form-inline" >
-                <div style="position: absolute; right: 200px"><input class="form-control" type="text" placeholder="Type here"></div>
-                <div style="position: absolute; right: 150px"> <button type="button" class="btn btn-secondary">Search</button></div>
-              </form>
+    <div id="middle-part" class="d-flex justify-content-between flex-wrap" style="padding-top: 20px;">
+        <div>
+            <form #formData="ngForm" (ngSubmit)="submitForm(formData)" class="d-flex">
+                <div style="position: absolute; left: 1100px">
+                    <input class="form-control" type="text" placeholder="Search your courses" name="searchText" [(ngModel)]="searchText">
+                </div>
+                <div style="position: absolute; left: 1300px">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
         </div>
     </div>
     <br/><br/><br/>
@@ -18,18 +22,22 @@
                     <tr>
                         <th>Courseid</th>
                         <th>Course name</th>
+                        <th>Fee</th>
                         <th>Catagory</th>
                         <th>Actions</th> 
                     </tr>   
                 </thead>
                 <tbody>
-                    <tr *ngFor = "let row of rows">
-                        <td><span>{{row.Courseid}}</span></td>
-                        <td><span>{{row.Coursename}}</span></td>
-                        <td><span>{{row.Catagory}}</span></td>
+                    <tr *ngFor="let course of courseList">
+                        <td><span>{{course.courseId}}</span></td>
+                        <td><span>{{course.courseName}}</span></td>
+                        <td><span>{{course.fee}}</span></td>
+                        <td><span>{{course.category}}</span></td>
                         <td>
-                            <button class="btn btn-sm btn-warning">
-                              <i class="fa fa-edit"></i>Add to Cart</button>
+                            <button class="btn btn-sm btn-success">
+                                <i class="fa fa-edit"></i>
+                                Add to cart
+                            </button> 
                         </td>
                     </tr>
                 </tbody>
