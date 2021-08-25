@@ -208,7 +208,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		query.setParameter("username", username);
 		int userid = (int) query.uniqueResult();
 		Query query1 = getSession().createQuery("select courseName from Course where trainerId=:userid");
-		query.setParameter("userid", userid);
+		query1.setParameter("userid", userid);
 		List<Course> course = query1.list();
 		return course;
 	}

@@ -129,19 +129,20 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public String unEnroll(int userId,int courseId) {
-		int courseid = courseId;
 		Query query = getSession().createQuery("from Student where userId=:userId");
 		query.setParameter("userId", userId);
 		Student student = (Student) query.uniqueResult();
 		List<Integer> cList = student.getEnroll();
 		System.out.println(cList);
-		if(cList.contains(courseId))
-		{
-			Query query1 = getSession().createQuery("Delete from Enrollment where courseId=:courseid");
-			query1.setParameter("courseid", courseid);
-			query1.executeUpdate();
+		for(int i : cList) {
+			if(cList.contains(courseId))
+			{
+				Query query1 = getSession().createQuery("Delete from Enrollment where courseId=:courseid");
+				query1.setParameter("courseid", courseId);
+				query1.executeUpdate();
+			}
 		}
-		cList.remove(courseId);
+		cList.remove(userId);
 		System.out.println(cList);
 		student.setEnroll(cList);
 		getSession().update(student);
