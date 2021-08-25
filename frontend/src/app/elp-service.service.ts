@@ -96,6 +96,13 @@ export class ElpServiceService {
       .pipe(catchError(this.handleError))
   }
 
+  loadEnrolledCourses(userId : Number) : Observable<Course[]> {
+    return this.http
+      .get<Course[]>(
+        this.courseRestUrl + '/getEnrolledCourseList' + '/' + userId,
+      )
+  }
+
   handleError(err : any) {
     let errorMessage = ""
     if (err.error instanceof ErrorEvent)

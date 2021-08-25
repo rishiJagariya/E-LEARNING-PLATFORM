@@ -62,8 +62,8 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public String addToCart(Cart cart) {
-		return studentDao.addToCart(cart);
+	public String addToCart(int courseId,int userId) {
+		return studentDao.addToCart(courseId,userId);
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.elp.entity.Course;
+import com.elp.entity.Enrollment;
 import com.elp.entity.Student;
 import com.elp.entity.Trainer;
 
@@ -152,9 +153,12 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	@Override
 	public String deleteCourse(String username,int courseId) {
-		Query query = getSession().createQuery("select userId from Trainer where username=:username");
+		Query query = getSession().createQuery("from Trainer where username=:username");
 		query.setParameter("username",username);
-		int userid = (int) query.uniqueResult();
+		Trainer trainer = (Trainer) query.uniqueResult();
+		trainer.getCourseOffered().remove(courseId);
+		getSession().update(trainer);
+		/*int userid = (int) query.uniqueResult();
 		Query query1 = getSession().createQuery("from Course where courseId=:courseId");
 		query1.setParameter("courseId",courseId);
 		Course course = (Course) query1.uniqueResult();
@@ -163,7 +167,7 @@ public class TrainerDaoImpl implements TrainerDao {
 			Query query2 = getSession().createQuery("Delete from Course where courseId=:courseId");
 			query2.setParameter("courseId", courseId);
 			query2.executeUpdate();
-		}
+		}*/
 		return "Deleted";
 	}
 	
@@ -174,7 +178,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		query.setParameter("username",username);
 		Integer userid = (Integer) query.uniqueResult();
 		System.out.println(userid);
-		Query query1 = getSession().createQuery("select courseName from Course where trainerId=:userid");
+		Query query1 = getSession().createQuery("from Course where trainerId=:userid");
 		query1.setParameter("userid", userid);
 		List<Course> course = query1.list();
 		return course;
@@ -182,12 +186,22 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public List<Student> getStudentEnrollList(int courseId) {
-		Query query = getSession().createQuery("select studentId from Enrollment where courseId=:courseId");
+		Query query = getSession().createQuery("from Enrollment where courseId=:courseId");
 		query.setParameter("courseId", courseId);
-		List<Student> userid = query.list();
-		Query query1 = getSession().createQuery("select userName from Student where userid IN (:enroll)");
-		query.setParameter("userid", userid);
+		Enrollment enrollment = (Enrollment) query.uniqueResult();
+		int studentid = enrollment.getStudentId();
+		Query query1 = getSession().createQuery("from Student where userId=:studentid");
+		query1.setParameter("studentid", studentid);
 		List<Student> student = query1.list();
+		/*List<Integer> enrollList = ((Student) student).getEnroll();
+		if(enrollList.contains(courseId))
+		{
+			System.out.println("Student enrolled");
+		}
+		else
+		{
+			
+		}*/
 		return student;
 	}
 
