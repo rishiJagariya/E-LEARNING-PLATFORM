@@ -1,7 +1,6 @@
 import { INFERRED_TYPE } from '@angular/compiler/src/output/output_ast';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
 import { ElpServiceService } from '../elp-service.service';
 //import { NgserviceService } from
 
