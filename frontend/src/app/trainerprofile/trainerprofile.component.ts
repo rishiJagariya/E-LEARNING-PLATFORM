@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
 import { Course } from '../course';
 import { ElpServiceService } from '../elp-service.service';
 import { TrainerData } from '../trainerData';
