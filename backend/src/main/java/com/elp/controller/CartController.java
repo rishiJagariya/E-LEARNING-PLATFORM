@@ -59,8 +59,8 @@ public class CartController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-	@PostMapping("/addToCart/{courseId}/{userId}")
-	public ResponseEntity<String> addToCart(@PathVariable int courseId,@PathVariable int userId) {
+	@PostMapping("/addToCart/{courseId}")
+	public ResponseEntity<String> addToCart(@PathVariable  int courseId,@PathVariable int userId) {
 		System.out.println("Im here in add to cart" + courseId);
 		String message = null;
 		
