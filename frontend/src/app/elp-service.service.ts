@@ -126,6 +126,14 @@ export class ElpServiceService {
       )
   }
 
+
+  /* Cart related functions */
+  getCartItems(userId : Number) : Observable<Course[]> {
+    return this.http
+      .get<Course[]>(this.cartRestUrl +'/viewCart/' + userId ,this.httpOptions)
+      .pipe(catchError(this.handleError))
+  }
+  
   handleError(err : any) {
     let errorMessage = ""
     if (err.error instanceof ErrorEvent)
