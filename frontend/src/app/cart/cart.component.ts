@@ -33,9 +33,12 @@ export class CartComponent implements OnInit {
   }
 
   getCartItems(userId : Number) {
-    //fetch data from backend
     console.log("im here in view cart")
-   // this.cartItems = this.restApi.getCartItems(userId : Number)
+    return this.restApi.getCartItems(userId)
+      .subscribe(data => {
+          console.log(data)
+          this.cartItems = data
+      })
   }
   deleteCart(courseId : Number) {
     console.log(courseId)
