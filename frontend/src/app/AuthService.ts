@@ -9,7 +9,8 @@ import { of } from "rxjs";
 
     isLogin = false;
     
-      roleAs: string | undefined;
+      //const roleAs: string = ''
+      roleAs : string = ''
     
       constructor() { }
     
@@ -38,8 +39,8 @@ import { of } from "rxjs";
       }
 
       getRole() {
-        this.roleAs = localStorage.getItem('ROLE');
-        return this.roleAs;
+        //this.roleAs = localStorage.getItem('userType');
+        return localStorage.getItem('userType');
       }
 
   }
