@@ -55,6 +55,11 @@ public class Student extends User {
 		this.enroll = enroll;
 	}
 
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	
 
 	
