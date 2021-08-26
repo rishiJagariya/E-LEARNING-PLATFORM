@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../AuthService';
 import { Course } from '../course';
 import { ElpServiceService } from '../elp-service.service';
+import { StudentData } from '../studentData';
 
 @Component({
   selector: 'courses',
@@ -10,16 +12,16 @@ import { ElpServiceService } from '../elp-service.service';
 })
 export class CoursesComponent implements OnInit {
 
-  constructor(public restApi: ElpServiceService, public router: Router) { }
+  constructor(public restApi: ElpServiceService, public router: Router, private authService : AuthService) { }
   
   searchText : string = ''
-
-  userid : Number = 27 //TODO
-
+  userid : Number = 0 
   courseList : Course[] = []
 
   ngOnInit(): void {
     this.loadCourses()
+    var studentInfo : StudentData = this.authService.getStudent()
+    this.userid = studentInfo.userId
   }
 
   //form search course

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../AuthService';
 import { Course } from '../course';
 import { ElpServiceService } from '../elp-service.service';
+import { StudentData } from '../studentData';
 
 @Component({
   selector: 'cart',
@@ -10,10 +12,10 @@ import { ElpServiceService } from '../elp-service.service';
 })
 export class CartComponent implements OnInit {
 
-  constructor( public restApi: ElpServiceService, public router: Router ) { } 
+  constructor( public restApi: ElpServiceService, public router: Router, private authService : AuthService ) { } 
 
-  name : String = 'Rishi'  //todo
-  studentId : Number = 27
+  name : String = ''  
+  studentId : Number = 0
   totalSum : Number = 0
 
   cartItems : Course[] = [{
@@ -28,6 +30,9 @@ export class CartComponent implements OnInit {
     },
   ]
   ngOnInit(): void {
+    var studentInfo : StudentData = this.authService.getStudent()
+    this.name = studentInfo.fname
+    this.studentId = studentInfo.userId
     this.getCartItems(this.studentId)
   }
 

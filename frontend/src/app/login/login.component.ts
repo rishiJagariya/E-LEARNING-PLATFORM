@@ -30,14 +30,16 @@ export class LoginComponent implements OnInit {
       let response = this.restApi.userLogin(this.userLoginInfo)
       response.subscribe(data => {
         console.log(data)
-        
         if(data.message == "Success"){
-          if(this.userLoginInfo.userType == "student"){
-            this.authService.login("student")
+          if(data.userType == "student"){
+            this.authService.login(data.userType, data.username)
             this.router.navigate(['/home'])
+
           }
-          else if(this.userLoginInfo.userType == "trainer"){
-            this.authService.login("trainer")
+          else if(data.userType == "trainer"){
+            console.log("im here into login as trainer - 1")
+            this.authService.login(data.userType, data.username)
+            console.log("im here into login as trainer - 2")
             this.router.navigate(['/trainerprofile'])
           }
         } else {

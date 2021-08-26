@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -124,9 +125,7 @@ public class UserController {
             else if (trainer.getPassword().equals(password))
                 message = "Success";  
             else 
-                message = "PasswordError";
-             
-            System.out.println(trainer);
+                message = "PasswordError";    
          	
         } else if (userType.equals("student")) {
           	System.out.println("i'm here in student login ");
@@ -143,6 +142,25 @@ public class UserController {
         ResponseMsgObject res = new ResponseMsgObject(message, userType, username);
         return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
+	
+	@GetMapping("/getTrainer/{username}")
+	public ResponseEntity<Trainer> getTrainer(@PathVariable String username)
+	{
+    	System.out.println("Into getTrainer Controller" + username);
+        Trainer trainer = trainerService.getTrainerByUsername(username);
+        trainer.setCourseOffered(null);
+        System.out.println(trainer.getUsername());
+        return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getStudent/{username}")
+	public ResponseEntity<Student> getStudent(@PathVariable String username)
+	{
+    	System.out.println("Into getTrainer Controller" + username);
+        Student student = studentService.getStudentByUsername(username);
+        return new ResponseEntity<Student>(student, HttpStatus.OK);
+	}
+	
 
 	@PostMapping("/forgotpassword")
 	public ResponseEntity<ResponseMsgObject> forgotPassword(@RequestBody LoginData data)

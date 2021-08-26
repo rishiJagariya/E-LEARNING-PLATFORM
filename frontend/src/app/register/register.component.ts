@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../AuthService';
 
 import { ElpServiceService } from '../elp-service.service';
 
@@ -24,10 +25,17 @@ export class RegisterComponent implements OnInit {
     phoneNo : ''
   }
 
-  constructor(public restApi: ElpServiceService, public router: Router) {
+  constructor(public restApi: ElpServiceService, public router: Router,  private authService : AuthService) {
 
   }
   ngOnInit(): void {
+
+    if(this.authService.isLoggedIn()){
+      if(this.authService.getRole() == "student")
+        this.router.navigate(['/home'])
+      else
+        this.router.navigate(['/trainerprofile'])
+    }
 
     //tried to add tooltips using jquery but not worked
     // $(document).ready(function() { 
@@ -35,20 +43,6 @@ export class RegisterComponent implements OnInit {
     // }); 
   }
   
-  // checkPassword() {
-  //     console.log("inside checkpassword");
-  //     this.newUser.password = (<HTMLInputElement>document.getElementById("password")).value;
-  //     this.newUser.confirmPassword = (<HTMLInputElement>document.getElementById("confirmpassword")).value;
-  //     if(this.newUser.password == "" || this.newUser.confirmPassword == ""){
-  //       return false
-  //     }
-  //     if(this.newUser.password === this.newUser.confirmPassword) {
-  //       return true 
-  //     }else{
-  //       return false
-  //     }
-  // }
-
   submitForm(formData : any) {
     if(formData.valid){
       console.log(this.newUser)

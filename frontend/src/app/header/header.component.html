@@ -6,7 +6,7 @@
   </button>
   <span style="color: rgb(255, 255, 255);"> | &nbsp;</span>
   <div class="collapse navbar-collapse" id="navbarsExample04">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" *ngIf="isStudent()">
       <li class="nav-item">
         <a class="nav-link" routerLink="/home">Home</a>
       </li>

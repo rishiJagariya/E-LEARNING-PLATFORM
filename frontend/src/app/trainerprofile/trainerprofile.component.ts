@@ -16,19 +16,20 @@ export class TrainerprofileComponent implements OnInit {
 
   searchText : string = ''
   trainerData : TrainerData = {
-    userId: 26,
-    userType: 'trainer',
-    username: 'rishabhajgariya',
+    userId: 0,
+    userType: '',
+    username: '',
     password: '',
-    fname: 'Rishi',
-    lname: 'Jagariya',
+    fname: '',
+    lname: '',
     dob: '',
-    phoneNo: '9582346634',
+    phoneNo: '',
     courseOffered: []
   }
   courseList : Course[] = []
     
   ngOnInit(): void {
+    this.trainerData = this.authService.getTrainer()
     this.loadCourses()
   }
 

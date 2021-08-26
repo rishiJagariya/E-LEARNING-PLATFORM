@@ -15,19 +15,20 @@ export class StudentprofileComponent implements OnInit {
 
   searchText : string = ''
   studentData : StudentData = {
-    userId: 27,
-    userType: 'student',
-    username: 'rishabh',
+    userId: 0,
+    userType: '',
+    username: '',
     password: '',
-    fname: 'Ritika',
-    lname: 'X',
+    fname: '',
+    lname: '',
     dob: '',
-    phoneNo: '9887736549',
+    phoneNo: '',
     enroll: []
   }
   courseList : Course[] = []
     
   ngOnInit(): void {
+    this.studentData = this.authService.getStudent()
     this.loadCourses()
   }
 

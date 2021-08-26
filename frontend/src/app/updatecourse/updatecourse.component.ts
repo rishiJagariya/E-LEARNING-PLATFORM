@@ -14,14 +14,14 @@ export class UpdatecourseComponent implements OnInit {
 
   @Input()
   updateCourse : Course = {
-    courseId : 1,
-    courseName : 'Java',
-    description : 'Java is a programming language',
-    category : 'IT',
-    fee: 4000,
-    duration: 100,
-    rating : 8,
-    trainerId : 101
+    courseId : 0,
+    courseName : '',
+    description : '',
+    category : '',
+    fee: 0,
+    duration: 0,
+    rating : 0,
+    trainerId : 0
   }
 
   constructor(public restApi: ElpServiceService, public router: Router) { }
