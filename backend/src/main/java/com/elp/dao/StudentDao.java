@@ -24,5 +24,5 @@ public interface StudentDao {
 	public List<Course> viewCart(int userId);
 	public List<Course> getEnrolledCourseList(int userId);
 	public List<Course> getCourseList();
-	public List<Course> searchCourses(String courseName);
+	public List<Course> searchCourses(String userName);
 }
