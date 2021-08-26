@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../AuthService';
 
 import { ElpServiceService } from '../elp-service.service';
+import { UserFetched } from '../userFetched';
 
 @Component({
   selector: 'addcourse',
@@ -26,7 +27,9 @@ export class AddcourseComponent implements OnInit {
   constructor(public restApi: ElpServiceService, public router: Router, private authService : AuthService) {}
 
   ngOnInit(): void {
-    this.newCourse.trainerId = this.authService.getTrainer().trainerId
+    //alert('wait for sometime')
+    var trainerInfo : UserFetched  = this.authService.getTrainer()
+    this.newCourse.trainerId = trainerInfo.userId
   }
 
   submitForm(formData : any) {
