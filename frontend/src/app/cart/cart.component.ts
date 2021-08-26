@@ -19,17 +19,7 @@ export class CartComponent implements OnInit {
   studentId : Number = 0
   totalSum : Number = 0
 
-  cartItems : Course[] = [{
-    courseId: 0,
-    courseName: '',
-    description: '',
-    category: '',
-    fee: 0,
-    duration: 0,
-    rating: 0,
-    trainerId: 0
-    },
-  ]
+  cartItems : Course[] = []
   ngOnInit(): void {
     //var studentInfo : StudentData = this.authService.getStudent()
     var userInfo : UserFetched =  this.authService.getStudent()

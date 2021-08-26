@@ -140,15 +140,7 @@ public class StudentDaoImpl implements StudentDao {
 		Student student = (Student) query.uniqueResult();
 		List<Integer> cList = student.getEnroll();
 		System.out.println(cList);
-		for(int i : cList) {
-			if(cList.contains(courseId))
-			{
-				Query query1 = getSession().createQuery("Delete from Enrollment where courseId=:courseid");
-				query1.setParameter("courseid", courseId);
-				query1.executeUpdate();
-			}
-		}
-		cList.remove(courseId);
+		cList.remove(new Integer(courseId));
 		System.out.println(cList);
 		student.setEnroll(cList);
 		getSession().update(student);
@@ -230,6 +222,10 @@ public class StudentDaoImpl implements StudentDao {
 		query.setParameter("userId", userId);
 		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
 		List<Course> clist = new ArrayList<Course>();
+		if(cart == null) {
+			return clist;
+		} else {
+		clist = new ArrayList<Course>();
 		List<Integer> listOfCourseId = cart.getItems();
 		System.out.println(listOfCourseId);
 		for(int courseId : listOfCourseId) {
@@ -239,6 +235,7 @@ public class StudentDaoImpl implements StudentDao {
 			clist.add(course);
 		}
 		return clist; 
+		}
 	}
 	
 	@Override

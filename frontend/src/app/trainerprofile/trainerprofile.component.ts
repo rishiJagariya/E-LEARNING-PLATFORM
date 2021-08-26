@@ -30,6 +30,7 @@ export class TrainerprofileComponent implements OnInit {
   courseList : Course[] = []
     
   ngOnInit(): void {
+    alert('please wait for some time')
     var userInfo : UserFetched =  this.authService.getTrainer()
     this.trainerData.userId = userInfo.userId
     this.trainerData.userType = userInfo.userType
