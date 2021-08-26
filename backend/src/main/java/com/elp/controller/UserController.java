@@ -1,5 +1,8 @@
 package com.elp.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -144,21 +147,23 @@ public class UserController {
 	}
 	
 	@GetMapping("/getTrainer/{username}")
-	public ResponseEntity<Trainer> getTrainer(@PathVariable String username)
+	public ResponseEntity<User> getTrainer(@PathVariable String username)
 	{
     	System.out.println("Into getTrainer Controller" + username);
         Trainer trainer = trainerService.getTrainerByUsername(username);
-        trainer.setCourseOffered(null);
-        System.out.println(trainer.getUsername());
-        return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
+        User loggedUser = new User(trainer);
+        
+        return new ResponseEntity<User>(loggedUser, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getStudent/{username}")
-	public ResponseEntity<Student> getStudent(@PathVariable String username)
+	public ResponseEntity<User> getStudent(@PathVariable String username)
 	{
     	System.out.println("Into getTrainer Controller" + username);
         Student student = studentService.getStudentByUsername(username);
-        return new ResponseEntity<Student>(student, HttpStatus.OK);
+        User loggedUser = new User(student);
+     
+        return new ResponseEntity<User>(loggedUser, HttpStatus.OK);
 	}
 	
 

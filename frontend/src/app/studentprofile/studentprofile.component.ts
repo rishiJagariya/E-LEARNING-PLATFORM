@@ -4,6 +4,7 @@ import { AuthService } from '../AuthService';
 import { Course } from '../course';
 import { ElpServiceService } from '../elp-service.service';
 import { StudentData } from '../studentData';
+import { UserFetched } from '../userFetched';
 
 @Component({
   selector: 'studentprofile',
@@ -28,7 +29,17 @@ export class StudentprofileComponent implements OnInit {
   courseList : Course[] = []
     
   ngOnInit(): void {
-    this.studentData = this.authService.getStudent()
+    //this.studentData = this.authService.getStudent()
+    var userInfo : UserFetched =  this.authService.getStudent()
+    this.studentData.userId = userInfo.userId
+    this.studentData.userType = userInfo.userType
+    this.studentData.username = userInfo.username
+    this.studentData.password = userInfo.password
+    this.studentData.fname = userInfo.fname
+    this.studentData.lname = userInfo.lname
+    this.studentData.phoneNo = userInfo.phoneNo
+    this.studentData.dob = userInfo.dob
+
     this.loadCourses()
   }
 

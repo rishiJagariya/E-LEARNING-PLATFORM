@@ -9,6 +9,7 @@ import { ResponseObject } from './responseObject';
 import { UsernameAndCourse } from './usernameAndCourse';
 import { TrainerData } from './trainerData';
 import { StudentData } from './studentData';
+import { UserFetched } from './userFetched';
 
 @Injectable({
   providedIn: 'root'
@@ -94,17 +95,17 @@ export class ElpServiceService {
       )
   }
 
-  getTrainer(username : string) : Observable<TrainerData>{
+  getTrainer(username : string) : Observable<UserFetched>{
     return this.http
-      .get<TrainerData>(
+      .get<UserFetched>(
         this.userRestUrl + '/getTrainer/' + username,
         this.httpOptions
       )
   }
 
-  getStudent(username : string) : Observable<StudentData> {
+  getStudent(username : string) : Observable<UserFetched> {
     return this.http
-      .get<StudentData>(
+      .get<UserFetched>(
         this.userRestUrl + '/getStudent/' + username,
         this.httpOptions
       )

@@ -26,6 +26,8 @@ export class AuthService {
     localStorage.setItem('USER', this.currentUsername);
     if(this.roleAs === 'trainer'){
       this.restApi.getTrainer(this.currentUsername).subscribe(data => {
+        console.log(data)
+        console.log(JSON.stringify(data))
         localStorage.setItem('USERINFO', JSON.stringify(data))
         console.log('im here into authService trainer login')
       })
@@ -60,8 +62,11 @@ export class AuthService {
   getTrainer() {
     const data = localStorage.getItem('USERINFO')
     if(data == null){
+      console.log('its really null')
       return null
     } else {
+      console.log('no its not null')
+      console.log(JSON.parse(data))
       return JSON.parse(data)
     } 
   }

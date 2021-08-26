@@ -4,6 +4,7 @@ import { AuthService } from '../AuthService';
 import { Course } from '../course';
 import { ElpServiceService } from '../elp-service.service';
 import { StudentData } from '../studentData';
+import { UserFetched } from '../userFetched';
 
 @Component({
   selector: 'cart',
@@ -30,9 +31,10 @@ export class CartComponent implements OnInit {
     },
   ]
   ngOnInit(): void {
-    var studentInfo : StudentData = this.authService.getStudent()
-    this.name = studentInfo.fname
-    this.studentId = studentInfo.userId
+    //var studentInfo : StudentData = this.authService.getStudent()
+    var userInfo : UserFetched =  this.authService.getStudent()
+    this.name = userInfo.fname
+    this.studentId = userInfo.userId
     this.getCartItems(this.studentId)
   }
 

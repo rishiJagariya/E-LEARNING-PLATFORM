@@ -60,6 +60,30 @@ public class User{
 		this.phoneNo = phoneNo;
 	}
 	
+	public User(Trainer user) {
+		super();
+		this.userId = user.userId;
+		this.username = user.username;
+		this.password = user.password;
+		this.userType = user.userType;
+		this.dob = user.dob;
+		this.fname = user.fname;
+		this.lname = user.lname;
+		this.phoneNo = user.phoneNo;
+	}
+	
+	public User(Student user) {
+		super();
+		this.userId = user.userId;
+		this.username = user.username;
+		this.password = user.password;
+		this.userType = user.userType;
+		this.dob = user.dob;
+		this.fname = user.fname;
+		this.lname = user.lname;
+		this.phoneNo = user.phoneNo;
+	}
+
 	public String getFname() {
 		return fname;
 	}
