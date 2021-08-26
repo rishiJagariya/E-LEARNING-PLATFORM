@@ -59,14 +59,20 @@ export class AuthService {
     return this.isLogin;
   }
 
+  //setTimeout( , 50); 
+  
   getTrainer() {
-    const data = localStorage.getItem('USERINFO')
+    let data
+    setTimeout( function() {
+      data = localStorage.getItem('USERINFO')
+    }, 50)
+
     if(data == null){
       console.log('its really null')
       return null
     } else {
       console.log('no its not null')
-      console.log(JSON.parse(data))
+      console.log(data)
       return JSON.parse(data)
     } 
   }
