@@ -62,10 +62,7 @@ export class AuthService {
   //setTimeout( , 50); 
   
   getTrainer() {
-    let data
-    setTimeout( function() {
-      data = localStorage.getItem('USERINFO')
-    }, 50)
+    let data = localStorage.getItem('USERINFO')
 
     if(data == null){
       console.log('its really null')

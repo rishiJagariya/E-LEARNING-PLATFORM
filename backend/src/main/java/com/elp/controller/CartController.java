@@ -52,14 +52,14 @@ public class CartController {
 	}
 	
 	@DeleteMapping("/unenrollFromCourse/{userId}/{courseId}")
-	public ResponseEntity<String> unenrollFromCourse(@PathVariable int userId,@PathVariable int courseId) {
+	public ResponseEntity<ResponseMsgObject> unenrollFromCourse(@PathVariable int userId,@PathVariable int courseId) {
 		System.out.println("Im here in unenroll from course");
-		String message = null;
+		String message = studentService.unEnroll(userId,courseId);
+		Student student = studentService.getStudentById(userId);
 		
-		message = studentService.unEnroll(userId,courseId);
-		System.out.println(message);
-		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, "student", student.getUsername());
+		System.out.println(res);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@GetMapping("/addToCart/{courseId}/{userId}")

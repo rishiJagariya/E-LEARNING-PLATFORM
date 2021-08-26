@@ -91,7 +91,7 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public List<Course> searchCourses(String courseName) {
-		return studentDao.searchCourses(courseName);
+	public List<Course> searchCourses(String userName) {
+		return studentDao.searchCourses(userName);
 	}
 }

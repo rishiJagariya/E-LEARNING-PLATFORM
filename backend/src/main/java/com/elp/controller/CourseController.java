@@ -130,12 +130,12 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(trainerCourseSearched, HttpStatus.OK);
 	}
 	
-	@GetMapping("/searchCourses/{courseName}")
-	public ResponseEntity<List<Course>> searchCourses(@PathVariable String courseName) {
+	@GetMapping("/searchCourses/{userName}")
+	public ResponseEntity<List<Course>> searchCourses(@PathVariable String userName) {
 		System.out.println("Im here in search all courses");
 		String message = null;
 		
-		List<Course> courseSearched = studentService.searchCourses(courseName);
+		List<Course> courseSearched = studentService.searchCourses(userName);
 		message = "course searched successfully";
 		System.out.println(message);
 		

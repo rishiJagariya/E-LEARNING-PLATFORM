@@ -109,9 +109,9 @@ public class StudentDaoImpl implements StudentDao {
 	public String enroll(int userId) {
 		Query query1 = getSession().createQuery("from Cart where userId=:userId");
 		query1.setParameter("userId", userId);
-		Cart cart = (Cart) query1.uniqueResult();
+		Cart cart = (Cart) query1.setMaxResults(1).uniqueResult();
 		List<Integer> items = cart.getItems();
-		
+		System.out.println(items);
 		Query query = getSession().createQuery("from Student where userId=:userid");
 		query.setParameter("userid", userId);
 		Student student = (Student) query.uniqueResult();
@@ -123,10 +123,12 @@ public class StudentDaoImpl implements StudentDao {
 		getSession().update(student);
 		
 		cart.setItems(null);
+		System.out.println(items);
 //		Query query2 = getSession().createQuery("Delete from Cart where userId=:userId");
 //		query2.setParameter("userId", userId);
 //		query2.executeUpdate();
 		getSession().update(cart);
+		System.out.println(cart.getItems());
 		
 		return "Success";
 	}
@@ -138,15 +140,7 @@ public class StudentDaoImpl implements StudentDao {
 		Student student = (Student) query.uniqueResult();
 		List<Integer> cList = student.getEnroll();
 		System.out.println(cList);
-		for(int i : cList) {
-			if(cList.contains(courseId))
-			{
-				Query query1 = getSession().createQuery("Delete from Enrollment where courseId=:courseid");
-				query1.setParameter("courseid", courseId);
-				query1.executeUpdate();
-			}
-		}
-		cList.remove(userId);
+		cList.remove(new Integer(courseId));
 		System.out.println(cList);
 		student.setEnroll(cList);
 		getSession().update(student);
@@ -158,7 +152,7 @@ public class StudentDaoImpl implements StudentDao {
 	public String addToCart(int courseId,int userId) {
 		Query query = getSession().createQuery("from Cart where userId=:userId");
 		query.setParameter("userId", userId);
-		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
+		Cart cart = (Cart) query.uniqueResult();
 		String message = "";
 		if(cart == null){
 			List<Integer> items = new ArrayList<Integer>();
@@ -166,6 +160,7 @@ public class StudentDaoImpl implements StudentDao {
 			Cart newCart = new Cart();
 			newCart.setUserId(userId);
 			newCart.setItems(items);
+			System.out.println(items);
 			newCart.setDiscount(0);
 			newCart.setTotalAmount(0);
 			int total = findSum(newCart.getTotalAmount(), courseId);
@@ -177,6 +172,7 @@ public class StudentDaoImpl implements StudentDao {
 		} else {
 			List<Integer> courseList = cart.getItems();
 			courseList.add(courseId);
+			System.out.println(courseList);
 			cart.setItems(courseList);
 			int total = findSum(cart.getTotalAmount(), courseId);
 			cart.setTotalAmount(total);
@@ -226,6 +222,10 @@ public class StudentDaoImpl implements StudentDao {
 		query.setParameter("userId", userId);
 		Cart cart = (Cart) query.setMaxResults(1).uniqueResult();
 		List<Course> clist = new ArrayList<Course>();
+		if(cart == null) {
+			return clist;
+		} else {
+		clist = new ArrayList<Course>();
 		List<Integer> listOfCourseId = cart.getItems();
 		System.out.println(listOfCourseId);
 		for(int courseId : listOfCourseId) {
@@ -235,6 +235,7 @@ public class StudentDaoImpl implements StudentDao {
 			clist.add(course);
 		}
 		return clist; 
+		}
 	}
 	
 	@Override
@@ -263,11 +264,19 @@ public class StudentDaoImpl implements StudentDao {
 	}
 	
 	@Override
-	public List<Course> searchCourses(String courseName) {
-		Query query = getSession().createQuery("from Course where courseName=:courseName");
-		query.setParameter("courseName", courseName);
-		List<Course> course = query.list();
-		return course;
+	public List<Course> searchCourses(String userName) {
+		Query query = getSession().createQuery("from Student where userName=:userName");
+		query.setParameter("userName", userName);
+		Student student = (Student) query.uniqueResult();
+		List<Integer> enrollList = student.getEnroll();
+		System.out.println(enrollList);
+		List<Course> cList = null;
+		for(int i : enrollList) {
+			Query query1 = getSession().createQuery("from Course where courseId=:i");
+			query1.setParameter("i",i);
+			cList = query1.list();
+		}
+		return cList;
 		/*Criteria c = getSession().createCriteria(Course.class);
 		c.add(Restrictions.eq("courseName","courseName"));
 		List<Course> course = c.list();

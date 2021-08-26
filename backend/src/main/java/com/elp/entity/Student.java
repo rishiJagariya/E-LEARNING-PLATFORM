@@ -55,7 +55,10 @@ public class Student extends User {
 		this.enroll = enroll;
 	}
 
-	public Student() {
-		super();
-	}	
+	
+
+	
+
+	
+
 }
