@@ -19,15 +19,16 @@ public class Cart {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cartId;
 
-	
+	@Column
 	private int userId;
 	
-   @ElementCollection(targetClass=Integer.class)
+	@ElementCollection(targetClass=Integer.class)
 	private List<Integer> items;
 
 	@Column
 	private int totalAmount;
 	
+	@Column
 	private int discount;
 
 	public Cart() {

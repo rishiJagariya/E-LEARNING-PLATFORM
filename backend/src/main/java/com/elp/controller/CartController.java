@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.elp.entity.Cart;
 import com.elp.entity.Course;
+import com.elp.entity.Student;
+import com.elp.model.wrapper.ResponseMsgObject;
 import com.elp.service.StudentService;
 import com.elp.service.TrainerService;
 
@@ -37,15 +39,16 @@ public class CartController {
 	@Autowired
 	TrainerService trainerService;
 
-	@PostMapping("/enrollToCourse/{userId}/{courseId}")
-	public ResponseEntity<String> enrollToCourse(@PathVariable int userId,@PathVariable int courseId) {
-		System.out.println("Im here in enroll to course");
-		String message = null;
-		
-		message = studentService.enroll(userId, courseId);
+	@GetMapping("/checkout/{userId}")
+	public ResponseEntity<ResponseMsgObject> enrollToCourse(@PathVariable int userId) {
+		System.out.println("Im here in enroll to course" + userId);
+		String message = studentService.enroll(userId);
 		System.out.println(message);
+		Student student = studentService.getStudentById(userId);
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, "student", student.getUsername());
+		System.out.println(res);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/unenrollFromCourse/{userId}/{courseId}")
@@ -59,26 +62,27 @@ public class CartController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 	
-	@PostMapping("/addToCart/{courseId}")
-	public ResponseEntity<String> addToCart(@PathVariable  int courseId,@PathVariable int userId) {
+	@GetMapping("/addToCart/{courseId}/{userId}")
+	public ResponseEntity<ResponseMsgObject> addToCart(@PathVariable("courseId") int courseId,@PathVariable("userId") int userId) {
 		System.out.println("Im here in add to cart" + courseId);
-		String message = null;
-		
-		message = studentService.addToCart(courseId,userId);
+		String message = studentService.addToCart(courseId,userId);
+		Student student = studentService.getStudentById(userId);
 		System.out.println(message);
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, "student", student.getUsername());
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/removeFromCart/{courseId}/{studentId}")
-	public ResponseEntity<String> removeFromCart(@PathVariable int courseId,@PathVariable int studentId) {
+	public ResponseEntity<ResponseMsgObject> removeFromCart(@PathVariable("courseId") int courseId,@PathVariable("studentId") int studentId) {
 		System.out.println("Im here in remove from cart");
-		String message = null;
-		
-		message = studentService.removeFromCart(courseId,studentId);
+		String message = studentService.removeFromCart(courseId,studentId);
+		Student student = studentService.getStudentById(studentId);
 		System.out.println(message);
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+		ResponseMsgObject res = new ResponseMsgObject(message, "student", student.getUsername());
+		System.out.println(res);
+        return new ResponseEntity<ResponseMsgObject>(res, HttpStatus.OK);
 	}
 	
 	@GetMapping("/viewCart/{userId}")

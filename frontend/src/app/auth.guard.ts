@@ -13,18 +13,18 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let url:string=state.url;
+    let url: string = state.url;
     return this.checkUserLogin(route, url);
   }
   canActivateChild(
-    childRoute: ActivatedRouteSnapshot, 
+    childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return this.canActivate(childRoute,state);
+    return this.canActivate(childRoute, state);
   }
   canDeactivate(
-    component: unknown, 
-    currentRoute: ActivatedRouteSnapshot, 
-    currentState: RouterStateSnapshot, 
+    component: unknown,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return true;
   }
@@ -46,7 +46,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     this.router.navigate(['/home']);
     return false;
   }
-  
+
 }
 
 
