@@ -264,9 +264,13 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public List<Course> searchCourses(String courseName) {
-		Criteria c = getSession().createCriteria(Course.class);
-		c.add(Restrictions.like("courseName","courseName%"));
-		List<Course> course = c.list();
+		Query query = getSession().createQuery("from Course where courseName=:courseName");
+		query.setParameter("courseName", courseName);
+		List<Course> course = query.list();
 		return course;
+		/*Criteria c = getSession().createCriteria(Course.class);
+		c.add(Restrictions.eq("courseName","courseName"));
+		List<Course> course = c.list();
+		return course;*/
 	}
 }

@@ -54,15 +54,15 @@ export class StudentprofileComponent implements OnInit {
       .subscribe((data) => { console.log(data); this.courseList = data})
   }
 
-  courseCompletion() {
-    console.log("Course is completed")
-  }
-
   unenrollCourse(courseId : Number) {
     console.log("im here in unenroll course")
     var userId : Number = this.studentData.userId
+    console.log(courseId + " " + userId)
     return this.restApi.unenrollFromCourse(courseId, userId)
-    .subscribe(data => { console.log(data) })
+    .subscribe(data => { 
+      console.log("Unenrolled") 
+      this.loadCourses()
+    })
   }
 
   logout() {
