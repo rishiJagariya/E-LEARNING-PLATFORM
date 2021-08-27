@@ -16,7 +16,7 @@ export class AuthService {
     this.roleAs = ''
     this.currentUsername = ''
   }
-
+ 
   login(value: string, username : string) {
     this.isLogin = true;
     this.roleAs = value;

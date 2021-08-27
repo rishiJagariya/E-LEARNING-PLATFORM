@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="font-weight: bold; text-align: center;">
-                        Total Sum
+                        Total Sum 
                     </td>
                     <td>
                         {{totalSum}}
@@ -39,6 +39,14 @@
                         <button class="btn btn-outline-success" (click)="checkout()">
                             Checkout
                         </button>
+                    </td>
+                </tr>
+                <tr *ngIf="isOfferTime()">
+                    <td colspan="3" style="font-weight: bold; text-align: center;">
+                        Final sum (with 20% dicount) 
+                    </td>
+                    <td>
+                        {{finalPrice}}
                     </td>
                 </tr>
             </tbody>
