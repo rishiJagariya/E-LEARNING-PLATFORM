@@ -1,7 +1,7 @@
-package unittesting;
+package com.elp.test;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+
 
 import java.sql.SQLException;
 
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import com.elp.controller.UserController;
+import com.elp.entity.Student;
 import com.elp.entity.User;
 import com.elp.model.wrapper.ResponseMsgObject;
 
@@ -28,13 +29,14 @@ public class CreateStudentTest {
 	        assertEquals(res,b);
          }
 	 private void assertEquals(boolean res, boolean b) {
-			// TODO Auto-generated method stuby
+			// TODO Auto-generated method stub
 			
 		}
 	 
 	 
 	
-	 @Autowired
+	
+	@Autowired
 		private  User user;
 		@Test
 		@Rollback(false)
@@ -42,15 +44,19 @@ public class CreateStudentTest {
 	 	public void testCreateUser() {
 	 	UserController uc=new UserController();
 	 		User user =new User(1,"student","rameshnaidu","ram@56678","ramesh","naidu","03-02-2021","9624267899");
-	 		System.out.println(user);
+			System.out.println(user);
 			ResponseEntity<ResponseMsgObject> response=uc.createUser(user);
 			assertNotNull(response);
 	 		}
-		
-		
-		
+			
+	 	
+		}
+
+
+
+
+
+
+
 
 		
-		
-	 
-	}
