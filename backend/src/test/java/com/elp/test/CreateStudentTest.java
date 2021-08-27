@@ -45,8 +45,7 @@ public class CreateStudentTest {
 	 	UserController uc=new UserController();
 	 		User user =new User(1,"student","rameshnaidu","ram@56678","ramesh","naidu","03-02-2021","9624267899");
 			System.out.println(user);
-			ResponseEntity<ResponseMsgObject> response=uc.createUser(user);
-			assertNotNull(response);
+		
 	 		}
 			
 	 	
