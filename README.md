@@ -21,6 +21,7 @@ Tasks done:
 - Working website
 - Java Documentation
 - Rest Documentation
+- JUnit testing
 - ER diagram
 - Class diagram
 - Usecase diagram
