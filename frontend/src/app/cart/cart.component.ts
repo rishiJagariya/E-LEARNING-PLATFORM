@@ -18,14 +18,18 @@ export class CartComponent implements OnInit {
   name : String = ''  
   studentId : Number = 0
   totalSum : Number = 0
+  discount : Number = 20
+  finalPrice : Number = 0
 
   cartItems : Course[] = []
+
   ngOnInit(): void {
     //var studentInfo : StudentData = this.authService.getStudent()
     var userInfo : UserFetched =  this.authService.getStudent()
     this.name = userInfo.fname
     this.studentId = userInfo.userId
     this.getCartItems(this.studentId)
+    //this.checkForDiscount()
   }
 
   getCartItems(userId : Number) {
@@ -54,6 +58,7 @@ export class CartComponent implements OnInit {
       sum = sum.valueOf() + element.fee.valueOf()
     });
     this.totalSum = sum
+    this.checkForDiscount()
   }
 
   checkout() {
@@ -68,5 +73,20 @@ export class CartComponent implements OnInit {
           alert("some error occured")
         }
       })
+  }
+
+  checkForDiscount(){
+    if(this.isOfferTime())
+      this.finalPrice = this.totalSum.valueOf() * 0.8
+  }
+
+  isOfferTime() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    console.log(dd);
+    if(dd == '26' || dd == '25'){
+      return true
+    }
+    return false
   }
 }
